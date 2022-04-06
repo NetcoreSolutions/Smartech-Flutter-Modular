@@ -107,6 +107,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smartech_base:
+    dependency: "direct main"
+    description:
+      path: "../smartech_base"
+      relative: true
+    source: path
+    version: "0.0.1"
   source_span:
     dependency: transitive
     description:
@@ -165,3 +172,4 @@ packages:
     version: "2.1.1"
 sdks:
   dart: ">=2.15.1 <3.0.0"
+  flutter: ">=2.5.0"
