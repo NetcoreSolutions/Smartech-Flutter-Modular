@@ -25,7 +25,6 @@ import java.lang.ref.WeakReference
 class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   private lateinit var channel : MethodChannel
-  private var activityBinding: ActivityPluginBinding? = null //Ask for importance of usage
   private lateinit var activity: Activity
   private lateinit var smartech: Smartech
 
@@ -259,9 +258,6 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     //App base context
     lateinit var context: Context
 
-    var DRAWABLE = "drawable"   //Ask for importance of usage
-    val deeplinkReceiver = SmartechDeeplinkReceivers() //Ask for importance of usage
-    val filter = IntentFilter("com.smartech.EVENT_PN_INBOX_CLICK") //Ask for importance of usage
     var openNativeWebView : (()->Unit)? = null //Ask for importance of usage
     var openUrl : ((url: String?)->Unit)? = null //Ask for importance of usage
 
