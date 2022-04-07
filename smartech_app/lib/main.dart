@@ -1,115 +1,171 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-void main() {
-  runApp(const MyApp());
+import 'package:flutter/material.dart';
+import 'package:location/location.dart';
+import 'package:smartech_base/smartech.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'profile_page.dart';
+import 'splash_screen.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // if (Platform.isAndroid) {
+  //   await Firebase.initializeApp();
+  //   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // }
+  Smartech().onHandleDeeplinkAction(
+      (String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) {
+    if (link == null || link.isEmpty) {
+      return;
+    }
+    if (link.contains('http')) {
+      showDialog(
+          context: Globle().context,
+          builder: (builder) => AlertDialog(
+                title: Text(link),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(Globle().context).pop();
+                        Smartech().openUrl(link);
+                      },
+                      child: Text("Ok"))
+                ],
+              ));
+    } else {
+      Navigator.of(Globle().context)
+          .push(MaterialPageRoute(builder: (builder) => ProfilePage()));
+    }
+  });
+
+  runApp(MyApp());
+  getLocation();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+void launchURL(String url) async =>
+    await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
 
-  // This widget is the root of your application.
+getLocation() async {
+  Location location = Location();
+
+  bool _serviceEnabled;
+  PermissionStatus _permissionGranted;
+  LocationData _locationData;
+
+  _serviceEnabled = await location.serviceEnabled();
+  if (!_serviceEnabled) {
+    _serviceEnabled = await location.requestService();
+    if (!_serviceEnabled) {
+      return;
+    }
+  }
+
+  _permissionGranted = await location.hasPermission();
+  if (_permissionGranted == PermissionStatus.denied) {
+    _permissionGranted = await location.requestPermission();
+    if (_permissionGranted != PermissionStatus.granted) {
+      return;
+    }
+  }
+  //location.enableBackgroundMode(enable: true);
+
+  _locationData = await location.getLocation();
+}
+
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   await Firebase.initializeApp();
+//   SmartechBase().handlePushNotification(message.data.toString());
+// }
+
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+
+    if (Platform.isAndroid) {
+      // getToken();
+      Smartech().setInAppCustomHTMLListener(customHTMLCallback);
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        print("app in resumed");
+        break;
+      case AppLifecycleState.inactive:
+        print("app in inactive");
+        break;
+      case AppLifecycleState.paused:
+        print("app in paused");
+        break;
+      case AppLifecycleState.detached:
+        print("app in detached");
+        break;
+    }
+  }
+
+  Future<void> customHTMLCallback(Map<String, dynamic>? payload) async {
+    print(payload);
+  }
+
+  // getToken() async {
+  //   var token = await FirebaseMessaging.instance.getToken();
+  //   print(token);
+  //   if (token != null) {
+  //     var _shp = await SharedPreferences.getInstance();
+  //     var saveToken = _shp.get("token") ?? "";
+  //     if (saveToken != token) {
+  //       _shp.setString(token, "token");
+  //       SmartechBase().setDevicePushToken(token);
+  //     }
+  //   }
+  //
+  //   FirebaseMessaging.onMessage.listen((event) {
+  //     SmartechBase().handlePushNotification(event.data.toString());
+  //   });
+  //   FirebaseMessaging.onMessageOpenedApp.listen((event) {
+  //     SmartechBase().handlePushNotification(event.data.toString());
+  //   });
+  //   FirebaseMessaging.instance.getInitialMessage().then((event) {
+  //     if (event != null) {
+  //       SmartechBase().handlePushNotification(event.data.toString());
+  //     }
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Base',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: SplashScreen(),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
   }
 
   @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+  void dispose() {
+    super.dispose();
   }
+
+}
+
+class Globle {
+  static final Globle _singleton = Globle._internal();
+
+  factory Globle() {
+    return _singleton;
+  }
+
+  Globle._internal();
+
+  late BuildContext context;
 }
