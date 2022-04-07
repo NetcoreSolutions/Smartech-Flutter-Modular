@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:smartech_base/smartech_base.dart';
+import 'package:smartech_base/smartech.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('smartech_base');
@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await SmartechBase.platformVersion, '42');
+    expect(await Smartech.platformVersion, '42');
   });
 }
