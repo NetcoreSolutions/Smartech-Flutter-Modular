@@ -31,7 +31,7 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "smartech_base_channel")
     channel.setMethodCallHandler(this)
-    smartech = Smartech.getInstance(WeakReference(context))
+    smartech = Smartech.getInstance(WeakReference(flutterPluginBinding.applicationContext))
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
