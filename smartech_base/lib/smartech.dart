@@ -154,6 +154,7 @@ class DebugLevel {
   static const int error = 5;
   static const int fatal = 6;
   static const int none = 7;
+  static const int all = 9;
 }
 
 //custom type defined

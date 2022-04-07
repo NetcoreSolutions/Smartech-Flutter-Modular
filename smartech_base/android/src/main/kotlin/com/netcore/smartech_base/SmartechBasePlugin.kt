@@ -96,7 +96,6 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       }
       "getDeviceUniqueId" -> {
         result.success(smartech.getDeviceUniqueId())
-        result.success(null)
       }
       "setUserLocation" -> {
         setUserLocation(call.arguments as HashMap<String, Any>)

@@ -30,7 +30,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   smartech_base:
     path: ../smartech_base
   cupertino_icons: ^1.0.2

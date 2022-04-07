@@ -30,5 +30,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+       <meta-data
+           android:name="SMT_APP_ID"
+           android:value="621173f28c422e8c57cd966592d0fadc" />
     </application>
 </manifest>
