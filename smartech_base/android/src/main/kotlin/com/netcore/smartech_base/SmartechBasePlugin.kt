@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.IntentFilter
 import androidx.annotation.NonNull
+import com.netcore.android.Smartech
 import io.flutter.embedding.android.FlutterActivity
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -13,6 +14,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import java.lang.ref.WeakReference
 
 /** SmartechBasePlugin */
 class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -73,6 +75,16 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       context = application.baseContext
     }
 
+    fun  initializePlugin() {
+
+      //initialize Smartech Sdk
+      Smartech.getInstance(WeakReference(context)).initializeSdk(application)
+
+      //register broadcast receiver
+      val deeplinkReceiver = SmartechDeeplinkReceivers()
+      val filter = IntentFilter("com.smartech.EVENT_PN_INBOX_CLICK")
+      application.registerReceiver(deeplinkReceiver, filter)
+    }
 
   }
 
