@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.IntentFilter
+import android.location.Location
+import android.location.LocationManager
 import android.util.Log
 import androidx.annotation.NonNull
 import com.netcore.android.Smartech
@@ -70,6 +72,30 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       Log.e("FlutterPlugin", "Exception while running on main thread - ")
       e.printStackTrace()
     }
+  }
+
+  private fun updateUserProfile(payload: HashMap<String, Any>) {
+    smartech.updateUserProfile(payload)
+  }
+
+  private fun setUserIdentity(userIdentity: String?) {
+    smartech.setUserIdentity(userIdentity)
+  }
+
+  private fun login(userIdentity: String?) {
+    smartech.login(userIdentity)
+  }
+
+  private fun setUserLocation(payload: HashMap<String, Any>) {
+
+    var targetlocation = Location(LocationManager.GPS_PROVIDER)
+    targetlocation.latitude = payload["latitude"] as Double
+    targetlocation.longitude = payload["longitude"] as Double
+    smartech.setUserLocation(targetlocation);
+  }
+
+  private fun trackEvent(payload: HashMap<String, Any>) {
+    smartech.trackEvent(payload["event_name"] as String, payload["event_data"] as HashMap<String, Any>)
   }
 
   companion object{
