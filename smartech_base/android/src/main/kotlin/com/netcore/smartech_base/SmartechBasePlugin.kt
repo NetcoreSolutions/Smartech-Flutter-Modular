@@ -20,6 +20,7 @@ import java.lang.ref.WeakReference
 class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   private lateinit var channel : MethodChannel
+  private var activityBinding: ActivityPluginBinding? = null //Ask for importance of usage
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "smartech_base_channel")
@@ -39,6 +40,7 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+    activityBinding = binding
     var activity = binding.activity as FlutterActivity
     var app = activity.applicationContext as Application
     setApplication(app)
@@ -48,6 +50,7 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   }
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+    activityBinding = binding
   }
 
   override fun onDetachedFromActivity() {
@@ -75,7 +78,7 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       context = application.baseContext
     }
 
-    fun  initializePlugin() {
+    fun initializePlugin() {
 
       //initialize Smartech Sdk
       Smartech.getInstance(WeakReference(context)).initializeSdk(application)
