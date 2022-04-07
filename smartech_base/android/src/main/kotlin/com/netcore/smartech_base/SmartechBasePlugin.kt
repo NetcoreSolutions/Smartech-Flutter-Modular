@@ -162,6 +162,7 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
             })
           }
         }
+        result.success(null)
       }
       "onHandleDeeplinkActionBackground" -> {
         val deeplinkUrl = context.getSharedPreferences("Deeplink_action", Context.MODE_PRIVATE).getString("deepLinkUrl", null)
@@ -190,9 +191,11 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
             })
           })
         }
+        result.success(null)
       }
       "openUrl" -> {
         openUrl?.invoke(call.arguments as String)
+        result.success(null)
       }
       else -> result.notImplemented()
 
