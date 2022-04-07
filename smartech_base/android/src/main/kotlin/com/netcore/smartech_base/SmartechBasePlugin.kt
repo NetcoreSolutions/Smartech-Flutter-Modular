@@ -40,6 +40,10 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       "getPlatformVersion" -> {
         result.success("Android ${android.os.Build.VERSION.RELEASE}")
       }
+      "initializePlugin" -> {
+        initializePlugin()
+        result.success(null)
+      }
       "setDebugLevel" -> {
         setDebugLevel(call.arguments as Int)
         result.success(null)
@@ -200,7 +204,6 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-    activityBinding = binding
     activity = binding.activity
     var flutterActivity = binding.activity as FlutterActivity
     var app = flutterActivity.applicationContext as Application
@@ -211,7 +214,6 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   }
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-    activityBinding = binding
     activity = binding.activity
   }
 
