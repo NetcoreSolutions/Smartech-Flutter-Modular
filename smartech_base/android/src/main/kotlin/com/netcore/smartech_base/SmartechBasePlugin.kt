@@ -86,6 +86,22 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       application.registerReceiver(deeplinkReceiver, filter)
     }
 
+    fun trackAppInstallUpdateBySmartech() {
+      Smartech.getInstance(WeakReference(context)).trackAppInstallUpdateBySmartech()
+    }
+
+    fun setDebugLevel(level: Int) {
+      Smartech.getInstance(WeakReference(context)).setDebugLevel(level)
+    }
+
+    fun trackAppInstall() {
+      Smartech.getInstance(WeakReference(context)).trackAppInstall()
+    }
+
+    fun trackAppUpdate() {
+      Smartech.getInstance(WeakReference(context)).trackAppUpdate()
+    }
+
   }
 
 }
