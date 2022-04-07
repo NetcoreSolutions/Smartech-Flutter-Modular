@@ -1,8 +1,10 @@
 package com.netcore.smartech_base
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.IntentFilter
+import android.util.Log
 import androidx.annotation.NonNull
 import com.netcore.android.Smartech
 import io.flutter.embedding.android.FlutterActivity
@@ -21,10 +23,13 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   private lateinit var channel : MethodChannel
   private var activityBinding: ActivityPluginBinding? = null //Ask for importance of usage
+  private lateinit var activity: Activity
+  private lateinit var smartech: Smartech
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "smartech_base_channel")
     channel.setMethodCallHandler(this)
+    smartech = Smartech.getInstance(WeakReference(context))
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
@@ -41,8 +46,9 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activityBinding = binding
-    var activity = binding.activity as FlutterActivity
-    var app = activity.applicationContext as Application
+    activity = binding.activity
+    var flutterActivity = binding.activity as FlutterActivity
+    var app = flutterActivity.applicationContext as Application
     setApplication(app)
   }
 
@@ -51,9 +57,19 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
     activityBinding = binding
+    activity = binding.activity
   }
 
   override fun onDetachedFromActivity() {
+  }
+
+  private fun runOnMainThread(runnable: Runnable) {
+    try {
+      activity.runOnUiThread(runnable)
+    } catch (e: Exception) {
+      Log.e("FlutterPlugin", "Exception while running on main thread - ")
+      e.printStackTrace()
+    }
   }
 
   companion object{
