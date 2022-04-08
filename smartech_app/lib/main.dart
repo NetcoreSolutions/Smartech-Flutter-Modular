@@ -13,9 +13,6 @@ void main() async {
   //   await Firebase.initializeApp();
   //   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   // }
-  Smartech().initializePlugin();
-  Smartech().setDebugLevel(DebugLevel.all);
-  Smartech().trackAppInstallUpdateBySmartech();
   Smartech().onHandleDeeplinkAction(
       (String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) {
     if (link == null || link.isEmpty) {

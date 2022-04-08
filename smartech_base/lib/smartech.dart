@@ -17,15 +17,6 @@ class Smartech {
   }
 
   //bridge functions
-  Future<String?> get platformVersion async {
-    final String? version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
-
-  Future<void> initializePlugin() async {
-    await _channel.invokeMethod('initializePlugin');
-  }
-
   Future<void> setDebugLevel(int level) async {
     await _channel.invokeMethod('setDebugLevel', level);
   }

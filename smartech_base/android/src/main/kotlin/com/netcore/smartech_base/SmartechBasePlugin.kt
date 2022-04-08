@@ -37,13 +37,6 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
 
     when(call.method){
-      "getPlatformVersion" -> {
-        result.success("Android ${android.os.Build.VERSION.RELEASE}")
-      }
-      "initializePlugin" -> {
-        initializePlugin()
-        result.success(null)
-      }
       "setDebugLevel" -> {
         setDebugLevel(call.arguments as Int)
         result.success(null)
@@ -207,9 +200,6 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
-    var flutterActivity = binding.activity as FlutterActivity
-    var app = flutterActivity.applicationContext as Application
-    setApplication(app)
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
@@ -257,27 +247,14 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   companion object{
 
-    //Application object
-    private lateinit var application: Application
     //App base context
     lateinit var context: Context
 
     var openNativeWebView : (()->Unit)? = null //Ask for importance of usage
     var openUrl : ((url: String?)->Unit)? = null //Ask for importance of usage
 
-    fun getApplication(): Application {
-      return application
-    }
-
-    fun setApplication(application: Application){
-      SmartechBasePlugin.application = application
-      context = application.baseContext
-    }
-
-    fun initializePlugin() {
-
-      //initialize Smartech Sdk
-      Smartech.getInstance(WeakReference(context)).initializeSdk(application)
+    fun initializePlugin(application: Application) {
+      context = application.applicationContext
 
       //register broadcast receiver
       val deeplinkReceiver = SmartechDeeplinkReceivers()
