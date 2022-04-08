@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartech_base/smartech.dart';
-
-import 'home_screebn.dart';
+import 'base_home_screen.dart';
 import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {

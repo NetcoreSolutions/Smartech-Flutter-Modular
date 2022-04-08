@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smartech_app/utils.dart';
 import 'package:smartech_base/smartech.dart';
-
-import 'main.dart';
 
 class UpdateProfile extends StatefulWidget {
   @override
@@ -9,72 +8,109 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
-  String firstName = '';
-  String lastName = '';
-  String age = '';
+
+  String _firstName = "", _lastName = "", _age="";
 
   @override
   Widget build(BuildContext context) {
-    Globle().context = context;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Update Profile"),
+        title: Text("Update Profile",),
+        centerTitle: true,
+        backgroundColor: AppColor.secondary,
       ),
       body: Container(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                decoration: InputDecoration(hintText: "First Name"),
-                onChanged: (value) {
-                  firstName = value;
-                },
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                decoration: InputDecoration(hintText: "Last Name"),
-                onChanged: (value) {
-                  lastName = value;
-                },
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                decoration: InputDecoration(hintText: "Age"),
-                onChanged: (value) {
-                  age = value;
-                },
-                keyboardType: TextInputType.number,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              width: 150,
-              child: ElevatedButton(
+        width: MediaQuery.of(context).size.width,
+        height: double.infinity,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                Container(
+                  color: Colors.grey.shade200,
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        hintText: "Enter your first name",
+                        contentPadding: EdgeInsets.all(5)
+                    ),
+                    onChanged: (value) {
+                      _firstName = value;
+                    },
+                  ),
+                ),
+                SizedBox(height: 15,),
+                Container(
+                  color: Colors.grey.shade200,
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        hintText: "Enter your last name",
+                        contentPadding: EdgeInsets.all(5)
+                    ),
+                    onChanged: (value) {
+                      _lastName = value;
+                    },
+                  ),
+                ),
+                SizedBox(height: 15,),
+                Container(
+                  color: Colors.grey.shade200,
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        hintText: "Enter your age",
+                        contentPadding: EdgeInsets.all(5)
+                    ),
+                    onChanged: (value) {
+                      _age = value;
+                    },
+                  ),
+                ),
+                SizedBox(height: 30,),
+                MaterialButton(
+                  minWidth: double.infinity,
+                  padding: EdgeInsets.all(15),
+                  child: Text("Save",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white),
+                  ),
+                  color: Colors.blue,
                   onPressed: () {
+
+                    if(_firstName.isEmpty) {
+                      showToast('Please enter your first name.');
+                      return;
+                    }
+                    if(_lastName.isEmpty) {
+                      showToast('Please enter your last name.');
+                      return;
+                    }
+                    if(_age.isEmpty) {
+                      showToast('Please enter your age.');
+                      return;
+                    }
+
                     var map = {
-                      "first_name": firstName,
-                      "last_name": lastName,
-                      "age": age
+                      "first_name": _firstName,
+                      "last_name": _lastName,
+                      "age": _age
                     };
                     Smartech().updateUserProfile(map);
+                    showToast("Profile updated");
                   },
-                  child: const Center(
-                    child: Text("Save"),
-                  )),
-            )
-          ],
+                ),
+                SizedBox(height: 20,),
+              ],
+            ),
+          ),
         ),
       ),
+
     );
+
   }
 }

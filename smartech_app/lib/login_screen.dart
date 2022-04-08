@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smartech_app/register_screen.dart';
+import 'package:smartech_app/utils.dart';
 import 'package:smartech_base/smartech.dart';
-import 'home_screebn.dart';
+
+import 'base_home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -71,7 +73,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (_name.isNotEmpty) {
                       Smartech().login(_name);
                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (builder) => HomeScreen()), (Route<dynamic> route) => false);
+                    }else{
+                      showToast("Please enter primary key");
                     }
+                    
                   },
                 ),
                 SizedBox(height: 20,),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smartech_app/utils.dart';
 import 'package:smartech_base/smartech.dart';
-import 'home_screebn.dart';
+
+import 'base_home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
