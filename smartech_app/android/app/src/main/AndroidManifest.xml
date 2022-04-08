@@ -2,7 +2,7 @@
     package="com.netcore.smartech_app">
    <application
         android:label="smartech_app"
-        android:name="${applicationName}"
+        android:name=".MyApplication"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
