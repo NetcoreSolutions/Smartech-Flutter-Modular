@@ -74,7 +74,7 @@ class SetIconColor extends StatelessWidget {
           ElevatedButton(
               onPressed: () async {
                 var _shp = await SharedPreferences.getInstance();
-                showTost("Notification icon color: ${_shp.get("color")}");
+                showToast("Notification icon color: ${_shp.get("color")}");
               },
               child: Text("Get push icon color")),
         ],

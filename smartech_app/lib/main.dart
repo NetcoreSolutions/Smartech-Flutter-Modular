@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:smartech_base/smartech.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'login_screen.dart';
 import 'profile_page.dart';
 import 'splash_screen.dart';
 
@@ -144,10 +145,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Base',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
+      // home: SplashScreen(),
+      home: LoginScreen(),
     );
   }
 

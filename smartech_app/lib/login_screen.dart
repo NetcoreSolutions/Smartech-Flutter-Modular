@@ -1,77 +1,114 @@
 import 'package:flutter/material.dart';
+import 'package:smartech_app/register_screen.dart';
 import 'package:smartech_base/smartech.dart';
 import 'home_screebn.dart';
-import 'main.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() => _LoginScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  String _name = "";
+
   @override
   void initState() {
     super.initState();
     Smartech().onHandleDeeplinkActionBackground();
   }
 
-  var valueName = '';
-
   @override
   Widget build(BuildContext context) {
-    Globle().context = context;
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: TextField(
-                decoration: InputDecoration(hintText: "Enter Name"),
-                onChanged: (value) {
-                  valueName = value;
-                },
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: 150,
-              child: ElevatedButton(
+      appBar: AppBar(
+        title: Text("Login To Your Account",),
+        centerTitle: true,
+        backgroundColor: Colors.black,
+      ),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: double.infinity,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                    "When you do a login to your application you should call to login method of SmartechSDK",
+                  style: TextStyle(color: Colors.blue, fontSize: 16, fontWeight: FontWeight.w400),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 40,),
+                Container(
+                  color: Colors.grey.shade200,
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        hintText: "Enter primary key as per Smartech Panel.",
+                      contentPadding: EdgeInsets.all(5)
+                    ),
+                    onChanged: (value) {
+                      _name = value;
+                    },
+                  ),
+                ),
+                SizedBox(height: 30,),
+                MaterialButton(
+                  minWidth: double.infinity,
+                  padding: EdgeInsets.all(15),
+                  child: Text("Login",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white),
+                  ),
+                  color: Colors.deepOrange,
                   onPressed: () {
-                    if (valueName.isNotEmpty) {
-                      Smartech().login(valueName);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => HomeScreen()));
+                    if (_name.isNotEmpty) {
+                      Smartech().login(_name);
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (builder) => HomeScreen()), (Route<dynamic> route) => false);
                     }
                   },
-                  child: Center(
-                    child: Text("Submit"),
-                  )),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              width: 150,
-              child: ElevatedButton(
+                ),
+                SizedBox(height: 20,),
+                MaterialButton(
+                  minWidth: double.infinity,
+                  padding: EdgeInsets.all(15),
+                  child: Text("Create An Account",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white),
+                  ),
+                  color: Colors.blue,
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => HomeScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen(),));
                   },
-                  child: Center(
-                    child: Text("Skip"),
-                  )),
-            )
-          ],
+                ),
+                SizedBox(height: 30,),
+                Center(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (builder) => HomeScreen()), (Route<dynamic> route) => false);
+                    },
+                    child: Text(
+                      "Continue as guest",
+                      style: TextStyle(color: Colors.deepOrange, fontSize: 16, fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
+
     );
+
   }
 }

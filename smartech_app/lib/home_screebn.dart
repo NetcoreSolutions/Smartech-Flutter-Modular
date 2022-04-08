@@ -252,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         child: ElevatedButton(
                       onPressed: () async {
                         var value = await Smartech().getUserIdentity();
-                        showTost(value.toString());
+                        showToast(value.toString());
                       },
                       child: Text("GET USER IDENTITY"),
                     )),
@@ -263,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         child: ElevatedButton(
                       onPressed: () async {
                         var value = await Smartech().getDeviceUniqueId();
-                        showTost(value.toString());
+                        showToast(value.toString());
                       },
                       child: Text("GET DEVICE UNIQUE ID"),
                     ))

@@ -51,17 +51,17 @@ class _CustomeEventState extends State<CustomeEventPage> {
               ElevatedButton(
                   onPressed: () {
                     if (eventName.isEmpty) {
-                      showTost("Please Enter event Name");
+                      showToast("Please Enter event Name");
                       return;
                     }
                     if (eventData.isEmpty) {
-                      showTost("Please add event data");
+                      showToast("Please add event data");
                       return;
                     }
                     var jsonData = json.decode(eventData);
 
                     if (jsonData == null) {
-                      showTost("event data not in proper formate");
+                      showToast("event data not in proper formate");
                       return;
                     }
                     Smartech().trackEvent(eventName, jsonData);
