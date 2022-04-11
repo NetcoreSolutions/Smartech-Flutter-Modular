@@ -6,6 +6,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://artifacts.netcore.co.in/artifactory/android' }
     }
 
     dependencies {
@@ -18,6 +19,7 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://artifacts.netcore.co.in/artifactory/android' }
     }
 }
 
@@ -41,10 +43,12 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //smartech push
+    api 'com.netcore.android:smartech-push:3.2.4'
 }
