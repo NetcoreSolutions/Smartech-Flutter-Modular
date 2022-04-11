@@ -190,7 +190,6 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         result.success(null)
       }
       else -> result.notImplemented()
-
     }
   }
 

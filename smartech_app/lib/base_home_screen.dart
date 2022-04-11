@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        title: Text("Settings",),
+        title: Text("Smartech Dashboard",),
         centerTitle: true,
         backgroundColor: AppColor.secondary,
       ),
@@ -73,10 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-
                     InkWell(
-                      onTap: () {
-                        Smartech().logoutAndClearUserIdentity(false);
+                      onTap: () async {
+                        await Smartech().logoutAndClearUserIdentity(false);
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (builder) => LoginScreen()));
                       },
@@ -107,8 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-                        Smartech().logoutAndClearUserIdentity(true);
+                      onTap: () async {
+                        await Smartech().logoutAndClearUserIdentity(true);
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (builder) => LoginScreen()));
                       },
@@ -176,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
 
                         var map = {
                           "first_name": 'Krish',
@@ -184,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           "country": 'India',
                           "age": 100,
                         };
-                        Smartech().updateUserProfile(map);
+                        await Smartech().updateUserProfile(map);
                       },
                       child: Column(
                         children: [
@@ -219,8 +218,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-                        Smartech().setUserLocation(21.089721, 79.068722);
+                      onTap: () async {
+                        await Smartech().setUserLocation(21.089721, 79.068722);
                         showToast("Location updated.");
                       },
                       child: Column(
@@ -336,8 +335,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             CupertinoSwitch(
                               value: _optInAppMsg,
                               activeColor: AppColor.accent1,
-                              onChanged: (value) {
-                                Smartech().optInAppMessage(value);
+                              onChanged: (value) async {
+                                await Smartech().optInAppMessage(value);
                                 setState(() {
                                   _optInAppMsg = value;
                                 });
@@ -376,8 +375,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             CupertinoSwitch(
                               value: _optEventTracking,
                               activeColor: AppColor.accent1,
-                              onChanged: (value) {
-                                Smartech().optTracking(value);
+                              onChanged: (value) async {
+                                await Smartech().optTracking(value);
                                 setState(() {
                                   _optEventTracking = value;
                                 });

@@ -69,9 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Colors.white),
                   ),
                   color: Colors.deepOrange,
-                  onPressed: () {
+                  onPressed: () async {
                     if (_name.isNotEmpty) {
-                      Smartech().login(_name);
+                      await Smartech().login(_name);
                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (builder) => HomeScreen()), (Route<dynamic> route) => false);
                     }else{
                       showToast("Please enter primary key");

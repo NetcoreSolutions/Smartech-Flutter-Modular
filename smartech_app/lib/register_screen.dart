@@ -102,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: Colors.white),
                   ),
                   color: Colors.blue,
-                  onPressed: () {
+                  onPressed: () async {
 
                     if(_firstName.isEmpty) {
                       showToast('Please enter your first name.');
@@ -127,8 +127,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       "email": _email,
                       "age": _age
                     };
-                    Smartech().login(_email);
-                    Smartech().updateUserProfile(map);
+                    await Smartech().login(_email);
+                    await Smartech().updateUserProfile(map);
                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (builder) => HomeScreen()), (Route<dynamic> route) => false);
                   },
                 ),
