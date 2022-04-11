@@ -42,7 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Container(
                 width: MediaQuery.of(context).size.width,
                 color: Colors.white,
