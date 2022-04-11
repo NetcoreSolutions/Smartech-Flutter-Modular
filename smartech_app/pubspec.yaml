@@ -38,6 +38,7 @@ dependencies:
   shared_preferences: ^2.0.12
   location: ^4.3.0
   url_launcher: ^6.0.18
+  flutter_json_viewer: ^1.0.1
 
 dev_dependencies:
   flutter_test:

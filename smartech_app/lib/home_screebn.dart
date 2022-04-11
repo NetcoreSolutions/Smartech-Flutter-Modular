@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (builder) => TarckEventScreen()));
+                            builder: (builder) => TrackEventScreen()));
                       },
                       child: Text("TRACK EVENT"),
                     )),

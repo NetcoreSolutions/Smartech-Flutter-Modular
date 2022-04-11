@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smartech_app/login_screen.dart';
+import 'package:smartech_app/track_event.dart';
 import 'package:smartech_app/update_profile.dart';
 import 'package:smartech_app/utils.dart';
 import 'package:smartech_base/smartech.dart';
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        title: Text("Smartech Dashboard",),
+        title: const Text("Dashboard",),
         centerTitle: true,
         backgroundColor: AppColor.secondary,
       ),
@@ -184,6 +185,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           "age": 100,
                         };
                         await Smartech().updateUserProfile(map);
+
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => TrackEventScreen(),));
+
                       },
                       child: Column(
                         children: [
