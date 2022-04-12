@@ -7,7 +7,6 @@ import 'utils.dart';
 class SetIconColor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Globle().context = context;
     return Scaffold(
       appBar: AppBar(
         title: Text("Icon Colors"),

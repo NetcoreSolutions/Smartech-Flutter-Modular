@@ -19,7 +19,6 @@ class _CustomeEventState extends State<CustomeEventPage> {
 
   @override
   Widget build(BuildContext context) {
-    Globle().context = context;
     return Scaffold(
       appBar: AppBar(
         title: Text("Custom Event"),

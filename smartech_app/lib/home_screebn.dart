@@ -30,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    Globle().context = context;
     return Scaffold(
       appBar: AppBar(
         title: Text("Home"),
