@@ -5,6 +5,7 @@ import 'package:smartech_app/track_event.dart';
 import 'package:smartech_app/update_profile.dart';
 import 'package:smartech_app/utils.dart';
 import 'package:smartech_base/smartech.dart';
+import 'package:smartech_push/smartech_push.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -300,9 +301,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             CupertinoSwitch(
                               value: _optPN,
                               activeColor: AppColor.accent1,
-                              onChanged: (value) {
-                                // _optPN = value;
-                                //Not Available
+                              onChanged: (value) async {
+                                await SmartechPush().optPushNotification(value);
+
+                                setState(() {
+                                  _optPN = value;
+                                });
                               },
                             ),
                           ],
@@ -647,11 +651,39 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  fetchDetails() async {
+  fetchDetails() {
 
-    _username = (await Smartech().getUserIdentity()) ?? "Guest User";
-    _optEventTracking = (await Smartech().hasOptedTracking()) ?? false;
-    _optInAppMsg = (await Smartech().hasOptedInAppMessage()) ?? false;
+    Smartech().getUserIdentity()
+        .then((value) {
+      setState(() {
+        if(value == null) {
+          _username = "Guest User";
+        } else {
+          _username = value.isEmpty ? "Guest User" : value;
+        }
+      });
+    });
+
+    Smartech().hasOptedTracking()
+    .then((value) {
+      setState(() {
+        _optEventTracking = value ?? false;
+      });
+    });
+
+    Smartech().hasOptedInAppMessage()
+        .then((value) {
+      setState(() {
+        _optInAppMsg = value ?? false;
+      });
+    });
+
+    SmartechPush().hasOptedPushNotification()
+        .then((value) {
+      setState(() {
+        _optPN = value ?? false;
+      });
+    });
 
   }
 
