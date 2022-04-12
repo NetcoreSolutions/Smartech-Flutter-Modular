@@ -5,8 +5,6 @@ import 'package:flutter/services.dart';
 List<CategoryModel> eventsAll = List.empty(growable: true);
 List<CategoryModel> eventsCategory = List.empty(growable: true);
 
-late Map eventsPayload;
-
 Future<String> readJson(String name) async{
   return await rootBundle.loadString(name);
 }
@@ -73,9 +71,6 @@ class CategoryModel{
 
 extension on List<CategoryModel> {
   bool isCategoryContains(String category){
-    return where((element) => element.category==category).toList().isEmpty;
+    return where((element) => element.category == category).toList().isEmpty;
   }
-
-
-
 }

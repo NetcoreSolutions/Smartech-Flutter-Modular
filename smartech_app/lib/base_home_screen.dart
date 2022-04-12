@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smartech_app/event_category_screen.dart';
 import 'package:smartech_app/login_screen.dart';
 import 'package:smartech_app/track_event.dart';
 import 'package:smartech_app/update_profile.dart';
@@ -186,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         };
                         await Smartech().updateUserProfile(map);
 
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => TrackEventScreen(),));
+                        // Navigator.push(context, MaterialPageRoute(builder: (context) => TrackEventScreen(),));
 
                       },
                       child: Column(
@@ -230,27 +231,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           SizedBox(height: 10,),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    height: 32,
-                                    width: 32,
-                                    padding: EdgeInsets.all(6),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                                      color: AppColor.accent1,
-                                    ),
-                                    child: Image.asset('assets/icons/location.png',),
-                                  ),
-                                  SizedBox(width: 10,),
-                                  Text("Set Custom Location",
-                                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),),
-                                ],
+                              Container(
+                                height: 32,
+                                width: 32,
+                                padding: EdgeInsets.all(6),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                                  color: AppColor.accent1,
+                                ),
+                                child: Image.asset('assets/icons/location.png',),
                               ),
-                              Image.asset("assets/icons/right-chevron.png", width: 18, height: 18,)
+                              SizedBox(width: 10,),
+                              Text("Set Custom Location",
+                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),),
                             ],
                           ),
                           SizedBox(height: 10,),
@@ -400,48 +395,53 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Padding(
                 padding: const EdgeInsets.only(top: 20, right: 12, left: 12, bottom: 10),
-                child: Text("APP WEB STITCHING",
+                child: Text("PAYLOAD EVENT TESTING",
                   style: TextStyle(color: Colors.black54),
                 ),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: Colors.white,
-                padding: EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        SizedBox(height: 10,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 32,
-                                  width: 32,
-                                  padding: EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                                    color: Colors.red.shade800,
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => EventCategoryScreen(),));
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.white,
+                  padding: EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          SizedBox(height: 10,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: 32,
+                                    width: 32,
+                                    padding: EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                                      color: Colors.red.shade800,
+                                    ),
+                                    child: Image.asset('assets/icons/opt-tracking.png',),
                                   ),
-                                  child: Image.asset('assets/icons/update-event.png',),
-                                ),
-                                SizedBox(width: 10,),
-                                Text("Web Stitching",
-                                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),),
-                              ],
-                            ),
-                            Image.asset("assets/icons/right-chevron.png", width: 18, height: 18,)
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-                      ],
-                    ),
-                  ],
+                                  SizedBox(width: 10,),
+                                  Text("In-App Payload Testing",
+                                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),),
+                                ],
+                              ),
+                              Image.asset("assets/icons/right-chevron.png", width: 18, height: 18,)
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
@@ -494,47 +494,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Padding(
                 padding: const EdgeInsets.only(top: 20, right: 12, left: 12, bottom: 10),
-                child: Text("AUTOMATION TESTING",
-                  style: TextStyle(color: Colors.black54),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: Colors.white,
-                padding: EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        SizedBox(height: 10,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 32,
-                              width: 32,
-                              padding: EdgeInsets.all(6),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(5)),
-                                color: Colors.red.shade800,
-                              ),
-                              child: Image.asset('assets/icons/opt-tracking.png',),
-                            ),
-                            SizedBox(width: 10,),
-                            Text("In-App Payload Testing",
-                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.only(top: 20, right: 12, left: 12, bottom: 10),
                 child: Text("MICELLANEOUS SETTINGS",
                   style: TextStyle(color: Colors.black54),
                 ),
@@ -546,43 +505,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Column(
-                      children: [
-                        SizedBox(height: 10,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 32,
-                                  width: 32,
-                                  padding: EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                                    color: AppColor.primary,
-                                  ),
-                                  child: Image.asset('assets/icons/sync-status.png',),
-                                ),
-                                SizedBox(width: 10,),
-                                Text("Sync Event Automatically",
-                                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),),
-                              ],
-                            ),
-                            CupertinoSwitch(
-                              value: _syncEventManually,
-                              activeColor: AppColor.accent1,
-                              onChanged: (value) {
-                                // _syncEventManually = value
-                              },
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-                        Divider(thickness: 1, indent: 42,),
-                      ],
-                    ),
                     Column(
                       children: [
                         SizedBox(height: 10,),
