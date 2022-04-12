@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smartech_app/events_utils.dart';
 import 'package:smartech_base/smartech.dart';
 import 'package:smartech_push/smartech_push.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -51,8 +54,11 @@ void main() async {
     }
   });
 
+  await loadEventsJson();
+
   runApp(MyApp());
   getLocation();
+
 }
 
 class MyApp extends StatefulWidget {
