@@ -32,6 +32,7 @@ class _CustomProfilePayloadScreenState extends State<CustomProfilePayloadScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("Custom Profile Update"),
         centerTitle: true,

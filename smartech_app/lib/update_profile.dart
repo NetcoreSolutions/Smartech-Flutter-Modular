@@ -24,11 +24,18 @@ class _UpdateProfileState extends State<UpdateProfile> {
         height: double.infinity,
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
+                Text(
+                  "When you update your profile, you can do a profile push to update your profile details with Smartech.",
+                  style: TextStyle(color: Colors.blue, fontSize: 16,),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 40,),
 
                 Container(
                   color: Colors.grey.shade200,
@@ -72,13 +79,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 MaterialButton(
                   minWidth: double.infinity,
                   padding: EdgeInsets.all(15),
-                  child: Text("Save",
+                  child: Text("Update Profile",
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Colors.white),
                   ),
-                  color: Colors.blue,
+                  color: AppColor.primary,
                   onPressed: () {
 
                     if(_firstName.isEmpty) {

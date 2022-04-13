@@ -15,7 +15,7 @@ showToast(String msg){
 
 class AppColor {
 
-  static const Color primary = Color(0xFFE3773C);
+  static const Color primary = Color(0xFFFF753F);
   static const Color secondary = Color(0xFF025BBF);
   static const Color accent1 = Color(0xFF32C759);
   static const Color accent2 = Color(0xFF025BBF);
