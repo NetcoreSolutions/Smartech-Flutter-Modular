@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:smartech_app/payload_screen.dart';
 import 'package:smartech_app/utils.dart';
 import 'package:smartech_app/events_utils.dart' as eventUtils;
 import 'package:smartech_base/smartech.dart';
@@ -54,7 +55,6 @@ class _EventListScreenState extends State<EventListScreen> {
                     color: Colors.white,
                     child: InkWell(
                       onTap: () async {
-                        
                         debugPrint("Payload data ==> ${model.payload}");
                         await Smartech().trackEvent(model.name, model.payload);
                         showToast("Payload submitted");
@@ -77,7 +77,7 @@ class _EventListScreenState extends State<EventListScreen> {
                                 Container(
                                   child: MaterialButton(
                                       onPressed: () {
-
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PayloadScreen(model)));
                                       },
                                     color: Colors.blue,
                                     child: Text("View Payload",
