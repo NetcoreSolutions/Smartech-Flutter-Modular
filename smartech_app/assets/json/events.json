@@ -4,7 +4,7 @@
             "id": 1,
             "section": "Events",
             "category": "Netcore System Events",
-            "categoryOrder": 3,
+            "categoryOrder": 1,
             "eventOrder": 1,
             "name": "Page Browse",
             "type": "System",

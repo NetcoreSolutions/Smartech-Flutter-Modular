@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smartech_app/event_category_screen.dart';
 import 'package:smartech_app/login_screen.dart';
-import 'package:smartech_app/track_event.dart';
 import 'package:smartech_app/update_profile.dart';
 import 'package:smartech_app/utils.dart';
 import 'package:smartech_base/smartech.dart';
 import 'package:smartech_push/smartech_push.dart';
+import 'custom_profile_payload_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -35,6 +35,17 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Dashboard",),
         centerTitle: true,
         backgroundColor: AppColor.secondary,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: InkWell(
+                onTap: (){
+
+                },
+                child: Image.asset('assets/icons/opt-notification.png', width: 18, height: 18,)
+            ),
+          )
+        ],
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -178,17 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     InkWell(
                       onTap: () async {
-
-                        var map = {
-                          "first_name": 'Krish',
-                          "last_name": 'Krish',
-                          "country": 'India',
-                          "age": 100,
-                        };
-                        await Smartech().updateUserProfile(map);
-
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => TrackEventScreen(),));
-
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CustomProfilePayloadScreen(),));
                       },
                       child: Column(
                         children: [

@@ -1,17 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartech_app/events_utils.dart';
 import 'package:smartech_base/smartech.dart';
 import 'package:smartech_push/smartech_push.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'base_home_screen.dart';
-import 'login_screen.dart';
 import 'profile_page.dart';
 import 'splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -67,6 +62,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+
   @override
   void initState() {
     super.initState();
@@ -98,8 +94,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Future<void> customHTMLCallback(Map<String, dynamic>? payload) async {
     print(payload);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -157,18 +151,6 @@ void launchURL(String url) async =>
 
 
 //Firebase initialize and it's callback
-Future<void> setFirebaseSettings() async{
-  if (Platform.isAndroid) {
-    await Firebase.initializeApp();
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  }
-}
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  SmartechPush().handlePushNotification(message.data.toString());
-}
-
 //store and push firebase device token
 void setDeviceToken() async {
 
@@ -197,4 +179,10 @@ void setDeviceToken() async {
       SmartechPush().handlePushNotification(event.data.toString());
     }
   });
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  SmartechPush().handlePushNotification(message.data.toString());
 }
