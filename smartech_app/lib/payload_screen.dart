@@ -21,9 +21,8 @@ class _PayloadScreenState extends State<PayloadScreen> {
   @override
   void initState() {
     super.initState();
-
-    print("payload ==> ${jsonEncode(widget.category.payload)}");
-    _payloadController.text = JsonEncoder.withIndent("     ").convert(jsonEncode(widget.category.payload));
+    print("payload ==> ${jsonDecode(jsonEncode(widget.category.payload))}");
+    _payloadController.text = JsonEncoder.withIndent("     ").convert(jsonDecode(jsonEncode(widget.category.payload)));
   }
 
   @override
