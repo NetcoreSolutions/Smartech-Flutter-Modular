@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
 
     if (Platform.isAndroid) {
-      setDeviceToken();
+      setupFirebase();
       Smartech().setInAppCustomHTMLListener(customHTMLCallback);
     }
   }
@@ -152,7 +152,7 @@ void launchURL(String url) async =>
 
 //Firebase initialize and it's callback
 //store and push firebase device token
-void setDeviceToken() async {
+void setupFirebase() async {
 
   var token = await FirebaseMessaging.instance.getToken();
   debugPrint(token);

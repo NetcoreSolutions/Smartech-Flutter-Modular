@@ -122,7 +122,7 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         result.success(smartech.getSDKVersion())
       }
       "setDeviceAdvertiserId" -> {
-        result.success(smartech.setDeviceAdvertiserId(call.arguments as String))
+        smartech.setDeviceAdvertiserId(call.arguments as String)
         result.success(null)
       }
       "openNativeWebView" -> {

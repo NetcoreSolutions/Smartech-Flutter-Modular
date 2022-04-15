@@ -24,7 +24,7 @@ Future<void> loadEventsJson() async{
   eventsAll.sort((a, b) => a.categoryOrder.compareTo(b.categoryOrder));
   debugPrint('Total Events ==> ${eventsAll.length}');
 
-  eventsAll.forEach((e) => debugPrint("${e.categoryOrder}  ==> ${e.category}"));
+  // eventsAll.forEach((e) => debugPrint("${e.categoryOrder}  ==> ${e.category}"));
 
   eventsCategory.clear();
   eventsAll.forEach((e) {
