@@ -47,4 +47,8 @@ class SmartechPush {
     return await _channel.invokeMethod("hasOptedPushNotification");
   }
 
+  Future<String?> getDevicePushToken() async {
+    return await _channel.invokeMethod("getDevicePushToken");
+  }
+
 }

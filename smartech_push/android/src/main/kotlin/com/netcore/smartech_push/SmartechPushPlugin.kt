@@ -67,6 +67,9 @@ class SmartechPushPlugin: FlutterPlugin, MethodCallHandler {
       "hasOptedPushNotification" -> {
         result.success(smartPush.hasOptedPushNotification())
       }
+      "getDevicePushToken" -> {
+        result.success(smartPush.getDevicePushToken())
+      }
       else -> {
         result.notImplemented()
       }

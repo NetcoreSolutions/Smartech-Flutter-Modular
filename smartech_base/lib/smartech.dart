@@ -112,6 +112,18 @@ class Smartech {
     await _channel.invokeMethod('openUrl', url);
   }
 
+  Future<String?> getAppID() async {
+    return await _channel.invokeMethod('getAppID');
+  }
+
+  Future<String?> getSDKVersion() async {
+    return await _channel.invokeMethod('getSDKVersion');
+  }
+
+  Future<void> setDeviceAdvertiserId(String id) async {
+    await _channel.invokeMethod('setDeviceAdvertiserId', id);
+  }
+
   Future<void> _didRecieveTranscript(MethodCall call) async {
     switch (call.method) {
       case "customHTMLCallback":

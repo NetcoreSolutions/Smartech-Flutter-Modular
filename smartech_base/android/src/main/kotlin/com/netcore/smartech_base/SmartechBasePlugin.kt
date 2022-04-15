@@ -115,6 +115,16 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       "getUserIdentity" -> {
         result.success(smartech.getUserIdentity())
       }
+      "getAppID" -> {
+        result.success(smartech.getAppID())
+      }
+      "getSDKVersion" -> {
+        result.success(smartech.getSDKVersion())
+      }
+      "setDeviceAdvertiserId" -> {
+        result.success(smartech.setDeviceAdvertiserId(call.arguments as String))
+        result.success(null)
+      }
       "openNativeWebView" -> {
         openNativeWebView?.invoke()
         result.success(null)
