@@ -46,8 +46,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         child: ElevatedButton(
                       onPressed: () {
                         Smartech().logoutAndClearUserIdentity(true);
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (builder) => LoginScreen()));
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (builder) => LoginScreen()));
                       },
                       child: Text("LOGOUT AND CLEAR USER IDENTITY"),
                     )),
@@ -72,8 +71,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     Expanded(
                         child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (builder) => UpdateProfile()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (builder) => UpdateProfile()));
                       },
                       child: Text("UPDATE USER PROFILE"),
                     )),
@@ -95,8 +93,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     Expanded(
                         child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (builder) => TrackEventScreen()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (builder) => TrackEventScreen()));
                       },
                       child: Text("TRACK EVENT"),
                     )),
@@ -358,8 +355,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     Expanded(
                         child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (builder) => const CustomeEventPage()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (builder) => const CustomeEventPage()));
                       },
                       child: Text("Track update and install by smartech"),
                     ))

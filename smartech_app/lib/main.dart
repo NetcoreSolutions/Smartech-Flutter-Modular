@@ -12,7 +12,6 @@ import 'splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
@@ -23,9 +22,7 @@ void main() async {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
-
-  Smartech().onHandleDeeplinkAction(
-      (String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) {
+  Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) {
     if (link == null || link.isEmpty) {
       return;
     }
@@ -44,8 +41,7 @@ void main() async {
                 ],
               ));
     } else {
-      Navigator.of(_context)
-          .push(MaterialPageRoute(builder: (builder) => ProfilePage()));
+      Navigator.of(_context).push(MaterialPageRoute(builder: (builder) => ProfilePage()));
     }
   });
 
@@ -53,7 +49,6 @@ void main() async {
 
   runApp(MyApp());
   getLocation();
-
 }
 
 class MyApp extends StatefulWidget {
@@ -62,7 +57,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-
   @override
   void initState() {
     super.initState();
@@ -111,7 +105,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void dispose() {
     super.dispose();
   }
-
 }
 
 //static Build Context
@@ -146,19 +139,15 @@ void getLocation() async {
 }
 
 //launch url
-void launchURL(String url) async =>
-    await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
-
+void launchURL(String url) async => await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
 
 //Firebase initialize and it's callback
 //store and push firebase device token
 void setupFirebase() async {
-
   var token = await FirebaseMessaging.instance.getToken();
   debugPrint(token);
 
   if (token != null) {
-
     var _shp = await SharedPreferences.getInstance();
     var saveToken = _shp.get("token") ?? "";
     //check if token is changed or not
