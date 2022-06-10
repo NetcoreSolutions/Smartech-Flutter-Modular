@@ -31,7 +31,13 @@
             android:name="flutterEmbedding"
             android:value="2" />
        <meta-data
-           android:name="SMT_APP_ID"
-           android:value="621173f28c422e8c57cd966592d0fadc" />
+            android:name="HANSEL_APP_ID"
+            android:value="1LF3X71GPZMPDPMH7XF8HM5DI" />
+        <meta-data
+            android:name="HANSEL_APP_KEY"
+            android:value="TXMY6EYG0EMVYT7A42DHN9CRP37TXGKU38MR92S36LX0QIKOL0" />
+        <meta-data
+            android:name="SMT_APP_ID"
+            android:value="ff4a5629301dc5aa05466aa1397962b7" />
     </application>
 </manifest>

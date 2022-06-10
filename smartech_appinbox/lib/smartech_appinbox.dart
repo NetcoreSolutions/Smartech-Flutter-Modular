@@ -1,13 +1,33 @@
-
 import 'dart:async';
-
 import 'package:flutter/services.dart';
 
 class SmartechAppinbox {
+  static late CustomHTMLCallback _customHTMLCallback;
   static const MethodChannel _channel = MethodChannel('smartech_appinbox');
+  //To make singleton class
+  static final SmartechAppinbox _smartechAppinbox = SmartechAppinbox._internal();
+  factory SmartechAppinbox() => _smartechAppinbox;
+  SmartechAppinbox._internal() {
+    _channel.setMethodCallHandler(_didRecieveTranscript);
+  }
 
-  static Future<String?> get platformVersion async {
-    final String? version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
+  Future<String?> getPlatformVersion() async {
+    return await _channel.invokeMethod("getPlatformVersion");
+  }
+
+  Future<void> displayAppInbox() async {
+    return await _channel.invokeMethod("displayAppInbox");
+  }
+
+  Future<void> _didRecieveTranscript(MethodCall call) async {
+    switch (call.method) {
+      case "customHTMLCallback":
+        final Map<String, dynamic>? arguments = call.arguments;
+        _customHTMLCallback(arguments);
+        break;
+    }
   }
 }
+
+//custom type defined
+typedef CustomHTMLCallback = Future<dynamic> Function(Map<String, dynamic>? payload);

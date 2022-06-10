@@ -34,6 +34,8 @@ dependencies:
     path: ../smartech_base
   smartech_push:
     path: ../smartech_push
+  smartech_appinbox:
+    path: ../smartech_appinbox
   cupertino_icons: ^1.0.2
   fluttertoast: ^8.0.8
   firebase_messaging:

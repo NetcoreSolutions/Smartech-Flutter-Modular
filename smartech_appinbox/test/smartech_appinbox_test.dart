@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await SmartechAppinbox.platformVersion, '42');
+    expect(SmartechAppinbox().getPlatformVersion, '42');
   });
 }

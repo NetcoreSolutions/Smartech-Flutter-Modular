@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'channel_builder.dart';
@@ -50,5 +49,4 @@ class SmartechPush {
   Future<String?> getDevicePushToken() async {
     return await _channel.invokeMethod("getDevicePushToken");
   }
-
 }

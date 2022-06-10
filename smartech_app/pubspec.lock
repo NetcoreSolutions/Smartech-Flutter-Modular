@@ -322,6 +322,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smartech_appinbox:
+    dependency: "direct main"
+    description:
+      path: "../smartech_appinbox"
+      relative: true
+    source: path
+    version: "0.0.1"
   smartech_base:
     dependency: "direct main"
     description:

@@ -6,6 +6,7 @@ import com.netcore.android.smartechpush.SmartPush
 import com.netcore.android.smartechpush.notification.SMTNotificationListener
 import com.netcore.smartech_base.SmartechBasePlugin
 import com.netcore.smartech_push.SmartechPushPlugin
+import com.netcore.smartech_appinbox.SmartechAppinboxPlugin
 import io.flutter.app.FlutterApplication
 import java.lang.ref.WeakReference
 
@@ -24,6 +25,9 @@ class MyApplication: FlutterApplication(), SMTNotificationListener {
 
         //Initialize Flutter Smartech Push Plugin
         SmartechPushPlugin.initializePlugin(this)
+
+         //Initialize Flutter Smartech AppInbox Plugin
+        SmartechAppinboxPlugin.initializePlugin(this)
 
         //Add SmartPush Notification Listener
         SmartPush.getInstance(WeakReference(SmartechPushPlugin.context)).setSMTNotificationListener(this)
