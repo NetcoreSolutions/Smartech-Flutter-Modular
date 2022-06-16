@@ -3,7 +3,8 @@
    <application
         android:label="smartech_app"
         android:name=".MyApplication"
-        android:icon="@mipmap/ic_launcher">
+       android:theme="@style/LaunchTheme"
+       android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -38,6 +39,6 @@
             android:value="TXMY6EYG0EMVYT7A42DHN9CRP37TXGKU38MR92S36LX0QIKOL0" />
         <meta-data
             android:name="SMT_APP_ID"
-            android:value="ff4a5629301dc5aa05466aa1397962b7" />
+            android:value="c27a614b216e64a51ba23bb63d7e9968" />
     </application>
 </manifest>

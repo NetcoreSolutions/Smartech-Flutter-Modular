@@ -151,7 +151,7 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
                   Log.d("success", "success")
                 }
 
-                override fun error(code: String?, msg: String?, details: Any?) {
+                override fun error(code: String, msg: String?, details: Any?) {
                   if (msg != null) {
                     Log.d("success111", msg)
                   }
@@ -182,7 +182,7 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
                 context.getSharedPreferences("Deeplink_action", Context.MODE_PRIVATE).edit().clear().apply()
                 Log.d("success", "success")
               }
-              override fun error(code: String?, msg: String?, details: Any?) {
+              override fun error(code: String, msg: String?, details: Any?) {
                 if (msg != null) {
                   Log.d("success111", msg)
                 }

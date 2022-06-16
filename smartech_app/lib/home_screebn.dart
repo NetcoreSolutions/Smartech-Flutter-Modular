@@ -5,7 +5,7 @@ import 'login_screen.dart';
 import 'main.dart';
 import 'track_event.dart';
 import 'update_profile.dart';
-import 'utils.dart';
+import 'utils/utils.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

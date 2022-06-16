@@ -8,10 +8,18 @@ import io.flutter.plugin.common.MethodChannel.Result
 import com.netcore.android.smartechappinbox.SmartechAppInbox;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import com.netcore.android.smartechappinbox.utility.*
+import com.netcore.android.smartechappinbox.network.model.SMTInboxMessageData;
+import com.netcore.android.smartechappinbox.utility.SMTAppInboxMessageType;
+import com.netcore.android.smartechappinbox.utility.SMTAppInboxRequestBuilder;
+import com.netcore.android.smartechappinbox.network.listeners.SMTInboxCallback
 import android.content.Context
 import android.app.Application
 import java.lang.ref.WeakReference
 import android.app.Activity
+import com.google.gson.Gson
+import android.util.Log
+
 
 /** SmartechAppinboxPlugin */
 class SmartechAppinboxPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -39,10 +47,37 @@ class SmartechAppinboxPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         smartAppInbox.displayAppInbox(activity)
         result.success(null)
       }
+      "getAppInboxMessages" -> {
+        val messages = smartAppInbox.getAppInboxMessages(SMTAppInboxMessageType.INBOX_MESSAGE)
+        result.success(Gson().toJson(messages))
+      }
+      "getAppInboxCategoryList" -> {
+        val categoryList = smartAppInbox.getAppInboxCategoryList()
+        result.success(Gson().toJson(categoryList))
+      }
       else -> {
         result.notImplemented()
       }
     }
+  }
+
+  private fun getAppInboxMessagesByCategory(payload: HashMap<String, Any>) {
+      val builder = SMTAppInboxRequestBuilder.Builder(SMTInboxDataType.ALL)
+    /**  builder.setCallback(object : SMTInboxCallback {
+          override fun onInboxFail() {
+            Log.d("failed", "failed")
+          }
+
+          override fun onInboxProgress() {
+            Log.d("progress", "progress")
+          }
+
+          override fun onInboxSuccess(messages: MutableList<SMTInboxMessageData>?) {
+            Log.d("success", "success")
+          }
+      }) */
+      builder.setCategory(arrayListOf("cat1"))
+
   }
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {

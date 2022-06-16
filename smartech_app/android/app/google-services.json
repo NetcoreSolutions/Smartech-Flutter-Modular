@@ -1,185 +1,34 @@
 {
   "project_info": {
-    "project_number": "411612759228",
-    "project_id": "smartech-sample-bd20c",
-    "storage_bucket": "smartech-sample-bd20c.appspot.com"
+    "project_number": "539538889640",
+    "project_id": "smartech-modular",
+    "storage_bucket": "smartech-modular.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:411612759228:android:d1c3d8774a4f91aae93cb9",
-        "android_client_info": {
-          "package_name": "com.example.smarttechsdk"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "411612759228-sboo3ioffpf0f319c45th4kl72vpfcd5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB9jnu9ml7Rk6dlt0JEQvabYVPvFVCXa9A"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "411612759228-sboo3ioffpf0f319c45th4kl72vpfcd5.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "411612759228-15noe6jjhigmmfmkmiajon0nrtuejphp.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.netcore.smartechPushExample"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:411612759228:android:33ac15e3a5672bade93cb9",
-        "android_client_info": {
-          "package_name": "com.netcore.smartech.notification.smartech_notification.smartech_notification_example"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "411612759228-sboo3ioffpf0f319c45th4kl72vpfcd5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB9jnu9ml7Rk6dlt0JEQvabYVPvFVCXa9A"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "411612759228-sboo3ioffpf0f319c45th4kl72vpfcd5.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "411612759228-15noe6jjhigmmfmkmiajon0nrtuejphp.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.netcore.smartechPushExample"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:411612759228:android:5fe10bb9f5a06d11e93cb9",
+        "mobilesdk_app_id": "1:539538889640:android:59239fa0e298edb1b2db9d",
         "android_client_info": {
           "package_name": "com.netcore.smartech_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "411612759228-sboo3ioffpf0f319c45th4kl72vpfcd5.apps.googleusercontent.com",
+          "client_id": "539538889640-9bop775hnscpng2j1fma6lg1lrp44q9i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB9jnu9ml7Rk6dlt0JEQvabYVPvFVCXa9A"
+          "current_key": "AIzaSyCDVp9G9Zc_mNVRvHR7Mv9aTo9eVgqfIPU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "411612759228-sboo3ioffpf0f319c45th4kl72vpfcd5.apps.googleusercontent.com",
+              "client_id": "539538889640-9bop775hnscpng2j1fma6lg1lrp44q9i.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "411612759228-15noe6jjhigmmfmkmiajon0nrtuejphp.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.netcore.smartechPushExample"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:411612759228:android:b1ce0764e2f86face93cb9",
-        "android_client_info": {
-          "package_name": "com.netcore.smartech_appinbox_example"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "411612759228-sboo3ioffpf0f319c45th4kl72vpfcd5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB9jnu9ml7Rk6dlt0JEQvabYVPvFVCXa9A"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "411612759228-sboo3ioffpf0f319c45th4kl72vpfcd5.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "411612759228-15noe6jjhigmmfmkmiajon0nrtuejphp.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.netcore.smartechPushExample"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:411612759228:android:ed03fc145b7020b1e93cb9",
-        "android_client_info": {
-          "package_name": "com.netcore.smartech_push_example"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "411612759228-sboo3ioffpf0f319c45th4kl72vpfcd5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB9jnu9ml7Rk6dlt0JEQvabYVPvFVCXa9A"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "411612759228-sboo3ioffpf0f319c45th4kl72vpfcd5.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "411612759228-15noe6jjhigmmfmkmiajon0nrtuejphp.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.netcore.smartechPushExample"
-              }
             }
           ]
         }

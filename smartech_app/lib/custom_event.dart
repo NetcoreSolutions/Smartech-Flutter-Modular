@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:smartech_app/utils.dart';
+import 'package:smartech_app/utils/utils.dart';
 import 'package:smartech_base/smartech.dart';
 
 import 'main.dart';

@@ -19,6 +19,18 @@ class SmartechAppinbox {
     return await _channel.invokeMethod("displayAppInbox");
   }
 
+  Future<dynamic> getAppInboxMessages() async {
+    return await _channel.invokeMethod("getAppInboxMessages");
+  }
+
+  Future<dynamic> getAppInboxCategoryList() async {
+    return await _channel.invokeMethod("getAppInboxCategoryList");
+  }
+
+  Future<dynamic> getAppInboxMessagesByCategory(List<String> categoryList) async {
+    return await _channel.invokeMethod("getAppInboxMessagesByCategory", {"group_id": categoryList});
+  }
+
   Future<void> _didRecieveTranscript(MethodCall call) async {
     switch (call.method) {
       case "customHTMLCallback":

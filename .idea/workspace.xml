@@ -6,19 +6,31 @@
   <component name="ChangeListManager">
     <list default="true" id="460e71bc-eddb-48f3-bf5d-d82d887d4d22" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/android/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/android/app/google-services.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartech_app/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartech_app/android/app/src/main/kotlin/com/netcore/smartech_app/MyApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/android/app/src/main/kotlin/com/netcore/smartech_app/MyApplication.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartech_app/android/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/android/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/android/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartech_app/lib/base_home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/base_home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/custom_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/custom_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/custom_profile_payload_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/custom_profile_payload_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/event_category_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/event_category_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/event_list_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/event_list_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/home_screebn.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/home_screebn.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/payload_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/payload_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/register_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/set_colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/set_colors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/splash_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/splash_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/track_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/track_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/update_profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/lib/update_profile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_app/lib/utils.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/smartech_app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartech_app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_app/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartech_appinbox/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_appinbox/android/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartech_appinbox/android/src/main/kotlin/com/netcore/smartech_appinbox/SmartechAppinboxPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_appinbox/android/src/main/kotlin/com/netcore/smartech_appinbox/SmartechAppinboxPlugin.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartech_appinbox/lib/smartech_appinbox.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_appinbox/lib/smartech_appinbox.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartech_appinbox/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_appinbox/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartech_appinbox/test/smartech_appinbox_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_appinbox/test/smartech_appinbox_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartech_push/lib/smartech_push.dart" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_push/lib/smartech_push.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartech_push/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_push/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smartech_base/android/src/main/kotlin/com/netcore/smartech_base/SmartechBasePlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/smartech_base/android/src/main/kotlin/com/netcore/smartech_base/SmartechBasePlugin.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +39,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="29uy0E6VlqSxOWHrsV6NuovwddC" />
   <component name="ProjectViewState">
@@ -54,16 +74,5 @@
       <updated>1653977039485</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/smartech_app/lib/main.dart</url>
-          <line>23</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

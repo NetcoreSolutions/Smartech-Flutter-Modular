@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:smartech_app/payload_screen.dart';
-import 'package:smartech_app/utils.dart';
+import 'package:smartech_app/utils/utils.dart';
 import 'package:smartech_app/events_utils.dart' as eventUtils;
 import 'package:smartech_base/smartech.dart';
 
@@ -16,7 +16,6 @@ class EventListScreen extends StatefulWidget {
 }
 
 class _EventListScreenState extends State<EventListScreen> {
-
   List<eventUtils.CategoryModel> list = List.empty(growable: true);
 
   @override
@@ -41,13 +40,14 @@ class _EventListScreenState extends State<EventListScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               ListView.builder(
                 itemCount: list.length,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-
                   eventUtils.CategoryModel model = list.elementAt(index);
 
                   return Container(
@@ -62,7 +62,9 @@ class _EventListScreenState extends State<EventListScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(height: 5,),
+                          SizedBox(
+                            height: 5,
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
                             child: Row(
@@ -76,11 +78,12 @@ class _EventListScreenState extends State<EventListScreen> {
                                 ),
                                 Container(
                                   child: MaterialButton(
-                                      onPressed: () {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PayloadScreen(model)));
-                                      },
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => PayloadScreen(model)));
+                                    },
                                     color: Colors.blue,
-                                    child: Text("View Payload",
+                                    child: Text(
+                                      "View Payload",
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
@@ -88,7 +91,10 @@ class _EventListScreenState extends State<EventListScreen> {
                               ],
                             ),
                           ),
-                          Divider(thickness: 1, indent: 12,)
+                          Divider(
+                            thickness: 1,
+                            indent: 12,
+                          )
                         ],
                       ),
                     ),

@@ -18,11 +18,9 @@ class _StateSplashScreen extends State<SplashScreen> {
   initApp() async {
     final value = await Smartech().getUserIdentity();
     if (value != null && value.isNotEmpty) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (builder) => HomeScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (builder) => HomeScreen()));
     } else {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (builder) => LoginScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (builder) => LoginScreen()));
     }
   }
 

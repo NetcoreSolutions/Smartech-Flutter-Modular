@@ -1,10 +1,11 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smartech_app/app_inbox/app_inbox_screen.dart';
 import 'package:smartech_app/event_category_screen.dart';
 import 'package:smartech_app/login_screen.dart';
 import 'package:smartech_app/update_profile.dart';
-import 'package:smartech_app/utils.dart';
+import 'package:smartech_app/utils/utils.dart';
 import 'package:smartech_appinbox/smartech_appinbox.dart';
 import 'package:smartech_base/smartech.dart';
 import 'package:smartech_push/smartech_push.dart';
@@ -47,6 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   //   checkValue = value!;
                   // });
                   SmartechAppinbox().displayAppInbox();
+                  // var tempList = SmartechAppinbox().getAppInboxMessages();
+                  // print(tempList);
                 },
                 child: Image.asset(
                   'assets/icons/opt-notification.png',
@@ -602,39 +605,46 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           height: 10,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 32,
-                                  width: 32,
-                                  padding: EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                                    color: Colors.red.shade800,
+                        InkWell(
+                          onTap: () {
+                            // var temp = SmartechAppinbox().getAppInboxMessages();
+                            // print(temp.toString());
+                            Navigator.of(context).push(MaterialPageRoute(builder: (builder) => const AppInboxScreen()));
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: 32,
+                                    width: 32,
+                                    padding: EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                                      color: Colors.red.shade800,
+                                    ),
+                                    child: Image.asset(
+                                      'assets/icons/update-event.png',
+                                    ),
                                   ),
-                                  child: Image.asset(
-                                    'assets/icons/update-event.png',
+                                  SizedBox(
+                                    width: 10,
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "AppInbox",
-                                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
-                                ),
-                              ],
-                            ),
-                            Image.asset(
-                              "assets/icons/right-chevron.png",
-                              width: 18,
-                              height: 18,
-                            )
-                          ],
+                                  Text(
+                                    "AppInbox",
+                                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Image.asset(
+                                "assets/icons/right-chevron.png",
+                                width: 18,
+                                height: 18,
+                              )
+                            ],
+                          ),
                         ),
                         SizedBox(
                           height: 10,
