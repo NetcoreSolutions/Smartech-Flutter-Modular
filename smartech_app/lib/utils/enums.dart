@@ -5,7 +5,7 @@ enum NotificationType {
   audio,
   image,
   gif,
-  carousel,
+  carouselLandscape,
 }
 
 extension NotificationTypeExtension on NotificationType {
@@ -17,8 +17,8 @@ extension NotificationTypeExtension on NotificationType {
         return "Image";
       case NotificationType.gif:
         return "GIF";
-      case NotificationType.carousel:
-        return "Carousel";
+      case NotificationType.carouselLandscape:
+        return "CarouselLandscape";
       case NotificationType.simple:
       default:
         return "Simple";

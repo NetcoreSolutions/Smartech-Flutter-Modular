@@ -34,7 +34,7 @@ class ImageNotificationView extends StatelessWidget {
               height: 4,
             ),
             Text(
-              inbox.message,
+              inbox.body,
               style: TextStyle(fontSize: 14, color: AppColor.greyColorText, fontWeight: FontWeight.w500),
             ),
             SizedBox(

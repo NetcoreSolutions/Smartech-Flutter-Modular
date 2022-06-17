@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.netcore.smartech_app">
+    <uses-permission android:name="android.permission.INTERNET" /> 
    <application
         android:label="smartech_app"
         android:name=".MyApplication"

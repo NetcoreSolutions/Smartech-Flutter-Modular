@@ -30,8 +30,8 @@ extension test on String {
         return NotificationType.image;
       case "gif":
         return NotificationType.gif;
-      case "carousel":
-        return NotificationType.carousel;
+      case "carousellandscape":
+        return NotificationType.carouselLandscape;
       case "simple":
       default:
         return NotificationType.simple;

@@ -1,8 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
-
+import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:getwidget/components/dropdown/gf_multiselect.dart';
+import 'package:getwidget/types/gf_checkbox_type.dart';
 import 'package:smartech_app/app_inbox/model/app_inbox_model_class.dart';
+import 'package:smartech_app/app_inbox/widgets/audio_notification_view.dart';
+import 'package:smartech_app/app_inbox/widgets/corousle_notification_view.dart';
 import 'package:smartech_app/app_inbox/widgets/gif_notification_view.dart';
 import 'package:smartech_app/app_inbox/widgets/image_notification_view.dart';
 import 'package:smartech_app/app_inbox/widgets/simple_notification_view.dart';
@@ -18,85 +22,10 @@ class AppInboxScreen extends StatefulWidget {
 }
 
 class _AppInboxScreenState extends State<AppInboxScreen> {
-  // final AppInboxModel appInboxModel = AppInboxModel.fromJson({
-  //   "inbox_count": 3,
-  //   "inbox": [
-  //     {
-  //       "actionButton": [],
-  //       "app_inbox_category": "testappinbox",
-  //       "app_inbox_ttl": "2022-07-11T07:08:59",
-  //       "attrParams": {"__sta": "vhg.lbghmljxbspoi%7CHYV", "__stm_id": "264", "__stm_medium": "apn", "__stm_source": "smartech"},
-  //       "carousel": [],
-  //       "customPayload": {},
-  //       "deeplink": "",
-  //       "expiry": "1657523292",
-  //       "image": "",
-  //       "message": "my first test push",
-  //       "pnMeta": {},
-  //       "publishedDate": "2022-06-13T07:13:12",
-  //       "smtCustomPayload": {},
-  //       "smtSrc": "Smartech",
-  //       "sound": true,
-  //       "status": "sent",
-  //       "subtitle": "",
-  //       "timestamp": "1655104534004",
-  //       "title": "testjigar",
-  //       "trid": "130365-264-2577-0-220613124315",
-  //       "type": "Simple"
-  //     },
-  //     {
-  //       "actionButton": [],
-  //       "app_inbox_category": "testappinbox",
-  //       "app_inbox_ttl": "2022-07-11T07:08:59",
-  //       "attrParams": {"__sta": "vhg.lbghmljxbspoi%7CJYV", "__stm_id": "265", "__stm_medium": "apn", "__stm_source": "smartech"},
-  //       "carousel": [],
-  //       "customPayload": {},
-  //       "deeplink": "",
-  //       "expiry": "1657523288",
-  //       "image": "https://www.motilaloswal.com//campaign//RegistrationOffers//page242//appnotification//Basket9.jpg",
-  //       "message": "my first test push with image",
-  //       "pnMeta": {},
-  //       "publishedDate": "2022-06-14T07:19:41",
-  //       "smtCustomPayload": {},
-  //       "smtSrc": "Smartech",
-  //       "sound": true,
-  //       "status": "sent",
-  //       "subtitle": "",
-  //       "timestamp": "1655104784426",
-  //       "title": "testjigarimage",
-  //       "trid": "130365-265-2577-0-220613124944",
-  //       "type": "Image"
-  //     },
-  //     {
-  //       "actionButton": [],
-  //       "app_inbox_category": "testappinboxgif",
-  //       "app_inbox_ttl": "2022-07-11T07:08:59",
-  //       "attrParams": {"__sta": "vhg.lbghmljxbspoi%7CYYV", "__stm_id": "266", "__stm_medium": "apn", "__stm_source": "smartech"},
-  //       "carousel": [],
-  //       "customPayload": {},
-  //       "deeplink": "",
-  //       "expiry": "1657523290",
-  //       "image": "https://media2.giphy.com/media/xT0xezQGU5xCDJuCPe/giphy.gif",
-  //       "message": "my first test push with image",
-  //       "pnMeta": {},
-  //       "publishedDate": "2022-06-15T07:24:31",
-  //       "smtCustomPayload": {},
-  //       "smtSrc": "Smartech",
-  //       "sound": true,
-  //       "status": "sent",
-  //       "subtitle": "",
-  //       "timestamp": "1655105075133",
-  //       "title": "testjigarimage",
-  //       "trid": "130365-266-2577-0-220613125434",
-  //       "type": "Gif"
-  //     }
-  //   ],
-  //   "message": "success",
-  //   "code": 200
-  // });
-
   List<Category> categoryList = [];
   List<Inbox> inboxList = [];
+  var appBarHeight = AppBar().preferredSize.height;
+  CustomPopupMenuController _controller = CustomPopupMenuController();
 
   @override
   void initState() {
@@ -104,6 +33,12 @@ class _AppInboxScreenState extends State<AppInboxScreen> {
     getCategoryList();
     getMessagesList();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.hideMenu();
+    super.dispose();
   }
 
   getCategoryList() async {
@@ -117,12 +52,15 @@ class _AppInboxScreenState extends State<AppInboxScreen> {
   getMessagesList() async {
     await SmartechAppinbox().getAppInboxMessages().then((value) {
       var json = jsonDecode(value.toString());
-      log(json[0].toString());
-      inboxList = [...json.map((e) => Inbox.fromJson(e)).toList()];
+      log(json[3].toString());
+      inboxList = [...json.map((e) => Inbox.fromJson(e['smtPayload'])).toList()];
       log(inboxList[0].toString());
       setState(() {});
     });
   }
+
+  // var _items = categoryList.map((category) => MultiSelectItem<Category>(category, category.name)).toList();
+  List<String> selected = [];
 
   @override
   Widget build(BuildContext context) {
@@ -134,44 +72,85 @@ class _AppInboxScreenState extends State<AppInboxScreen> {
         centerTitle: true,
         backgroundColor: AppColor.secondary,
         actions: [
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Icon(Icons.menu),
+          CustomPopupMenu(
+            child: Container(
+              child: Icon(Icons.add_circle_outline, color: Colors.white),
+              padding: EdgeInsets.all(20),
+            ),
+            menuBuilder: () => Container(
+              color: Colors.white,
+              width: 150,
+              child: Expanded(
+                child: ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return CheckboxListTile(
+                        title: Text(
+                          categoryList[index].name,
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                        autofocus: false,
+                        dense: true,
+                        activeColor: Colors.green,
+                        checkColor: Colors.white,
+                        selected: false,
+                        value: false,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            // _value = value;
+                          });
+                        },
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return Divider(
+                        height: 1,
+                      );
+                    },
+                    itemCount: categoryList.length),
+              ),
+            ),
+            pressType: PressType.singleClick,
+            verticalMargin: -10,
+            controller: _controller,
           ),
         ],
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
-        child: Expanded(
-          child: ListView.builder(
-            itemCount: inboxList.length,
-            itemBuilder: (BuildContext context, int index) {
-              switch (inboxList[index].type) {
-                case NotificationType.image:
-                  return ImageNotificationView(
-                    inbox: inboxList[index],
-                  );
+        padding: EdgeInsets.only(left: 8, right: 8),
+        child: ListView.builder(
+          itemCount: inboxList.length,
+          itemBuilder: (BuildContext context, int index) {
+            switch (inboxList[index].type) {
+              case NotificationType.image:
+                return ImageNotificationView(
+                  inbox: inboxList[index],
+                );
 
-                case NotificationType.gif:
-                  return GIFNotificationView(
-                    inbox: inboxList[index],
-                  );
+              case NotificationType.gif:
+                return GIFNotificationView(
+                  inbox: inboxList[index],
+                );
 
-                case NotificationType.audio:
-                  return Container();
+              case NotificationType.audio:
+                return AudioNotificationView(
+                  inbox: inboxList[index],
+                );
 
-                case NotificationType.carousel:
-                  return Container();
+              case NotificationType.carouselLandscape:
+                return CorousleNotificationView(
+                  inbox: inboxList[index],
+                );
 
-                case NotificationType.simple:
-                default:
-                  return SimpleNotificationView(
-                    inbox: inboxList[index],
-                  );
-              }
-            },
-          ),
+              case NotificationType.simple:
+              default:
+                return SimpleNotificationView(
+                  inbox: inboxList[index],
+                );
+            }
+          },
         ),
       ),
     );

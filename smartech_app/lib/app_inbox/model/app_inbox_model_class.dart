@@ -23,12 +23,14 @@ import 'package:smartech_app/utils/utils.dart';
 class Inbox {
   final String appInboxCategory;
   final String appInboxTtl;
+  final String body;
   final AttrParams? attrParams;
-  final List<dynamic> carousel;
+  final List<Carousel> carousel;
   final dynamic customPayload;
   final String deeplink;
   final String expiry;
   final String image;
+  final String mediaUrl;
   final String message;
   final dynamic pnMeta;
   final DateTime? publishedDate;
@@ -37,7 +39,7 @@ class Inbox {
   final bool sound;
   final String status;
   final String subtitle;
-  final String timestamp;
+  final int timestamp;
   final String title;
   final String trid;
   final NotificationType type;
@@ -45,12 +47,14 @@ class Inbox {
   Inbox({
     this.appInboxCategory = "",
     this.appInboxTtl = "",
+    this.body = "",
     this.attrParams,
     this.carousel = const [],
     this.customPayload,
     this.deeplink = "",
     this.expiry = "",
     this.image = "",
+    this.mediaUrl = "",
     this.message = "",
     this.pnMeta,
     this.publishedDate,
@@ -59,7 +63,7 @@ class Inbox {
     this.sound = false,
     this.status = "",
     this.subtitle = "",
-    this.timestamp = "",
+    this.timestamp = 0,
     this.title = "",
     this.trid = "",
     this.type = NotificationType.simple,
@@ -69,15 +73,17 @@ class Inbox {
     return Inbox(
       appInboxCategory: json['app_inbox_category'] ?? "",
       appInboxTtl: json['app_inbox_ttl'] ?? "",
+      body: json['body'] ?? "",
       attrParams: AttrParams.fromJson(json['attrParams'] ?? {}),
-      carousel: json['carousel'] ?? [],
+      carousel: (json['carousel'] as List).map((e) => Carousel.fromJson(e)).toList(),
       customPayload: json['customPayload'] ?? {},
       deeplink: json['deeplink'] ?? "",
       expiry: json['expiry'] ?? "",
       image: json['image'] ?? "",
+      mediaUrl: json['mediaUrl'] ?? "",
       message: json['message'] ?? "",
       pnMeta: json['pnMeta'] ?? {},
-      publishedDate: DateFormat("yyyy-MM-ddTHH:mm:ss").parse(json['publishedDate'] ?? "", false).toLocal(),
+      publishedDate: DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(json['publishedDate'] ?? "", false).toLocal(),
       smtCustomPayload: json['smtCustomPayload'] ?? {},
       smtSrc: json['smtSrc'] ?? "",
       sound: json['sound'] ?? false,
@@ -131,4 +137,22 @@ class Category {
         "position": position,
         "state": state,
       };
+}
+
+class Carousel {
+  final String imgDeeplink;
+  final String imgMsg;
+  final String imgTitle;
+  final String imgUrl;
+
+  Carousel({this.imgDeeplink = "", this.imgMsg = "", this.imgTitle = "", this.imgUrl = ""});
+
+  factory Carousel.fromJson(Map json) {
+    return Carousel(
+      imgDeeplink: json['imgDeeplink'] ?? "",
+      imgMsg: json['imgMsg'] ?? "",
+      imgTitle: json['imgTitle'] ?? "",
+      imgUrl: json['imgUrl'] ?? "",
+    );
+  }
 }

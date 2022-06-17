@@ -34,25 +34,27 @@ class GIFNotificationView extends StatelessWidget {
               height: 4,
             ),
             Text(
-              inbox.message,
+              inbox.body,
               style: TextStyle(fontSize: 14, color: AppColor.greyColorText, fontWeight: FontWeight.w500),
             ),
             SizedBox(
               height: 8,
             ),
-            Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width - 26,
-                height: 162,
-                child: CachedNetworkImage(
-                  fit: BoxFit.fill,
-                  placeholder: (context, url) => Center(
-                    child: CupertinoActivityIndicator(),
-                  ),
-                  imageUrl: inbox.image.toString(),
-                ),
-              ),
-            ),
+            inbox.mediaUrl != ""
+                ? Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width - 26,
+                      height: 162,
+                      child: CachedNetworkImage(
+                        fit: BoxFit.fill,
+                        placeholder: (context, url) => Center(
+                          child: CupertinoActivityIndicator(),
+                        ),
+                        imageUrl: inbox.mediaUrl.toString(),
+                      ),
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),
