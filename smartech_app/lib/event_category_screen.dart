@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_app/event_list_screen.dart';
 import 'package:smartech_app/events_utils.dart' as eventUtils;
-import 'utils/utils.dart';
 
 class EventCategoryScreen extends StatefulWidget {
   const EventCategoryScreen({Key? key}) : super(key: key);

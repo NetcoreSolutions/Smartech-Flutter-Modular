@@ -1,19 +1,18 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smartech_app/app_inbox/model/app_inbox_model_class.dart';
-import 'package:smartech_app/utils/utils.dart';
+import 'package:smartech_app/app_inbox/model/smt_appinbox_model_class.dart';
+import 'package:smartech_app/app_inbox/utils/enums.dart';
+import 'package:smartech_app/app_inbox/utils/utils.dart';
 
-class CorousleNotificationView extends StatefulWidget {
-  final Inbox inbox;
-  const CorousleNotificationView({Key? key, required this.inbox}) : super(key: key);
+class SMTCarouselNotificationView extends StatefulWidget {
+  final SMTInbox inbox;
+  const SMTCarouselNotificationView({Key? key, required this.inbox}) : super(key: key);
 
   @override
-  State<CorousleNotificationView> createState() => _CorousleNotificationViewState();
+  State<SMTCarouselNotificationView> createState() => _SMTCarouselNotificationViewState();
 }
 
-class _CorousleNotificationViewState extends State<CorousleNotificationView> {
+class _SMTCarouselNotificationViewState extends State<SMTCarouselNotificationView> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
   List<Widget> imageSliders = [];
@@ -97,7 +96,7 @@ class _CorousleNotificationViewState extends State<CorousleNotificationView> {
                 items: imageSliders,
                 carouselController: _controller,
                 options: CarouselOptions(
-                    autoPlay: true,
+                    autoPlay: false,
                     enlargeCenterPage: true,
                     aspectRatio: 1.8,
                     onPageChanged: (index, reason) {

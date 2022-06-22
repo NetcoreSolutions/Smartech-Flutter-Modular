@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_app/payload_screen.dart';
-import 'package:smartech_app/utils/utils.dart';
 import 'package:smartech_app/events_utils.dart' as eventUtils;
 import 'package:smartech_base/smartech.dart';
 

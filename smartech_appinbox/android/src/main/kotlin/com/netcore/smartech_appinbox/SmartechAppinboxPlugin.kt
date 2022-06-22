@@ -55,11 +55,31 @@ class SmartechAppinboxPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         val categoryList = smartAppInbox.getAppInboxCategoryList()
         result.success(Gson().toJson(categoryList))
       }
+      "getAppInboxCategoryWiseMessageList" -> {
+        var categoryList = call.argument<List<String>>("group_id") as ArrayList<String>
+        Log.d("categoryList", "" + categoryList)
+        categoryList?.let{
+          val categoryFilteredData = smartAppInbox.getAppInboxMessages(categoryList)
+          Log.d("categoryFilteredData", "" + categoryFilteredData)
+          result.success(Gson().toJson(categoryFilteredData))
+        }
+      }
+  /** "markMessageAsDismissed" -> {
+        markMessageAsDismissed(call.arguments as HashMap<String, Any>)
+        result.success(null)
+      } */
       else -> {
         result.notImplemented()
       }
     }
   }
+
+ /** private fun markMessageAsDismissed(payload: HashMap<String, Any>) {
+   /// smartAppInbox.markMessageAsDismissed(payload["payload_data"] as HashMap<String, Any>)
+    var objInbox = payload["payload_data"] as HashMap<String, Any>
+    SMTInboxMessageData appInboxMessage = smartAppInbox.getAppInboxMessageById((String) objInbox.get("trid"));\
+    smartAppInbox.markMessageAsDismissed(appInboxMessage)
+  } */
 
   private fun getAppInboxMessagesByCategory(payload: HashMap<String, Any>) {
       val builder = SMTAppInboxRequestBuilder.Builder(SMTInboxDataType.ALL)

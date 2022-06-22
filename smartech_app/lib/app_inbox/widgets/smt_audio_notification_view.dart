@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:smartech_app/app_inbox/model/app_inbox_model_class.dart';
-import 'package:smartech_app/utils/audio_page_manager.dart';
-import 'package:smartech_app/utils/utils.dart';
+import 'package:smartech_app/app_inbox/model/smt_appinbox_model_class.dart';
+import 'package:smartech_app/app_inbox/utils/audio_page_manager.dart';
+import 'package:smartech_app/app_inbox/utils/utils.dart';
 
-class AudioNotificationView extends StatefulWidget {
-  final Inbox inbox;
-  const AudioNotificationView({Key? key, required this.inbox}) : super(key: key);
+class SMTAudioNotificationView extends StatefulWidget {
+  final SMTInbox inbox;
+  const SMTAudioNotificationView({Key? key, required this.inbox}) : super(key: key);
 
   @override
-  State<AudioNotificationView> createState() => _AudioNotificationViewState();
+  State<SMTAudioNotificationView> createState() => _SMTAudioNotificationViewState();
 }
 
-class _AudioNotificationViewState extends State<AudioNotificationView> with WidgetsBindingObserver {
+class _SMTAudioNotificationViewState extends State<SMTAudioNotificationView> with WidgetsBindingObserver {
   final _player = AudioPlayer();
   @override
   void initState() {

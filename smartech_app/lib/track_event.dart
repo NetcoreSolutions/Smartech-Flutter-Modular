@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_json_viewer/flutter_json_viewer.dart';
-import 'package:smartech_app/utils/utils.dart';
+import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_base/smartech.dart';
 
 class TrackEventScreen extends StatelessWidget {

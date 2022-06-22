@@ -1,10 +1,8 @@
-
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 
 class Smartech {
-
   static const MethodChannel _channel = MethodChannel('smartech_base_channel');
   static late CustomHTMLCallback _customHTMLCallback;
   static late OnhandleDeeplinkAction _onhandleDeeplinkAction;
@@ -141,12 +139,10 @@ class Smartech {
           isAfterTerminated = call.arguments["isAfterTerminated"] as bool?;
           map = call.arguments["customPayload"] as Map<dynamic, dynamic>?;
         }
-        _onhandleDeeplinkAction(
-            call.arguments["deeplinkURL"] as dynamic, map, isAfterTerminated);
+        _onhandleDeeplinkAction(call.arguments["deeplinkURL"] as dynamic, map, isAfterTerminated);
         break;
     }
   }
-
 }
 
 class DebugLevel {
@@ -162,5 +158,4 @@ class DebugLevel {
 
 //custom type defined
 typedef CustomHTMLCallback = Future<dynamic> Function(Map<String, dynamic>? payload);
-typedef OnhandleDeeplinkAction = Function(String? deeplinkigUrl,Map<dynamic, dynamic>? payload, bool? isAfterTerminated);
-
+typedef OnhandleDeeplinkAction = Function(String? deeplinkigUrl, Map<dynamic, dynamic>? payload, bool? isAfterTerminated);

@@ -2,37 +2,63 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/dropdown/gf_multiselect.dart';
-import 'package:getwidget/types/gf_checkbox_type.dart';
-import 'package:smartech_app/app_inbox/model/app_inbox_model_class.dart';
-import 'package:smartech_app/app_inbox/widgets/audio_notification_view.dart';
-import 'package:smartech_app/app_inbox/widgets/corousle_notification_view.dart';
-import 'package:smartech_app/app_inbox/widgets/gif_notification_view.dart';
-import 'package:smartech_app/app_inbox/widgets/image_notification_view.dart';
-import 'package:smartech_app/app_inbox/widgets/simple_notification_view.dart';
-import 'package:smartech_app/utils/utils.dart';
+import 'package:smartech_app/app_inbox/model/smt_appinbox_model_class.dart';
+import 'package:smartech_app/app_inbox/utils/enums.dart';
+import 'package:smartech_app/app_inbox/widgets/smt_audio_notification_view.dart';
+import 'package:smartech_app/app_inbox/widgets/smt_carousel_notification_view.dart';
+import 'package:smartech_app/app_inbox/widgets/smt_gif_notification_view.dart';
+import 'package:smartech_app/app_inbox/widgets/smt_image_notification_view.dart';
+import 'package:smartech_app/app_inbox/widgets/smt_simple_notification_view.dart';
 import 'package:smartech_appinbox/smartech_appinbox.dart';
-import '../utils/enums.dart';
 
-class AppInboxScreen extends StatefulWidget {
-  const AppInboxScreen({Key? key}) : super(key: key);
+class SMTAppInboxScreen extends StatefulWidget {
+  const SMTAppInboxScreen({Key? key}) : super(key: key);
 
   @override
-  State<AppInboxScreen> createState() => _AppInboxScreenState();
+  State<SMTAppInboxScreen> createState() => _SMTAppInboxScreenState();
 }
 
-class _AppInboxScreenState extends State<AppInboxScreen> {
+class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
   List<Category> categoryList = [];
-  List<Inbox> inboxList = [];
+  List<SMTInbox> inboxList = [];
+  List<SMTInbox> allInboxList = [];
+
   var appBarHeight = AppBar().preferredSize.height;
   CustomPopupMenuController _controller = CustomPopupMenuController();
 
+  var payload = {
+    "mDownloadStatus": 0,
+    "mIsDownloadInProgress": false,
+    "mIsForInbox": false,
+    "mMediaLocalPath": "",
+    "smtCustomPayload": {},
+    "smtPayload": {
+      "actionButton": [],
+      "appInboxCategory": "cat5",
+      "attrParams": {"__sta": "vhg.uosvpxbspoi%7CHYU", "__stm_id": "364", "__stm_medium": "apn", "__stm_source": "smartech"},
+      "body": "TEst notification",
+      "carousel": [],
+      "deeplink": "",
+      "isStreamable": false,
+      "mediaUrl": "",
+      "publishedDate": "2022-06-22T11:23:53",
+      "status": "viewed",
+      "subTitle": "",
+      "timestamp": 1655897044862,
+      "title": "Test",
+      "trid": "140578-364-94-0-220622165357",
+      "trid_original": "140578-364-94-0-220622165357",
+      "ttl": "2022-07-13T13:06:41",
+      "type": "Simple"
+    }
+  };
+
   @override
   void initState() {
-    // TODO: implement initState
-    getCategoryList();
-    getMessagesList();
     super.initState();
+    getCategoryList();
+    getAppInboxCategoryWiseMessageList();
+    getMessagesList(); // This method use to get all types of notifications
   }
 
   @override
@@ -49,66 +75,60 @@ class _AppInboxScreenState extends State<AppInboxScreen> {
     });
   }
 
-  getMessagesList() async {
-    await SmartechAppinbox().getAppInboxMessages().then((value) {
+  getAppInboxCategoryWiseMessageList() async {
+    inboxList = [];
+    await SmartechAppinbox()
+        .getAppInboxCategoryWiseMessageList(categoryList.where((element) => element.selected).map((e) => e.name).toList())
+        .then((value) {
       var json = jsonDecode(value.toString());
-      log(json[3].toString());
-      inboxList = [...json.map((e) => Inbox.fromJson(e['smtPayload'])).toList()];
-      log(inboxList[0].toString());
+      inboxList = [...json.map((e) => SMTInbox.fromJson(e['smtPayload'])).toList()];
       setState(() {});
+      // markMessageAsDismissed(payload);
     });
   }
 
-  // var _items = categoryList.map((category) => MultiSelectItem<Category>(category, category.name)).toList();
-  List<String> selected = [];
+  markMessageAsDismissed(Map<String, dynamic> payload) async {
+    await SmartechAppinbox().markMessageAsDismissed(payload);
+  }
+
+  /// ======>  This is method to get all notifications <======= ///
+  getMessagesList() async {
+    await SmartechAppinbox().getAppInboxMessages().then((value) {
+      var json = jsonDecode(value.toString());
+      log(json.toString());
+      allInboxList = [...json.map((e) => SMTInbox.fromJson(e['smtPayload'])).toList()];
+      log(allInboxList[0].toString());
+      // setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Notifications",
+        leading: Center(
+          child: Text(
+            "Notifications",
+            style: TextStyle(color: Colors.black, fontSize: 16),
+          ),
         ),
+        leadingWidth: MediaQuery.of(context).size.width / 2,
         centerTitle: true,
-        backgroundColor: AppColor.secondary,
+        backgroundColor: Colors.white,
         actions: [
           CustomPopupMenu(
             child: Container(
-              child: Icon(Icons.add_circle_outline, color: Colors.white),
+              child: Icon(Icons.menu, color: Colors.black),
               padding: EdgeInsets.all(20),
             ),
-            menuBuilder: () => Container(
-              color: Colors.white,
-              width: 150,
-              child: Expanded(
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return CheckboxListTile(
-                        title: Text(
-                          categoryList[index].name,
-                          style: TextStyle(color: Colors.black, fontSize: 16),
-                        ),
-                        autofocus: false,
-                        dense: true,
-                        activeColor: Colors.green,
-                        checkColor: Colors.white,
-                        selected: false,
-                        value: false,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            // _value = value;
-                          });
-                        },
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return Divider(
-                        height: 1,
-                      );
-                    },
-                    itemCount: categoryList.length),
-              ),
+            menuBuilder: () => CategoryListWidget(
+              categoryList,
+              (selectedList) {
+                categoryList = selectedList;
+                print(categoryList);
+                getAppInboxCategoryWiseMessageList();
+                setState(() {});
+              },
             ),
             pressType: PressType.singleClick,
             verticalMargin: -10,
@@ -116,43 +136,178 @@ class _AppInboxScreenState extends State<AppInboxScreen> {
           ),
         ],
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: double.infinity,
-        padding: EdgeInsets.only(left: 8, right: 8),
-        child: ListView.builder(
-          itemCount: inboxList.length,
-          itemBuilder: (BuildContext context, int index) {
-            switch (inboxList[index].type) {
-              case NotificationType.image:
-                return ImageNotificationView(
-                  inbox: inboxList[index],
-                );
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 16, right: 16, top: 8),
+            child: MultiSelectChip(categoryList.where((element) => (element.selected == true)).toList(), onSelectionChanged: (selectedList) {
+              getAppInboxCategoryWiseMessageList();
+              setState(() {});
+            }),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: inboxList.length,
+              itemBuilder: (BuildContext context, int index) {
+                switch (inboxList[index].type) {
+                  case SMTNotificationType.image:
+                    return SMTImageNotificationView(
+                      inbox: inboxList[index],
+                    );
 
-              case NotificationType.gif:
-                return GIFNotificationView(
-                  inbox: inboxList[index],
-                );
+                  case SMTNotificationType.gif:
+                    return GIFNotificationView(
+                      inbox: inboxList[index],
+                    );
 
-              case NotificationType.audio:
-                return AudioNotificationView(
-                  inbox: inboxList[index],
-                );
+                  case SMTNotificationType.audio:
+                    return SMTAudioNotificationView(
+                      inbox: inboxList[index],
+                    );
 
-              case NotificationType.carouselLandscape:
-                return CorousleNotificationView(
-                  inbox: inboxList[index],
-                );
+                  case SMTNotificationType.carouselLandscape:
+                  case SMTNotificationType.carouselPortrait:
+                    return SMTCarouselNotificationView(
+                      inbox: inboxList[index],
+                    );
 
-              case NotificationType.simple:
-              default:
-                return SimpleNotificationView(
-                  inbox: inboxList[index],
-                );
-            }
+                  case SMTNotificationType.simple:
+                  default:
+                    return SMTSimpleNotificationView(
+                      inbox: inboxList[index],
+                    );
+                }
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MultiSelectChip extends StatefulWidget {
+  final List<Category> categoryList;
+  final Function(List<Category>) onSelectionChanged;
+  MultiSelectChip(this.categoryList, {required this.onSelectionChanged});
+  @override
+  _MultiSelectChipState createState() => _MultiSelectChipState();
+}
+
+class _MultiSelectChipState extends State<MultiSelectChip> {
+  @override
+  void initState() {
+    super.initState();
+    print("selected chip count: " + widget.categoryList.length.toString());
+  }
+
+  _buildChoiceList() {
+    List<Widget> choices = [];
+    widget.categoryList.forEach((item) {
+      choices.add(Container(
+        padding: EdgeInsets.only(right: 12),
+        child: ChoiceChip(
+          selectedColor: Colors.white,
+          label: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                item.name,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Icon(
+                  Icons.cancel_outlined,
+                  size: 22,
+                ),
+              )
+            ],
+          ),
+          selected: item.selected,
+          onSelected: (selected) {
+            setState(() {
+              item.selected = selected;
+              widget.onSelectionChanged(widget.categoryList);
+            });
           },
         ),
-      ),
+      ));
+    });
+    return choices;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      children: _buildChoiceList(),
+    );
+  }
+}
+
+class CategoryListWidget extends StatefulWidget {
+  final List<Category> categoryList;
+  final Function(List<Category>) onSelected;
+
+  CategoryListWidget(this.categoryList, this.onSelected);
+
+  @override
+  State<CategoryListWidget> createState() => _CategoryListWidgetState();
+}
+
+class _CategoryListWidgetState extends State<CategoryListWidget> {
+  List<Category> categoryList = [];
+  @override
+  void initState() {
+    super.initState();
+    categoryList = [...widget.categoryList];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      width: 150,
+      child: ListView.separated(
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {
+                setState(() {
+                  categoryList[index].selected = !categoryList[index].selected;
+                });
+                widget.onSelected(categoryList);
+              },
+              child: CheckboxListTile(
+                title: Text(
+                  categoryList[index].name,
+                  style: TextStyle(color: Colors.black, fontSize: 16),
+                ),
+                autofocus: false,
+                dense: true,
+                activeColor: Colors.green,
+                checkColor: Colors.white,
+                selected: categoryList[index].selected,
+                value: categoryList[index].selected,
+                onChanged: (bool? value) {
+                  setState(() {
+                    categoryList[index].selected = !categoryList[index].selected;
+                  });
+                  widget.onSelected(categoryList);
+                },
+              ),
+            );
+          },
+          separatorBuilder: (context, index) {
+            return Divider(
+              height: 1,
+            );
+          },
+          itemCount: categoryList.length),
     );
   }
 }

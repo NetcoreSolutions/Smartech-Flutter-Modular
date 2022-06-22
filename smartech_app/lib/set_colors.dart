@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'main.dart';
-import 'utils/utils.dart';
+import 'package:smartech_app/app_inbox/utils/utils.dart';
 
 class SetIconColor extends StatelessWidget {
   @override

@@ -1,26 +1,8 @@
 import 'package:intl/intl.dart';
-import 'package:smartech_app/utils/enums.dart';
-import 'package:smartech_app/utils/utils.dart';
+import 'package:smartech_app/app_inbox/utils/enums.dart';
+import 'package:smartech_app/app_inbox/utils/utils.dart';
 
-// class AppInboxModel {
-//   final int inboxCount;
-//   final List<Inbox> inbox;
-//   final String message;
-//   final int code;
-
-//   AppInboxModel({this.inboxCount = 0, this.inbox = const [], this.message = "", this.code = 0});
-
-//   factory AppInboxModel.fromJson(Map json) {
-//     return AppInboxModel(
-//       inboxCount: json['inbox_count'] ?? 0,
-//       inbox: (json['inbox'] as List).map((e) => Inbox.fromJson(e)).toList(),
-//       message: json['message'] ?? "",
-//       code: json['code'] ?? 0,
-//     );
-//   }
-// }
-
-class Inbox {
+class SMTInbox {
   final String appInboxCategory;
   final String appInboxTtl;
   final String body;
@@ -42,9 +24,9 @@ class Inbox {
   final int timestamp;
   final String title;
   final String trid;
-  final NotificationType type;
+  final SMTNotificationType type;
 
-  Inbox({
+  SMTInbox({
     this.appInboxCategory = "",
     this.appInboxTtl = "",
     this.body = "",
@@ -66,12 +48,12 @@ class Inbox {
     this.timestamp = 0,
     this.title = "",
     this.trid = "",
-    this.type = NotificationType.simple,
+    this.type = SMTNotificationType.simple,
   });
 
-  factory Inbox.fromJson(Map json) {
-    return Inbox(
-      appInboxCategory: json['app_inbox_category'] ?? "",
+  factory SMTInbox.fromJson(Map json) {
+    return SMTInbox(
+      appInboxCategory: json['appInboxCategory'] ?? "",
       appInboxTtl: json['app_inbox_ttl'] ?? "",
       body: json['body'] ?? "",
       attrParams: AttrParams.fromJson(json['attrParams'] ?? {}),
@@ -83,7 +65,7 @@ class Inbox {
       mediaUrl: json['mediaUrl'] ?? "",
       message: json['message'] ?? "",
       pnMeta: json['pnMeta'] ?? {},
-      publishedDate: DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(json['publishedDate'] ?? "", false).toLocal(),
+      publishedDate: DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(json['publishedDate'] ?? "", true).toLocal(),
       smtCustomPayload: json['smtCustomPayload'] ?? {},
       smtSrc: json['smtSrc'] ?? "",
       sound: json['sound'] ?? false,
@@ -92,7 +74,7 @@ class Inbox {
       timestamp: json['timestamp'] ?? "",
       title: json['title'] ?? "",
       trid: json['trid'] ?? "",
-      type: ((json['type'] ?? "") as String).toLowerCase().getNotificationType(),
+      type: ((json['type'] ?? "") as String).toLowerCase().getSMTNotificationType(),
     );
   }
 }
@@ -119,23 +101,23 @@ class Category {
   Category({
     this.name = "",
     this.position = 0,
-    this.state = false,
+    this.selected = false,
   });
 
   final String name;
   final int position;
-  final bool state;
+  bool selected;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         name: json["name"],
         position: json["position"],
-        state: json["state"],
+        selected: json["state"],
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
         "position": position,
-        "state": state,
+        "state": selected,
       };
 }
 

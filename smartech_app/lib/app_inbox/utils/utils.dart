@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:smartech_app/utils/enums.dart';
+import 'package:smartech_app/app_inbox/utils/enums.dart';
 
 showToast(String msg) {
   Fluttertoast.showToast(
@@ -22,19 +22,21 @@ class AppColor {
 }
 
 extension test on String {
-  NotificationType getNotificationType() {
+  SMTNotificationType getSMTNotificationType() {
     switch (this) {
       case "audio":
-        return NotificationType.audio;
+        return SMTNotificationType.audio;
       case "image":
-        return NotificationType.image;
+        return SMTNotificationType.image;
       case "gif":
-        return NotificationType.gif;
+        return SMTNotificationType.gif;
       case "carousellandscape":
-        return NotificationType.carouselLandscape;
+        return SMTNotificationType.carouselLandscape;
+      case "carouselportrait":
+        return SMTNotificationType.carouselPortrait;
       case "simple":
       default:
-        return NotificationType.simple;
+        return SMTNotificationType.simple;
     }
   }
 }

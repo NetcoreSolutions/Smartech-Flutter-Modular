@@ -1,10 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smartech_app/app_inbox/model/app_inbox_model_class.dart';
-import 'package:smartech_app/utils/utils.dart';
+import 'package:smartech_app/app_inbox/model/smt_appinbox_model_class.dart';
+import 'package:smartech_app/app_inbox/utils/utils.dart';
 
-class SimpleNotificationView extends StatelessWidget {
-  final Inbox inbox;
-  const SimpleNotificationView({Key? key, required this.inbox}) : super(key: key);
+class GIFNotificationView extends StatelessWidget {
+  final SMTInbox inbox;
+  const GIFNotificationView({Key? key, required this.inbox}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -34,7 +36,24 @@ class SimpleNotificationView extends StatelessWidget {
             Text(
               inbox.body,
               style: TextStyle(fontSize: 14, color: AppColor.greyColorText, fontWeight: FontWeight.w500),
-            )
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            inbox.mediaUrl != ""
+                ? Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width - 26,
+                      child: CachedNetworkImage(
+                        fit: BoxFit.fill,
+                        placeholder: (context, url) => Center(
+                          child: CupertinoActivityIndicator(),
+                        ),
+                        imageUrl: inbox.mediaUrl.toString(),
+                      ),
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),

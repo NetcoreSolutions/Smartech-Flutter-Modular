@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_base/smartech.dart';
 import 'custom_event.dart';
 import 'login_screen.dart';
 import 'main.dart';
 import 'track_event.dart';
 import 'update_profile.dart';
-import 'utils/utils.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

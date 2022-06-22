@@ -1,11 +1,10 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smartech_app/app_inbox/app_inbox_screen.dart';
+import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_app/event_category_screen.dart';
 import 'package:smartech_app/login_screen.dart';
 import 'package:smartech_app/update_profile.dart';
-import 'package:smartech_app/utils/utils.dart';
 import 'package:smartech_appinbox/smartech_appinbox.dart';
 import 'package:smartech_base/smartech.dart';
 import 'package:smartech_push/smartech_push.dart';
@@ -609,7 +608,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           onTap: () {
                             // var temp = SmartechAppinbox().getAppInboxMessages();
                             // print(temp.toString());
-                            Navigator.of(context).push(MaterialPageRoute(builder: (builder) => const AppInboxScreen()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (builder) => const SMTAppInboxScreen()));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
