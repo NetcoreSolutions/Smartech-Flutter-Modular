@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smartech_app/app_inbox/model/smt_appinbox_model_class.dart';
-import 'package:smartech_app/app_inbox/utils/enums.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
 
 class SMTCarouselNotificationView extends StatefulWidget {
@@ -28,7 +27,7 @@ class _SMTCarouselNotificationViewState extends State<SMTCarouselNotificationVie
                   width: double.infinity,
                   child: Image.network(
                     item.imgUrl,
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 SizedBox(
