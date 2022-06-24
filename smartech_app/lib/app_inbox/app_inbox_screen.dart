@@ -72,8 +72,6 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
       var json = jsonDecode(value.toString());
       log(json.toString());
       allInboxList = [...json.map((e) => SMTInbox.fromJson(e['smtPayload'])).toList()];
-      log(allInboxList[0].toString());
-      // setState(() {});
     });
   }
 

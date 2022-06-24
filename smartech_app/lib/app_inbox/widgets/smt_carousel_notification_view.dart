@@ -23,7 +23,7 @@ class _SMTCarouselNotificationViewState extends State<SMTCarouselNotificationVie
         .map((item) => Column(
               children: <Widget>[
                 Container(
-                  height: 150,
+                  // height: 150,
                   width: double.infinity,
                   child: Image.network(
                     item.imgUrl,
