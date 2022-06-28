@@ -31,8 +31,8 @@ class SmartechAppinbox {
     return await _channel.invokeMethod("getAppInboxCategoryWiseMessageList", {"group_id": categoryList});
   }
 
-  Future<void> markMessageAsDismissed(String trId) async {
-    await _channel.invokeMethod("markMessageAsDismissed", {"tr_id": trId});
+  Future<void> markMessageAsDismissed(String trid) async {
+    await _channel.invokeMethod("markMessageAsDismissed", {"trid": trid});
   }
 
   Future<void> _didRecieveTranscript(MethodCall call) async {

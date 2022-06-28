@@ -65,8 +65,8 @@ class SmartechAppinboxPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         }
       }
      "markMessageAsDismissed" -> {
-        var trId = call.argument<String>("tr_id") as String
-        Log.d("trId", "" + trId)
+        var trId = call.argument<String>("trid") as String
+        Log.d("trid", "" + trId)
         val appInboxMessage = smartAppInbox.getAppInboxMessageById(trId)
           appInboxMessage?.let{
             smartAppInbox.markMessageAsDismissed(appInboxMessage)

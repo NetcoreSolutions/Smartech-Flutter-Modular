@@ -1,9 +1,16 @@
+import 'dart:collection';
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smartech_app/deep_link_screen.dart';
 import 'package:smartech_app/events_utils.dart';
+import 'package:smartech_app/navigator.dart';
+import 'package:smartech_app/service_locator.dart';
+import 'package:smartech_app/utils.dart';
 import 'package:smartech_base/smartech.dart';
 import 'package:smartech_push/smartech_push.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,40 +20,33 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
 
   await Firebase.initializeApp();
 
   //Firebase initialize and it's callback
   if (Platform.isAndroid) {
-    await Firebase.initializeApp();
+    // await Firebase.initializeApp();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) {
+      log(map.toString());
+      if (link.toString() != "" || map!.isNotEmpty) {
+        // Future.delayed(const Duration(seconds: 1), () {
+        Map<String, dynamic> dict = HashMap();
+        log(map.toString());
+        dict["deepLinkData"] = map;
+        dict["deepLinkUrl"] = link;
+        dict["isFromNotification"] = true;
+        NavigationUtilities.pushRoute(DeepLinkScreen.route, args: dict);
+        // Smartech().openUrl(link!);
+        // });
+      } else {
+        return;
+      }
+    });
   }
-
-  Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) {
-    if (link == null || link.isEmpty) {
-      return;
-    }
-    if (link.contains('http')) {
-      showDialog(
-          context: _context,
-          builder: (builder) => AlertDialog(
-                title: Text(link),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(_context).pop();
-                        Smartech().openUrl(link);
-                      },
-                      child: Text("Ok"))
-                ],
-              ));
-    } else {
-      Navigator.of(_context).push(MaterialPageRoute(builder: (builder) => ProfilePage()));
-    }
-  });
-
   await loadEventsJson();
-
   runApp(MyApp());
   getLocation();
 }
@@ -92,6 +92,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: NavigationUtilities.key,
+      onGenerateRoute: onGenerateRoute,
       title: 'Base',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

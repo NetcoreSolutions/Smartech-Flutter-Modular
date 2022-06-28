@@ -4,6 +4,8 @@ import 'base_home_screen.dart';
 import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _StateSplashScreen();
 }

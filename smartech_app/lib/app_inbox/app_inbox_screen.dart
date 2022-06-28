@@ -30,6 +30,7 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
   @override
   void initState() {
     super.initState();
+
     getCategoryList();
     getAppInboxCategoryWiseMessageList();
     getMessagesList(); // This method use to get all types of notifications
@@ -62,8 +63,8 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
     });
   }
 
-  markMessageAsDismissed(String trId) async {
-    await SmartechAppinbox().markMessageAsDismissed(trId);
+  markMessageAsDismissed(String trid) async {
+    await SmartechAppinbox().markMessageAsDismissed(trid);
   }
 
   /// ======>  This is method to get all notifications <======= ///

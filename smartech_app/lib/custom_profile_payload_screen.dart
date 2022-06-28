@@ -13,6 +13,7 @@ class CustomProfilePayloadScreen extends StatefulWidget {
 
 class _CustomProfilePayloadScreenState extends State<CustomProfilePayloadScreen> {
   final TextEditingController _controller = TextEditingController();
+  List<Widget> imageSliders = [];
 
   @override
   void initState() {

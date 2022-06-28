@@ -10,6 +10,8 @@ import com.netcore.smartech_appinbox.SmartechAppinboxPlugin
 import io.flutter.app.FlutterApplication
 import java.lang.ref.WeakReference
 
+
+
 class MyApplication: FlutterApplication(), SMTNotificationListener {
     override fun onCreate() {
         super.onCreate()
@@ -22,6 +24,7 @@ class MyApplication: FlutterApplication(), SMTNotificationListener {
 
         //Initialize Flutter Smartech Base Plugin
         SmartechBasePlugin.initializePlugin(this)
+      
 
         //Initialize Flutter Smartech Push Plugin
         SmartechPushPlugin.initializePlugin(this)
