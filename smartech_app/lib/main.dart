@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -10,11 +9,9 @@ import 'package:smartech_app/deep_link_screen.dart';
 import 'package:smartech_app/events_utils.dart';
 import 'package:smartech_app/navigator.dart';
 import 'package:smartech_app/service_locator.dart';
-import 'package:smartech_app/utils.dart';
 import 'package:smartech_base/smartech.dart';
 import 'package:smartech_push/smartech_push.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'profile_page.dart';
 import 'splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -32,15 +29,14 @@ void main() async {
     Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) {
       log(map.toString());
       if (link.toString() != "" || map!.isNotEmpty) {
-        // Future.delayed(const Duration(seconds: 1), () {
         Map<String, dynamic> dict = HashMap();
         log(map.toString());
         dict["deepLinkData"] = map;
         dict["deepLinkUrl"] = link;
-        dict["isFromNotification"] = true;
-        NavigationUtilities.pushRoute(DeepLinkScreen.route, args: dict);
-        // Smartech().openUrl(link!);
-        // });
+        NavigationUtilities.pushRoute(
+          DeepLinkScreen.route,
+          args: dict,
+        );
       } else {
         return;
       }
@@ -109,9 +105,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 }
 
-//static Build Context
-late BuildContext _context;
-
 //get Location
 void getLocation() async {
   Location location = Location();
@@ -176,4 +169,15 @@ void setupFirebase() async {
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   SmartechPush().handlePushNotification(message.data.toString());
+}
+
+class Globle {
+  static final Globle _singleton = Globle._internal();
+
+  factory Globle() {
+    return _singleton;
+  }
+
+  Globle._internal();
+  late BuildContext context;
 }

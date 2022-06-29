@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
+import 'package:smartech_app/main.dart';
 import 'package:smartech_app/register_screen.dart';
 import 'package:smartech_base/smartech.dart';
 
@@ -23,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Globle().context = context;
     return Scaffold(
       appBar: AppBar(
         title: Text(

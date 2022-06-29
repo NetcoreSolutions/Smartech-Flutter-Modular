@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
+import 'package:smartech_app/main.dart';
 
 class DeepLinkScreen extends StatefulWidget {
   static const String route = "DeepLinkScreen";
@@ -24,6 +25,7 @@ class _DeepLinkScreenState extends State<DeepLinkScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Globle().context = context;
     return Scaffold(
       appBar: AppBar(
         title: Text("Notification Data"),

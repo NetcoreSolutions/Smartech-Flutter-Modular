@@ -4,6 +4,7 @@ import 'package:smartech_app/app_inbox/app_inbox_screen.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_app/event_category_screen.dart';
 import 'package:smartech_app/login_screen.dart';
+import 'package:smartech_app/main.dart';
 import 'package:smartech_app/update_profile.dart';
 import 'package:smartech_appinbox/smartech_appinbox.dart';
 import 'package:smartech_base/smartech.dart';
@@ -26,10 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     fetchDetails();
+    Smartech().onHandleDeeplinkActionBackground();
   }
 
   @override
   Widget build(BuildContext context) {
+    Globle().context = context;
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
