@@ -45,12 +45,12 @@ class SMTImageNotificationView extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 26,
                 // height: 162,
                 child: CachedNetworkImage(
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   placeholder: (context, url) => Center(
                     child: CupertinoActivityIndicator(),
                   ),
-                  imageUrl: inbox.image != ""
-                      ? inbox.image.toString()
+                  imageUrl: inbox.mediaUrl != ""
+                      ? inbox.mediaUrl.toString()
                       : 'https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9',
                 ),
               ),

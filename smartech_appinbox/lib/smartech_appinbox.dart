@@ -35,6 +35,14 @@ class SmartechAppinbox {
     await _channel.invokeMethod("markMessageAsDismissed", {"trid": trid});
   }
 
+  Future<void> markMessageAsClicked(String deeplink, String trid) async {
+    await _channel.invokeMethod("markMessageAsClicked", {"deeplink": deeplink, "trid": trid});
+  }
+
+  Future<dynamic> getAppInboxMessagesByApiCall() async {
+    return await _channel.invokeMethod("getAppInboxMessagesByApiCall");
+  }
+
   Future<void> _didRecieveTranscript(MethodCall call) async {
     switch (call.method) {
       case "customHTMLCallback":

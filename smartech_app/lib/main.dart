@@ -22,6 +22,7 @@ void main() async {
   await Firebase.initializeApp();
 
   //Firebase initialize and it's callback
+
   if (Platform.isAndroid) {
     // await Firebase.initializeApp();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);

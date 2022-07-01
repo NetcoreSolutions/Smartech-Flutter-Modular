@@ -30,10 +30,10 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
   @override
   void initState() {
     super.initState();
-
-    getCategoryList();
     getAppInboxCategoryWiseMessageList();
-    getMessagesList(); // This method use to get all types of notifications
+    getMessageListByApiCall();
+    getCategoryList();
+    // getMessagesList(); // This method use to get all types of notifications
   }
 
   @override
@@ -67,12 +67,23 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
     await SmartechAppinbox().markMessageAsDismissed(trid);
   }
 
+  markMessageAsClicked(String deeplink, String trid) async {
+    await SmartechAppinbox().markMessageAsClicked(deeplink, trid);
+  }
+
   /// ======>  This is method to get all notifications <======= ///
   getMessagesList() async {
     await SmartechAppinbox().getAppInboxMessages().then((value) {
       var json = jsonDecode(value.toString());
       log(json.toString());
       allInboxList = [...json.map((e) => SMTInbox.fromJson(e['smtPayload'])).toList()];
+    });
+  }
+
+  getMessageListByApiCall() async {
+    inboxList = [];
+    await SmartechAppinbox().getAppInboxMessagesByApiCall().then((value) {
+      setState(() {});
     });
   }
 
@@ -148,8 +159,13 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                                     color: AppColor.greyColorText,
                                   ),
                                 )),
-                            child: SMTImageNotificationView(
-                              inbox: inboxList[index],
+                            child: InkWell(
+                              onTap: () {
+                                markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
+                              },
+                              child: SMTImageNotificationView(
+                                inbox: inboxList[index],
+                              ),
                             ),
                           );
 
@@ -172,8 +188,13 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                                     color: AppColor.greyColorText,
                                   ),
                                 )),
-                            child: GIFNotificationView(
-                              inbox: inboxList[index],
+                            child: InkWell(
+                              onTap: () {
+                                markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
+                              },
+                              child: GIFNotificationView(
+                                inbox: inboxList[index],
+                              ),
                             ),
                           );
 
@@ -196,8 +217,13 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                                     color: AppColor.greyColorText,
                                   ),
                                 )),
-                            child: SMTAudioNotificationView(
-                              inbox: inboxList[index],
+                            child: InkWell(
+                              onTap: () {
+                                markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
+                              },
+                              child: SMTAudioNotificationView(
+                                inbox: inboxList[index],
+                              ),
                             ),
                           );
 
@@ -221,8 +247,13 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                                     color: AppColor.greyColorText,
                                   ),
                                 )),
-                            child: SMTCarouselNotificationView(
-                              inbox: inboxList[index],
+                            child: InkWell(
+                              onTap: () {
+                                markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
+                              },
+                              child: SMTCarouselNotificationView(
+                                inbox: inboxList[index],
+                              ),
                             ),
                           );
 
@@ -246,8 +277,13 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                                     color: AppColor.greyColorText,
                                   ),
                                 )),
-                            child: SMTSimpleNotificationView(
-                              inbox: inboxList[index],
+                            child: InkWell(
+                              onTap: () {
+                                markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
+                              },
+                              child: SMTSimpleNotificationView(
+                                inbox: inboxList[index],
+                              ),
                             ),
                           );
                       }
