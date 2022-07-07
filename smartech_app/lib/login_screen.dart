@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smartech_app/app_inbox/utils/utils.dart';
+import 'package:smartech_app/main.dart';
 import 'package:smartech_app/register_screen.dart';
-import 'package:smartech_app/utils.dart';
-import 'package:smartech_base/smartech.dart';
+import 'package:smartech_base/smartech_base.dart';
 
 import 'base_home_screen.dart';
 
@@ -13,7 +14,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   String _name = "";
 
   @override
@@ -24,9 +24,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Globle().context = context;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login To Your Account",),
+        title: Text(
+          "Login To Your Account",
+        ),
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
@@ -41,60 +44,64 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                    "When you do a login to your application you should call to login method of SmartechSDK",
+                  "When you do a login to your application you should call to login method of SmartechSDK",
                   style: TextStyle(color: Colors.blue, fontSize: 16, fontWeight: FontWeight.w400),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 40,),
+                SizedBox(
+                  height: 40,
+                ),
                 Container(
                   color: Colors.grey.shade200,
                   child: TextField(
-                    decoration: const InputDecoration(
-                        hintText: "Enter primary key as per Smartech Panel.",
-                      contentPadding: EdgeInsets.all(5)
-                    ),
+                    decoration: const InputDecoration(hintText: "Enter primary key as per Smartech Panel.", contentPadding: EdgeInsets.all(5)),
                     onChanged: (value) {
                       _name = value;
                     },
                   ),
                 ),
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
                 MaterialButton(
                   minWidth: double.infinity,
                   padding: EdgeInsets.all(15),
-                  child: Text("Login",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                  child: Text(
+                    "Login",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                   ),
                   color: Colors.deepOrange,
                   onPressed: () async {
                     if (_name.isNotEmpty) {
                       await Smartech().login(_name);
                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (builder) => HomeScreen()), (Route<dynamic> route) => false);
-                    }else{
+                    } else {
                       showToast("Please enter primary key");
                     }
-                    
                   },
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 MaterialButton(
                   minWidth: double.infinity,
                   padding: EdgeInsets.all(15),
-                  child: Text("Create An Account",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                  child: Text(
+                    "Create An Account",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                   ),
                   color: Colors.blue,
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen(),));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegisterScreen(),
+                        ));
                   },
                 ),
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
                 Center(
                   child: InkWell(
                     onTap: () {
@@ -112,7 +119,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-
     );
   }
 }

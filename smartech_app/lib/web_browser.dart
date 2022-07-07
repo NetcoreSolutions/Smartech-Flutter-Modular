@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class WebBrowsers extends StatefulWidget {
   final String initialUrl;
@@ -13,9 +12,7 @@ class WebBrowsers extends StatefulWidget {
 class _StateWebBrowser extends State<WebBrowsers> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
   @override

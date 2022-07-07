@@ -1,23 +1,15 @@
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
-showToast(String msg){
-  Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.green,
-      textColor: Colors.white,
-      fontSize: 13.0);
-}
+class NavigationService {
+  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
-class AppColor {
+  getCurrentRoute() {}
 
-  static const Color primary = Color(0xFFFF753F);
-  static const Color secondary = Color(0xFF025BBF);
-  static const Color accent1 = Color(0xFF32C759);
-  static const Color accent2 = Color(0xFF025BBF);
+  Future<dynamic> navigateTO(String routeName) {
+    return navigatorKey.currentState!.pushNamed(routeName);
+  }
 
+  Future<dynamic> navigateToWithReplacement(String routeName) {
+    return navigatorKey.currentState!.pushReplacementNamed(routeName);
+  }
 }

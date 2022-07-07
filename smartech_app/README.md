@@ -1,16 +1,15 @@
-# smartech_app
 
-A new Flutter project.
+![Logo](https://netcorecloud.com/wp-content/themes/netcoretheme/assets/images/netcore-logo-main.svg)
+# Smartech-App
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+A Demo app to showcase all the functionality for Smartech Flutter SDK.
 
-A few resources to get you started if this is your first Flutter project:
+## Developer Docs
+To get started please refer to our developer docs to know how to make use of our Plugin to track Events and User Attributes, How to implement Push Notification and How to show In-App Messages.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+[Developer Docs](https://docs.netcoresmartech.com/docs/flutter-sdk-integration)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Support
+Please visit this repository's [Github issue tracker](https://github.com/NetcoreSolutions/Smartech-Flutter-Modular/issues) for any bug reports specific to our Flutter Plugin.

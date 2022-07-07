@@ -105,22 +105,22 @@ class SmartechPushPlugin: FlutterPlugin, MethodCallHandler {
   private fun setNotificationOptions(payload: HashMap<String, Any>) {
     val option = SMTNotificationOptions(context)
     if (payload["smallIconTransparentId"] != null) {
-      option.smallIconTransparentId = getIconResourceId(payload["smallIconTransparentId"] as String)
+      option.smallIconTransparent = payload["smallIconTransparentId"] as String
     }
     if (payload["largeIconId"] != null) {
-      option.largeIconId = getIconResourceId(payload["largeIconId"] as String)
+      option.largeIcon = payload["largeIconId"] as String
     }
     if (payload["placeHolderIcon"] != null) {
-      option.placeHolderIcon = getIconResourceId(payload["placeHolderIcon"] as String)
+      option.placeHolderIcon = payload["placeHolderIcon"] as String
     }
     if (payload["smallIconId"] != null) {
-      option.smallIconId = getIconResourceId(payload["smallIconId"] as String)
+      option.smallIcon = payload["smallIconId"] as String
     }
     if (payload["transparentIconBgColor"] != null) {
       option.transparentIconBgColor = payload["transparentIconBgColor"] as String
     }
-    smartPush.setNotificationOptions(option)
-  }
+      smartPush.setNotificationOptions(option)
+    }
 
   private fun getIconResourceId(iconName: String) : Int {
     return context.getResources().getIdentifier(iconName, "drawable", context.getPackageName())

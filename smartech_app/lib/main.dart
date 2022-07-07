@@ -1,52 +1,64 @@
+import 'dart:collection';
+import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smartech_app/deep_link_screen.dart';
 import 'package:smartech_app/events_utils.dart';
-import 'package:smartech_base/smartech.dart';
+import 'package:smartech_app/navigator.dart';
+import 'package:smartech_app/service_locator.dart';
+import 'package:smartech_base/smartech_base.dart';
 import 'package:smartech_push/smartech_push.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'profile_page.dart';
 import 'splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  log("Start time: " + DateTime.now().toString());
+  await Firebase.initializeApp();
+  log("End time: " + DateTime.now().toString());
+
+  SmartechPush().handlePushNotification(message.data.toString());
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
 
   await Firebase.initializeApp();
 
   //Firebase initialize and it's callback
+
   if (Platform.isAndroid) {
-    await Firebase.initializeApp();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) async {
+      log(map.toString());
+
+      if (link.toString() != "" || map!.isNotEmpty) {
+        Map<String, dynamic> dict = HashMap();
+        log(map.toString());
+        dict["deepLinkData"] = map;
+        dict["deepLinkUrl"] = link;
+        dict["isFromScreen"] = false;
+        if (link!.contains("http")) {
+          print("navigate to browser with url");
+          final Uri _url = Uri.parse(dict["deepLinkUrl"]);
+          if (!await launchUrl(_url)) throw 'Could not launch $_url';
+        } else {
+          NavigationUtilities.pushRoute(
+            DeepLinkScreen.route,
+            args: dict,
+          );
+        }
+      } else {
+        return;
+      }
+    });
   }
-
-  Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) {
-    if (link == null || link.isEmpty) {
-      return;
-    }
-    if (link.contains('http')) {
-      showDialog(
-          context: _context,
-          builder: (builder) => AlertDialog(
-                title: Text(link),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(_context).pop();
-                        Smartech().openUrl(link);
-                      },
-                      child: Text("Ok"))
-                ],
-              ));
-    } else {
-      Navigator.of(_context).push(MaterialPageRoute(builder: (builder) => ProfilePage()));
-    }
-  });
-
   await loadEventsJson();
-
   runApp(MyApp());
   getLocation();
 }
@@ -92,6 +104,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: NavigationUtilities.key,
+      onGenerateRoute: onGenerateRoute,
       title: 'Base',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -107,15 +121,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 }
 
-//static Build Context
-late BuildContext _context;
-
 //get Location
 void getLocation() async {
   Location location = Location();
 
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
+  // ignore: unused_local_variable
   LocationData _locationData;
 
   _serviceEnabled = await location.serviceEnabled();
@@ -133,13 +145,9 @@ void getLocation() async {
       return;
     }
   }
-  //location.enableBackgroundMode(enable: true);
 
   _locationData = await location.getLocation();
 }
-
-//launch url
-void launchURL(String url) async => await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
 
 //Firebase initialize and it's callback
 //store and push firebase device token
@@ -171,7 +179,13 @@ void setupFirebase() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 }
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  SmartechPush().handlePushNotification(message.data.toString());
+class Globle {
+  static final Globle _singleton = Globle._internal();
+
+  factory Globle() {
+    return _singleton;
+  }
+
+  Globle._internal();
+  late BuildContext context;
 }

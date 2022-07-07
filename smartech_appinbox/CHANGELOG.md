@@ -1,3 +1,3 @@
-## 0.0.1
+## 3.2.0
 
-* TODO: Describe initial release.
+* Initial Release With Smartech Base Android SDK v3.2.6

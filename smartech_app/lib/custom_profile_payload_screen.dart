@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smartech_app/utils.dart';
-import 'package:smartech_base/smartech.dart';
+import 'package:smartech_app/app_inbox/utils/utils.dart';
+import 'package:smartech_base/smartech_base.dart';
 
 class CustomProfilePayloadScreen extends StatefulWidget {
   const CustomProfilePayloadScreen({Key? key}) : super(key: key);
@@ -12,8 +12,8 @@ class CustomProfilePayloadScreen extends StatefulWidget {
 }
 
 class _CustomProfilePayloadScreenState extends State<CustomProfilePayloadScreen> {
-
   final TextEditingController _controller = TextEditingController();
+  List<Widget> imageSliders = [];
 
   @override
   void initState() {
@@ -52,12 +52,17 @@ class _CustomProfilePayloadScreenState extends State<CustomProfilePayloadScreen>
                   style: TextStyle(color: Colors.blue, fontSize: 16, fontWeight: FontWeight.w400),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MaterialButton(
-                      child: Text("Copy", style: TextStyle(fontSize: 16, color: Colors.white),),
+                      child: Text(
+                        "Copy",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
                       color: Colors.blue,
                       onPressed: () {
                         Clipboard.setData(ClipboardData(text: _controller.text));
@@ -65,12 +70,15 @@ class _CustomProfilePayloadScreenState extends State<CustomProfilePayloadScreen>
                       },
                     ),
                     MaterialButton(
-                      child: Text("Paste", style: TextStyle(fontSize: 16, color: Colors.white),),
+                      child: Text(
+                        "Paste",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
                       color: Colors.blue,
                       onPressed: () async {
                         ClipboardData? data = await Clipboard.getData(Clipboard.kTextPlain);
-                        if(data != null){
-                          if(data.text != null) {
+                        if (data != null) {
+                          if (data.text != null) {
                             print("Paste ==> ${data.text}");
                             setState(() {
                               _controller.text = data.text!;
@@ -80,34 +88,41 @@ class _CustomProfilePayloadScreenState extends State<CustomProfilePayloadScreen>
                       },
                     ),
                     MaterialButton(
-                      child: Text("Clear", style: TextStyle(fontSize: 16, color: Colors.white),),
+                      child: Text(
+                        "Clear",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
                       color: Colors.red,
                       onPressed: () {
                         _controller.text = "";
                       },
                     ),
                     MaterialButton(
-                      child: Text("Update", style: TextStyle(fontSize: 16, color: Colors.white),),
+                      child: Text(
+                        "Update",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
                       color: Colors.deepOrange,
                       onPressed: () async {
-
-                        if(_controller.text.isEmpty){
+                        if (_controller.text.isEmpty) {
                           showToast("Payload must be required");
                           return;
                         }
 
-                        try{
+                        try {
                           final data = jsonDecode(_controller.text);
                           await Smartech().updateUserProfile(data);
                           showToast("Updated");
-                        }catch(e){
+                        } catch (e) {
                           showToast("Invalid payload");
                         }
                       },
                     ),
                   ],
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
                   color: Colors.grey.shade200,
                   padding: EdgeInsets.all(5),
@@ -115,7 +130,10 @@ class _CustomProfilePayloadScreenState extends State<CustomProfilePayloadScreen>
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Profile JSON Payload", style: TextStyle(color: Colors.deepOrange, fontSize: 12, fontWeight: FontWeight.w600),),
+                      Text(
+                        "Profile JSON Payload",
+                        style: TextStyle(color: Colors.deepOrange, fontSize: 12, fontWeight: FontWeight.w600),
+                      ),
                       TextFormField(
                         controller: _controller,
                         maxLines: 10000,
@@ -125,7 +143,9 @@ class _CustomProfilePayloadScreenState extends State<CustomProfilePayloadScreen>
                           border: InputBorder.none,
                         ),
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(
+                        height: 5,
+                      ),
                     ],
                   ),
                 ),

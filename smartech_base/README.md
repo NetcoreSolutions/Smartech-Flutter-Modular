@@ -1,15 +1,15 @@
-# smartech_base
 
-A new flutter plugin project.
+![Logo](https://netcorecloud.com/wp-content/themes/netcoretheme/assets/images/netcore-logo-main.svg)
+# Smartech-Base
 
-## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+Smartech is a omni channel platform that delivers everything you need to drive mobile engagement and create valuable consumer relationships on mobile. The Smartech Flutter Plugin enables your flutter app to use all of the features. This guide contains all the information you need to integrate the Smartech Flutter Plugin into your app.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Developer Docs
+To get started please refer to our developer docs to know how to make use of our Plugin to track Events and User Attributes, How to implement Push Notification and How to show In-App Messages.
 
+[Developer Docs](https://docs.netcoresmartech.com/docs/flutter-sdk-integration)
+
+
+## Support
+Please visit this repository's [Github issue tracker](https://github.com/NetcoreSolutions/Smartech-Flutter-Modular/issues) for any bug reports specific to our Flutter Plugin.
