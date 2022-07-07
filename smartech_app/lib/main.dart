@@ -15,6 +15,14 @@ import 'package:url_launcher/url_launcher.dart';
 import 'splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  log("Start time: " + DateTime.now().toString());
+  await Firebase.initializeApp();
+  log("End time: " + DateTime.now().toString());
+
+  SmartechPush().handlePushNotification(message.data.toString());
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
@@ -27,17 +35,25 @@ void main() async {
     // await Firebase.initializeApp();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-    Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) {
+    Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) async {
       log(map.toString());
+
       if (link.toString() != "" || map!.isNotEmpty) {
         Map<String, dynamic> dict = HashMap();
         log(map.toString());
         dict["deepLinkData"] = map;
         dict["deepLinkUrl"] = link;
-        NavigationUtilities.pushRoute(
-          DeepLinkScreen.route,
-          args: dict,
-        );
+        dict["isFromScreen"] = false;
+        if (link!.contains("http")) {
+          print("navigate to browser with url");
+          final Uri _url = Uri.parse(dict["deepLinkUrl"]);
+          if (!await launchUrl(_url)) throw 'Could not launch $_url';
+        } else {
+          NavigationUtilities.pushRoute(
+            DeepLinkScreen.route,
+            args: dict,
+          );
+        }
       } else {
         return;
       }
@@ -165,11 +181,6 @@ void setupFirebase() async {
     }
   });
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-}
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  SmartechPush().handlePushNotification(message.data.toString());
 }
 
 class Globle {

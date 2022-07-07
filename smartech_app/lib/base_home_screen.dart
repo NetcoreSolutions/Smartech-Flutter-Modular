@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:smartech_app/app_inbox/app_inbox_screen.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_app/event_category_screen.dart';
@@ -23,6 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _optPN = false, _optInAppMsg = false, _optEventTracking = false;
   bool _syncEventManually = false;
   String checkValue = "";
+
+  String appId = "";
+  String devicePushToken = "";
+  String deviceUniqueID = "";
+  String sdkVersion = "";
+
   @override
   void initState() {
     super.initState();
@@ -755,6 +762,27 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, right: 12, left: 12, bottom: 10),
+                child: Text(
+                  "SDK GET METHODS",
+                  style: TextStyle(color: Colors.black54),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: Colors.white,
+                padding: EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    getSdkMethod("App ID", appId),
+                    getSdkMethod("Device Push Token", devicePushToken),
+                    getSdkMethod("Device Unique I", deviceUniqueID),
+                    getSdkMethod("SDK Version", sdkVersion),
+                  ],
+                ),
+              ),
               SizedBox(
                 height: 40,
               ),
@@ -762,6 +790,55 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget getSdkMethod(String title, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              title,
+              style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 16),
+            ),
+            Spacer(),
+            InkWell(
+              onTap: () {
+                Clipboard.setData(ClipboardData(text: title + " : " + value)).then((result) {
+                  final snackBar = SnackBar(
+                    content: Text('Copied'),
+                    duration: Duration(milliseconds: 500),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar); // -> show a notification
+                });
+              },
+              child: Icon(
+                Icons.copy,
+                size: 18,
+                color: AppColor.secondary,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 4,
+        ),
+        Text(
+          value,
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16),
+        ),
+        SizedBox(
+          height: 4,
+        ),
+        Divider(
+          thickness: 1,
+        ),
+        SizedBox(
+          height: 12,
+        ),
+      ],
     );
   }
 
@@ -774,6 +851,42 @@ class _HomeScreenState extends State<HomeScreen> {
           _username = value.isEmpty ? "Guest User" : value;
         }
       });
+    });
+
+    Smartech().getAppID().then((value) {
+      if (value == null) {
+        appId = "-";
+      } else {
+        appId = value.isEmpty ? "-" : value;
+      }
+      setState(() {});
+    });
+
+    SmartechPush().getDevicePushToken().then((value) {
+      if (value == null) {
+        devicePushToken = "-";
+      } else {
+        devicePushToken = value.isEmpty ? "-" : value;
+      }
+      setState(() {});
+    });
+
+    Smartech().getDeviceUniqueId().then((value) {
+      if (value == null) {
+        deviceUniqueID = "-";
+      } else {
+        deviceUniqueID = value.isEmpty ? "-" : value;
+      }
+      setState(() {});
+    });
+
+    Smartech().getSDKVersion().then((value) {
+      if (value == null) {
+        sdkVersion = "-";
+      } else {
+        sdkVersion = value.isEmpty ? "-" : value;
+      }
+      setState(() {});
     });
 
     Smartech().hasOptedTracking().then((value) {

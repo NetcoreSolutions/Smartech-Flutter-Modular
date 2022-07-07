@@ -84,6 +84,15 @@ class SmartechAppinboxPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
           }        
         result.success(null)
       } 
+      "markMessageAsViewed" -> {
+        var trId = call.argument<String>("trid") as String
+        Log.d("trid", "" + trId)
+        val appInboxMessage = smartAppInbox.getAppInboxMessageById(trId)
+          appInboxMessage?.let{
+            smartAppInbox.markMessageAsViewed(appInboxMessage)
+          }        
+        result.success(null)
+      } 
       "getAppInboxMessagesByApiCall" -> {
         val builder = SMTAppInboxRequestBuilder.Builder(SMTInboxDataType.ALL).setCallback(object : SMTInboxCallback {
           override fun onInboxFail() {

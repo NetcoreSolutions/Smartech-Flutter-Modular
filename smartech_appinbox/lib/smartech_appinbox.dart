@@ -39,6 +39,10 @@ class SmartechAppinbox {
     await _channel.invokeMethod("markMessageAsClicked", {"deeplink": deeplink, "trid": trid});
   }
 
+  Future<void> markMessageAsViewed(String trid) async {
+    await _channel.invokeMethod("markMessageAsViewed", {"trid": trid});
+  }
+
   Future<dynamic> getAppInboxMessagesByApiCall() async {
     return await _channel.invokeMethod("getAppInboxMessagesByApiCall");
   }

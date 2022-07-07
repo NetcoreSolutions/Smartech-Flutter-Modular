@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smartech_app/app_inbox/model/smt_appinbox_model_class.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
@@ -13,48 +12,13 @@ class SMTCarouselNotificationView extends StatefulWidget {
 
 class _SMTCarouselNotificationViewState extends State<SMTCarouselNotificationView> {
   int _current = 0;
-  final CarouselController _controller = CarouselController();
   List<Widget> imageSliders = [];
+  late PageController _pageController;
 
   @override
   void initState() {
+    _pageController = PageController(initialPage: 0, viewportFraction: 1, keepPage: true);
     super.initState();
-    imageSliders = widget.inbox.carousel
-        .map((item) => Column(
-              children: <Widget>[
-                Container(
-                  // height: 150,
-                  width: double.infinity,
-                  child: Image.network(
-                    item.imgUrl,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  '${item.imgTitle.toString()}',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  '${item.imgMsg.toString()}',
-                  style: TextStyle(
-                    color: AppColor.greyColorText,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ))
-        .toList();
   }
 
   @override
@@ -90,37 +54,91 @@ class _SMTCarouselNotificationViewState extends State<SMTCarouselNotificationVie
             SizedBox(
               height: 16,
             ),
-            Column(children: [
-              CarouselSlider(
-                items: imageSliders,
-                carouselController: _controller,
-                options: CarouselOptions(
-                    autoPlay: false,
-                    enlargeCenterPage: true,
-                    aspectRatio: 1.8,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _current = index;
-                      });
+            Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Container(
+                height: 175,
+                child: PageView.builder(
+                    itemCount: widget.inbox.carousel.length,
+                    controller: _pageController,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                child: Image.network(
+                                  widget.inbox.carousel[index].imgUrl,
+                                  width: double.infinity,
+                                  height: 120,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Positioned(
+                                left: 0,
+                                bottom: 8,
+                                child: InkWell(
+                                  onTap: () {
+                                    _pageController.jumpToPage(index - 1);
+                                  },
+                                  child: Container(
+                                    color: Colors.white.withOpacity(0.6),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Icon(
+                                        Icons.arrow_back_ios_rounded,
+                                        size: 26,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                right: 0,
+                                bottom: 8,
+                                child: InkWell(
+                                  onTap: () {
+                                    if (index != widget.inbox.carousel.length - 1) _pageController.jumpToPage(index + 1);
+                                  },
+                                  child: Container(
+                                    color: Colors.white.withOpacity(0.6),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        size: 26,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            '${widget.inbox.carousel[index].imgTitle.toString()}',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            '${widget.inbox.carousel[index].imgMsg.toString()}',
+                            style: TextStyle(
+                              color: AppColor.greyColorText,
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      );
                     }),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: widget.inbox.carousel.asMap().entries.map((entry) {
-                  return GestureDetector(
-                    onTap: () => _controller.animateToPage(entry.key),
-                    child: Container(
-                      width: 12.0,
-                      height: 12.0,
-                      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: (Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black)
-                              .withOpacity(_current == entry.key ? 0.9 : 0.4)),
-                    ),
-                  );
-                }).toList(),
-              ),
+              )
             ]),
           ],
         ),

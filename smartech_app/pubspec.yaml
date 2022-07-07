@@ -43,16 +43,17 @@ dependencies:
   firebase_core:
   shared_preferences: ^2.0.12
   location: ^4.3.0
-  url_launcher: ^6.0.18
+  url_launcher: ^6.1.4
   flutter_json_viewer: ^1.0.1
   intl: ^0.17.0
   cached_network_image: ^3.2.1
-  carousel_slider: ^4.1.1
   just_audio: ^0.9.24
   rxdart: ^0.27.4
   getwidget: ^3.0.1
   custom_pop_up_menu: ^1.2.4
   get_it: ^7.2.0
+  visibility_detector: ^0.3.3
+  # flutter_web_browser: ^0.17.1
 
 dev_dependencies:
   flutter_test:

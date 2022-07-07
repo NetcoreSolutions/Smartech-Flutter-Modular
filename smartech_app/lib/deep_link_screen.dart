@@ -15,10 +15,14 @@ class DeepLinkScreen extends StatefulWidget {
 
 class _DeepLinkScreenState extends State<DeepLinkScreen> {
   var list = [];
+  bool isFromScreen = false;
 
   @override
   void initState() {
-    list = widget.args['deepLinkData'].entries.map((e) => DeepLinkData(e.key, e.value)).toList();
+    isFromScreen = widget.args['isFromScreen'];
+    if (!isFromScreen) {
+      list = widget.args['deepLinkData'].entries.map((e) => DeepLinkData(e.key, e.value)).toList();
+    }
     print(list);
     super.initState();
   }
@@ -45,7 +49,13 @@ class _DeepLinkScreenState extends State<DeepLinkScreen> {
               child: Column(
                 children: [
                   Text(
-                    widget.args["deepLinkUrl"].toString() == "" ? "-" : widget.args["deepLinkUrl"].toString(),
+                    !isFromScreen
+                        ? widget.args["deepLinkUrl"].toString() == ""
+                            ? "-"
+                            : widget.args["deepLinkUrl"].toString()
+                        : widget.args["actionDeeplink"].toString() == ""
+                            ? "-"
+                            : widget.args["actionDeeplink"].toString(),
                     style: TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w700),
                   ),
                 ],

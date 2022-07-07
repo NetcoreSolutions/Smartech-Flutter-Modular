@@ -3,6 +3,7 @@ import 'package:smartech_app/app_inbox/utils/enums.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
 
 class SMTInbox {
+  final List<ActionButton> actionButton;
   final String appInboxCategory;
   final String appInboxTtl;
   final String body;
@@ -27,6 +28,7 @@ class SMTInbox {
   final SMTNotificationType type;
 
   SMTInbox({
+    this.actionButton = const [],
     this.appInboxCategory = "",
     this.appInboxTtl = "",
     this.body = "",
@@ -53,6 +55,7 @@ class SMTInbox {
 
   factory SMTInbox.fromJson(Map json) {
     return SMTInbox(
+      actionButton: (json['actionButton'] as List).map((e) => ActionButton.fromJson(e)).toList(),
       appInboxCategory: json['appInboxCategory'] ?? "",
       appInboxTtl: json['app_inbox_ttl'] ?? "",
       body: json['body'] ?? "",
@@ -135,6 +138,42 @@ class Carousel {
       imgMsg: json['imgMsg'] ?? "",
       imgTitle: json['imgTitle'] ?? "",
       imgUrl: json['imgUrl'] ?? "",
+    );
+  }
+}
+
+class ActionButton {
+  final int aTyp;
+  final String actionDeeplink;
+  final String actionName;
+  final String callToAction;
+  final Config? config;
+
+  ActionButton({this.aTyp = 0, this.actionDeeplink = "", this.actionName = "", this.callToAction = "", this.config});
+
+  factory ActionButton.fromJson(Map<String, dynamic> json) {
+    return ActionButton(
+        aTyp: json['aTyp'] ?? "",
+        actionDeeplink: json['actionDeeplink'] ?? "",
+        actionName: json['actionName'] ?? "",
+        callToAction: json['call_to_action'] ?? "",
+        config: json['config'] != null ? new Config.fromJson(json['config']) : null);
+  }
+}
+
+class Config {
+  final String intl;
+  final String ctxt;
+
+  Config({
+    this.intl = "",
+    this.ctxt = "",
+  });
+
+  factory Config.fromJson(Map<String, dynamic> json) {
+    return Config(
+      intl: json['intl'] ?? "",
+      ctxt: json['ctxt'] ?? "",
     );
   }
 }
