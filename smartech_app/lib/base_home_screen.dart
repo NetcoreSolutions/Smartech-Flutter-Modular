@@ -22,7 +22,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String _username = "Guest User";
   bool _optPN = false, _optInAppMsg = false, _optEventTracking = false;
-  bool _syncEventManually = false;
   String checkValue = "";
 
   String appId = "";

@@ -213,9 +213,9 @@ class TrackEventScreen extends StatelessWidget {
 }
 
 class PayloadScreen extends StatelessWidget {
-  Function submit;
-  Map<String, dynamic> payload;
-  String title;
+  final Function submit;
+  final Map<String, dynamic> payload;
+  final String title;
   PayloadScreen(this.title, this.payload, this.submit);
 
   @override

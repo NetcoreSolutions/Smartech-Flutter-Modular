@@ -11,8 +11,6 @@ class SMTCarouselNotificationView extends StatefulWidget {
 }
 
 class _SMTCarouselNotificationViewState extends State<SMTCarouselNotificationView> {
-  int _current = 0;
-  List<Widget> imageSliders = [];
   late PageController _pageController;
 
   @override

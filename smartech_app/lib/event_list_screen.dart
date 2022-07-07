@@ -5,7 +5,7 @@ import 'package:smartech_app/events_utils.dart' as eventUtils;
 import 'package:smartech_base/smartech.dart';
 
 class EventListScreen extends StatefulWidget {
-  String category;
+  final String category;
 
   EventListScreen(this.category, {Key? key}) : super(key: key);
 

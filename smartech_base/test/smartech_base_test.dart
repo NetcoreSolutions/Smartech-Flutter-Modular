@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:smartech_base/smartech.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('smartech_base');
@@ -16,5 +15,4 @@ void main() {
   tearDown(() {
     channel.setMockMethodCallHandler(null);
   });
-
 }

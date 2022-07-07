@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/services.dart';
 
 class Smartech {
@@ -134,7 +135,9 @@ class Smartech {
         if (call.arguments["customPayload"] is String) {
           try {
             map = json.decode(call.arguments["customPayload"]);
-          } catch (e) {}
+          } catch (e) {
+            log(e.toString());
+          }
         } else {
           isAfterTerminated = call.arguments["isAfterTerminated"] as bool?;
           map = call.arguments["customPayload"] as Map<dynamic, dynamic>?;
