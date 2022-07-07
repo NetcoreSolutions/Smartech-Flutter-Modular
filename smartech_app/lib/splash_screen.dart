@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartech_base/smartech.dart';
+import 'package:smartech_base/smartech_base.dart';
 import 'base_home_screen.dart';
 import 'login_screen.dart';
 

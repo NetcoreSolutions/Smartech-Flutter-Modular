@@ -468,21 +468,21 @@ packages:
       path: "../smartech_appinbox"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "3.2.0"
   smartech_base:
     dependency: "direct main"
     description:
       path: "../smartech_base"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "3.2.0"
   smartech_push:
     dependency: "direct main"
     description:
       path: "../smartech_push"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "3.2.0"
   source_span:
     dependency: transitive
     description:

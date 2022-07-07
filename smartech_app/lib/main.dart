@@ -9,7 +9,7 @@ import 'package:smartech_app/deep_link_screen.dart';
 import 'package:smartech_app/events_utils.dart';
 import 'package:smartech_app/navigator.dart';
 import 'package:smartech_app/service_locator.dart';
-import 'package:smartech_base/smartech.dart';
+import 'package:smartech_base/smartech_base.dart';
 import 'package:smartech_push/smartech_push.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'splash_screen.dart';

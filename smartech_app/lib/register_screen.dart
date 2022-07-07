@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
-import 'package:smartech_base/smartech.dart';
+import 'package:smartech_base/smartech_base.dart';
 import 'base_home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {

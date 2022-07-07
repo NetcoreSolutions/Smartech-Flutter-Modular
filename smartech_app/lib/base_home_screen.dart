@@ -8,7 +8,7 @@ import 'package:smartech_app/login_screen.dart';
 import 'package:smartech_app/main.dart';
 import 'package:smartech_app/update_profile.dart';
 import 'package:smartech_appinbox/smartech_appinbox.dart';
-import 'package:smartech_base/smartech.dart';
+import 'package:smartech_base/smartech_base.dart';
 import 'package:smartech_push/smartech_push.dart';
 import 'custom_profile_payload_screen.dart';
 
