@@ -23,7 +23,6 @@ class SMTAppInboxScreen extends StatefulWidget {
 class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
   List<Category> categoryList = [];
   List<SMTInbox> inboxList = [];
-  // List<SMTInbox> allInboxList = [];
 
   var appBarHeight = AppBar().preferredSize.height;
   CustomPopupMenuController _controller = CustomPopupMenuController();

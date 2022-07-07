@@ -31,34 +31,33 @@ void main() async {
 
   //Firebase initialize and it's callback
 
-  // if (Platform.isAndroid) {
-  // await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  if (Platform.isAndroid) {
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) async {
-    log(map.toString());
-
-    if (link.toString() != "" || map!.isNotEmpty) {
-      Map<String, dynamic> dict = HashMap();
+    Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) async {
       log(map.toString());
-      dict["deepLinkData"] = map;
-      dict["deepLinkUrl"] = link;
-      dict["isFromScreen"] = false;
-      if (link!.contains("http")) {
-        print("navigate to browser with url");
-        final Uri _url = Uri.parse(dict["deepLinkUrl"]);
-        if (!await launchUrl(_url)) throw 'Could not launch $_url';
+
+      if (link.toString() != "" || map!.isNotEmpty) {
+        Map<String, dynamic> dict = HashMap();
+        log(map.toString());
+        dict["deepLinkData"] = map;
+        dict["deepLinkUrl"] = link;
+        dict["isFromScreen"] = false;
+        if (link!.contains("http")) {
+          print("navigate to browser with url");
+          final Uri _url = Uri.parse(dict["deepLinkUrl"]);
+          if (!await launchUrl(_url)) throw 'Could not launch $_url';
+        } else {
+          NavigationUtilities.pushRoute(
+            DeepLinkScreen.route,
+            args: dict,
+          );
+        }
       } else {
-        NavigationUtilities.pushRoute(
-          DeepLinkScreen.route,
-          args: dict,
-        );
+        return;
       }
-    } else {
-      return;
-    }
-  });
-  // }
+    });
+  }
   await loadEventsJson();
   runApp(MyApp());
   getLocation();
@@ -146,7 +145,6 @@ void getLocation() async {
       return;
     }
   }
-  //location.enableBackgroundMode(enable: true);
 
   _locationData = await location.getLocation();
 }

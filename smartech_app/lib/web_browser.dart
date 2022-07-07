@@ -13,7 +13,6 @@ class _StateWebBrowser extends State<WebBrowsers> {
   @override
   void initState() {
     super.initState();
-    // if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
   @override
