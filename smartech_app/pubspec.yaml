@@ -38,9 +38,6 @@ dependencies:
     path: ../smartech_appinbox
   cupertino_icons: ^1.0.2
   fluttertoast: ^8.0.8
-  firebase_messaging: ^11.4.4
-  firebase_messaging_platform_interface: ^3.5.4
-  firebase_core: ^1.19.1
   shared_preferences: ^2.0.12
   location: ^4.3.0
   url_launcher: ^6.1.4

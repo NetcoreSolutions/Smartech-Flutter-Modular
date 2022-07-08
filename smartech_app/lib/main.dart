@@ -1,39 +1,21 @@
 import 'dart:collection';
 import 'dart:developer';
 import 'dart:io';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartech_app/deep_link_screen.dart';
 import 'package:smartech_app/events_utils.dart';
 import 'package:smartech_app/navigator.dart';
 import 'package:smartech_app/service_locator.dart';
 import 'package:smartech_base/smartech_base.dart';
-import 'package:smartech_push/smartech_push.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'splash_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  log("Start time: " + DateTime.now().toString());
-  await Firebase.initializeApp();
-  log("End time: " + DateTime.now().toString());
-
-  SmartechPush().handlePushNotification(message.data.toString());
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
 
-  await Firebase.initializeApp();
-
-  //Firebase initialize and it's callback
-
   if (Platform.isAndroid) {
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
     Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) async {
       log(map.toString());
 
@@ -74,7 +56,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
 
     if (Platform.isAndroid) {
-      setupFirebase();
       Smartech().setInAppCustomHTMLListener(customHTMLCallback);
     }
   }
@@ -147,36 +128,6 @@ void getLocation() async {
   }
 
   _locationData = await location.getLocation();
-}
-
-//Firebase initialize and it's callback
-//store and push firebase device token
-void setupFirebase() async {
-  var token = await FirebaseMessaging.instance.getToken();
-  debugPrint(token);
-
-  if (token != null) {
-    var _shp = await SharedPreferences.getInstance();
-    var saveToken = _shp.get("token") ?? "";
-    //check if token is changed or not
-    if (saveToken != token) {
-      _shp.setString(token, "token");
-      SmartechPush().setDevicePushToken(token);
-    }
-  }
-
-  FirebaseMessaging.onMessage.listen((event) {
-    SmartechPush().handlePushNotification(event.data.toString());
-  });
-  FirebaseMessaging.onMessageOpenedApp.listen((event) {
-    SmartechPush().handlePushNotification(event.data.toString());
-  });
-  FirebaseMessaging.instance.getInitialMessage().then((event) {
-    if (event != null) {
-      SmartechPush().handlePushNotification(event.data.toString());
-    }
-  });
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 }
 
 class Globle {

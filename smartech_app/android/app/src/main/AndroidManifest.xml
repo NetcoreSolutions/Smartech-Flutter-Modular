@@ -41,5 +41,11 @@
         <meta-data
             android:name="SMT_APP_ID"
             android:value="67a2ed823b5711e2b2339d984db09cd3" />
+       <service android:name=".MyFirebaseMessagingService"
+           android:exported="false">
+           <intent-filter>
+               <action android:name="com.google.firebase.MESSAGING_EVENT" />
+           </intent-filter>
+       </service>
     </application>
 </manifest>
