@@ -30,6 +30,8 @@ class SmartechAppinboxPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   private lateinit var channel : MethodChannel
   private lateinit var smartAppInbox : SmartechAppInbox
   private lateinit var activity : Activity
+  private lateinit var smtInboxDataType : SMTInboxDataType
+  private lateinit var smtAppInboxMessageType : SMTAppInboxMessageType
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "smartech_appinbox")
@@ -39,14 +41,7 @@ class SmartechAppinboxPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
       when (call.method) {
-      "getPlatformVersion" -> {
-        result.success("Android ${android.os.Build.VERSION.RELEASE}")
-      }
-      "displayAppInbox" -> {
-        if(activity!=null)
-        smartAppInbox.displayAppInbox(activity)
-        result.success(null)
-      }
+    
       "getAppInboxMessages" -> {
         val messages = smartAppInbox.getAppInboxMessages(SMTAppInboxMessageType.INBOX_MESSAGE)
         result.success(Gson().toJson(messages))
@@ -94,56 +89,77 @@ class SmartechAppinboxPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         result.success(null)
       } 
       "getAppInboxMessagesByApiCall" -> {
-        val builder = SMTAppInboxRequestBuilder.Builder(SMTInboxDataType.ALL).setCallback(object : SMTInboxCallback {
-          override fun onInboxFail() {
+        var messageLimit = call.argument<Int>("messageLimit") as Int?        
+        var smtInboxDataTypeString = call.argument<String>("smtInboxDataType") as String?
+        var categoryList = call.argument<List<String>>("group_id") as ArrayList<String>
+
+        Log.d("Number of messages limit : ", "" + messageLimit)
+        Log.d("SMT Inbox data type : ", "" + smtInboxDataTypeString)
+        Log.d("CategoryList pass in api call : ", "" + categoryList)
+
+        if(smtInboxDataTypeString != null){
+          if(smtInboxDataTypeString == "latest"){
+            smtInboxDataType = SMTInboxDataType.LATEST
           }
-          
-          override fun onInboxProgress() {
+          else if (smtInboxDataTypeString == "earlier"){
+            smtInboxDataType = SMTInboxDataType.EARLIEST
           }
-          
-          override fun onInboxSuccess(messages: MutableList<SMTInboxMessageData>?) {
-              result.success(Gson().toJson(messages))
+          else {
+            smtInboxDataType = SMTInboxDataType.ALL
           }
-          }).setLimit(10).build()
-        smartAppInbox.getAppInboxMessages(builder)    
+        }
+
+        val builder = SMTAppInboxRequestBuilder.Builder(smtInboxDataType).setCallback(object : SMTInboxCallback {
+            override fun onInboxFail() {
+            }
+            
+            override fun onInboxProgress() {
+            }
+            
+            override fun onInboxSuccess(messages: MutableList<SMTInboxMessageData>?) {
+                result.success(Gson().toJson(messages))
+            }
+            }).setCategory(categoryList).setLimit(if(messageLimit!=null) messageLimit else 10).build()        
+            smartAppInbox.getAppInboxMessages(builder)     
       }
+      "getAppInboxMessageCount" -> {
+        var smtAppInboxMessageTypeString = call.argument<String>("smtAppInboxMessageType") as String?
+        Log.d("SMT AppInbox Message type : ", "" + smtAppInboxMessageTypeString)
+
+        if(smtAppInboxMessageTypeString != null){
+          if(smtAppInboxMessageTypeString == "read"){
+            smtAppInboxMessageType = SMTAppInboxMessageType.READ_MESSAGE
+          }
+          else if (smtAppInboxMessageTypeString == "unread"){
+            smtAppInboxMessageType = SMTAppInboxMessageType.UNREAD_MESSAGE
+          }
+          else {
+            Log.d("SMT AppInbox Message type comes here--->", "" + smtAppInboxMessageTypeString)
+            smtAppInboxMessageType = SMTAppInboxMessageType.INBOX_MESSAGE
+          }
+        }
+        val count = smartAppInbox.getAppInboxMessageCount(smtAppInboxMessageType) 
+        Log.d("SMT AppInbox Message type Count: ", "" + count)
+        result.success(count)
+      } 
+
+      // "displayAppInbox" -> {
+      //   if(activity!=null)
+      //   smartAppInbox.displayAppInbox(activity)
+      //   result.success(null)
+      // }
+      
       else -> {
         result.notImplemented()
       }
     }
   }
 
-  /** private fun markMessageAsDismissed(payload: String) {
-    val appInboxMessage = smartAppInbox.getAppInboxMessageById(payload)
-    appInboxMessage?.let{
-      smartAppInbox.markMessageAsDismissed(appInboxMessage)
-    }
-  } */
-
-  // private fun getAppInboxMessagesByCategoryApiCall() {
-  //     val builder = SMTAppInboxRequestBuilder.Builder(SMTInboxDataType.ALL)
-  //     builder.setCallback(object : SMTInboxCallback {
-  //         override fun onInboxFail() {
-  //           Log.d("failed", "failed")
-  //         }
-
-  //         override fun onInboxProgress() {
-  //           Log.d("progress", "progress")
-  //         }
-
-  //         override fun onInboxSuccess(messages: MutableList<SMTInboxMessageData>?) {
-  //           Log.d("success", "success")
-  //         }
-  //     }) 
-  //     smartAppInbox.getAppInboxMessages(builder)
-  // }
-
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
   }
 
      override fun onDetachedFromActivity() {
-///       activity = null;
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
@@ -155,7 +171,6 @@ class SmartechAppinboxPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
-///        activity = null;
     }
   
     companion object{

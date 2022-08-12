@@ -3,6 +3,8 @@ import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_base/smartech_base.dart';
 
 class UpdateProfile extends StatefulWidget {
+  static const String route = "updateProfile";
+
   @override
   State<StatefulWidget> createState() => _UpdateProfileState();
 }

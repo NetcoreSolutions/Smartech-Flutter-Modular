@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartech_app/deep_link_screen.dart';
+import 'package:smartech_app/update_profile.dart';
 
 /// The [RouteType] determines what [PageRoute] is used for the new route.
 ///
@@ -75,6 +76,9 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       screen = DeepLinkScreen(
         args: arguments,
       );
+      break;
+    case UpdateProfile.route:
+      screen = UpdateProfile();
       break;
   }
 

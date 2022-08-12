@@ -1,15 +1,14 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smartech_app/app_inbox/model/smt_appinbox_model_class.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_app/deep_link_screen.dart';
 import 'package:smartech_app/navigator.dart';
+import 'package:smartech_appinbox/model/smt_appinbox_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SMTSimpleNotificationView extends StatelessWidget {
-  final SMTInbox inbox;
+  final SMTAppInboxMessage inbox;
   const SMTSimpleNotificationView({Key? key, required this.inbox}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -83,7 +82,7 @@ class SMTSimpleNotificationView extends StatelessWidget {
                                   : e.aTyp == 2
                                       ? InkWell(
                                           onTap: () {
-                                            Clipboard.setData(ClipboardData(text: e.config!.ctxt)).then((result) {
+                                            Clipboard.setData(ClipboardData(text: e.configCtxt)).then((result) {
                                               final snackBar = SnackBar(
                                                 content: Text('Copied'),
                                                 duration: Duration(milliseconds: 500),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:smartech_app/app_inbox/model/smt_appinbox_model_class.dart';
 import 'package:smartech_app/app_inbox/utils/audio_page_manager.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
+import 'package:smartech_appinbox/model/smt_appinbox_model.dart';
 
 class SMTAudioNotificationView extends StatefulWidget {
-  final SMTInbox inbox;
+  final SMTAppInboxMessage inbox;
   const SMTAudioNotificationView({Key? key, required this.inbox}) : super(key: key);
 
   @override

@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smartech_app/app_inbox/model/smt_appinbox_model_class.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
+import 'package:smartech_appinbox/model/smt_appinbox_model.dart';
 
 class GIFNotificationView extends StatelessWidget {
-  final SMTInbox inbox;
+  final SMTAppInboxMessage inbox;
   const GIFNotificationView({Key? key, required this.inbox}) : super(key: key);
   @override
   Widget build(BuildContext context) {

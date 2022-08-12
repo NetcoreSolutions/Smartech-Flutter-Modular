@@ -40,7 +40,7 @@
             android:value="TXMY6EYG0EMVYT7A42DHN9CRP37TXGKU38MR92S36LX0QIKOL0" />
         <meta-data
             android:name="SMT_APP_ID"
-            android:value="67a2ed823b5711e2b2339d984db09cd3" />
+            android:value="c27a614b216e64a51ba23bb63d7e9968" />
        <service android:name=".MyFirebaseMessagingService"
            android:exported="false">
            <intent-filter>

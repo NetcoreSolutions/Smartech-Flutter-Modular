@@ -1,15 +1,15 @@
-import 'dart:convert';
 import 'dart:developer';
+import 'dart:ffi';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:smartech_app/app_inbox/model/smt_appinbox_model_class.dart';
-import 'package:smartech_app/app_inbox/utils/enums.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_app/app_inbox/widgets/smt_audio_notification_view.dart';
 import 'package:smartech_app/app_inbox/widgets/smt_carousel_notification_view.dart';
 import 'package:smartech_app/app_inbox/widgets/smt_gif_notification_view.dart';
 import 'package:smartech_app/app_inbox/widgets/smt_image_notification_view.dart';
 import 'package:smartech_app/app_inbox/widgets/smt_simple_notification_view.dart';
+import 'package:smartech_app/app_inbox/widgets/smt_video_notification_view.dart';
+import 'package:smartech_appinbox/model/smt_appinbox_model.dart';
 import 'package:smartech_appinbox/smartech_appinbox.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -21,18 +21,22 @@ class SMTAppInboxScreen extends StatefulWidget {
 }
 
 class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
-  List<Category> categoryList = [];
-  List<SMTInbox> inboxList = [];
+  List<MessageCategory> categoryList = [];
+  List<SMTAppInboxMessage> inboxList = [];
 
   var appBarHeight = AppBar().preferredSize.height;
   CustomPopupMenuController _controller = CustomPopupMenuController();
-
+  int messageLimit = 10;
+  String smtInboxDataType = "all";
+  String smtAppInboxMessageType = "inbox";
+  Int64? latestMessageTimeStamp;
   @override
   void initState() {
     super.initState();
     getAppInboxCategoryWiseMessageList();
     getMessageListByApiCall();
     getCategoryList();
+    getAppInboxMessageCount(); // This method use to get appinbox messages count based on message type
     // getMessagesList(); // This method use to get all types of notifications
   }
 
@@ -43,29 +47,33 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
   }
 
   pullToRefreshApiCall() async {
-    await getMessageListByApiCall();
-    getAppInboxCategoryWiseMessageList();
+    smtInboxDataType = "latest";
+    categoryList = [];
+    await getMessageListByApiCall(smtInboxDataType: smtInboxDataType);
+    getAppInboxCategoryWiseMessageList(categoryList: categoryList);
     getCategoryList();
   }
 
   getCategoryList() async {
     categoryList = [];
     await SmartechAppinbox().getAppInboxCategoryList().then((value) {
-      var json = jsonDecode(value.toString());
-      categoryList = [...json.map((e) => Category.fromJson(e)).toList()];
+      if (value != null) {
+        categoryList.addAll(value);
+      }
       log(categoryList.toString());
     });
   }
 
-  getAppInboxCategoryWiseMessageList() async {
+  getAppInboxCategoryWiseMessageList({List<MessageCategory>? categoryList}) async {
     inboxList = [];
     await SmartechAppinbox()
-        .getAppInboxCategoryWiseMessageList(categoryList.where((element) => element.selected).map((e) => e.name).toList())
+        .getAppInboxCategoryWiseMessageList(categoryList: categoryList?.where((element) => element.selected).map((e) => e.name).toList() ?? [])
         .then((value) {
-      var json = jsonDecode(value.toString());
-      inboxList = [...json.map((e) => SMTInbox.fromJson(e['smtPayload'])).toList()];
+      if (value != null) {
+        inboxList.addAll(value);
+      }
+      log(inboxList.toString());
       setState(() {});
-      // markMessageAsDismissed("140578-389-101-0-220623122533");
     });
   }
 
@@ -84,30 +92,48 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
   /// ======>  This is method to get all notifications <======= ///
   getMessagesList() async {
     await SmartechAppinbox().getAppInboxMessages().then((value) {
-      var json = jsonDecode(value.toString());
-      log(json.toString());
-      // allInboxList = [...json.map((e) => SMTInbox.fromJson(e['smtPayload'])).toList()];
+      log(value.toString());
     });
   }
 
-  getMessageListByApiCall() async {
-    // inboxList = [];
-    await SmartechAppinbox().getAppInboxMessagesByApiCall().then((value) {
+  getMessageListByApiCall({int? messageLimit, String? smtInboxDataType, List<MessageCategory>? filterCategoryList}) async {
+    await SmartechAppinbox()
+        .getAppInboxMessagesByApiCall(
+            messageLimit: messageLimit ?? 10,
+            smtInboxDataType: smtInboxDataType ?? "",
+            categoryList: categoryList.where((element) => element.selected).map((e) => e.name).toList())
+        .then((value) {
+      print(value.toString());
       setState(() {});
     });
+  }
+
+  getAppInboxMessageCount({String? smtAppInboxMessageType}) async {
+    await SmartechAppinbox().getAppInboxMessageCount(smtAppInboxMessageType: smtAppInboxMessageType ?? "").then(
+      (value) {
+        print(value.toString());
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Center(
-          child: Text(
-            "Notifications",
-            style: TextStyle(color: Colors.black, fontSize: 16),
+        leading: InkWell(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.black,
+            size: 20,
           ),
         ),
-        leadingWidth: MediaQuery.of(context).size.width / 2,
+        title: Text(
+          "Notifications",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black),
+        ),
         centerTitle: true,
         backgroundColor: Colors.white,
         actions: inboxList.length > 0
@@ -122,7 +148,7 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                     (selectedList) {
                       categoryList = selectedList;
                       print(categoryList);
-                      getAppInboxCategoryWiseMessageList();
+                      getAppInboxCategoryWiseMessageList(categoryList: categoryList);
                       setState(() {});
                     },
                   ),
@@ -139,7 +165,7 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
           Padding(
             padding: EdgeInsets.only(left: 16, right: 16, top: 8),
             child: MultiSelectChip(categoryList.where((element) => (element.selected == true)).toList(), onSelectionChanged: (selectedList) {
-              getAppInboxCategoryWiseMessageList();
+              getAppInboxCategoryWiseMessageList(categoryList: categoryList);
               setState(() {});
             }),
           ),
@@ -160,7 +186,7 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                               key: Key(index.toString()),
                               onVisibilityChanged: (VisibilityInfo info) {
                                 var visiblePercentage = info.visibleFraction * 100;
-                                log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
+                                // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
                                 if (visiblePercentage == 100 && inboxList[index].status.toLowerCase() != "viewed") {
                                   markMessageAsViewed(inboxList[index].trid);
                                   return;
@@ -200,7 +226,7 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                               key: Key(index.toString()),
                               onVisibilityChanged: (VisibilityInfo info) {
                                 var visiblePercentage = info.visibleFraction * 100;
-                                log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
+                                // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
                                 if (visiblePercentage == 100 && inboxList[index].status.toLowerCase() != "viewed") {
                                   markMessageAsViewed(inboxList[index].trid);
                                   return;
@@ -240,7 +266,7 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                               key: Key(index.toString()),
                               onVisibilityChanged: (VisibilityInfo info) {
                                 var visiblePercentage = info.visibleFraction * 100;
-                                log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
+                                // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
                                 if (visiblePercentage == 100 && inboxList[index].status.toLowerCase() != "viewed") {
                                   markMessageAsViewed(inboxList[index].trid);
                                   return;
@@ -281,7 +307,47 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                               key: Key(index.toString()),
                               onVisibilityChanged: (VisibilityInfo info) {
                                 var visiblePercentage = info.visibleFraction * 100;
-                                log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
+                                // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
+                                if (visiblePercentage == 100 && inboxList[index].status.toLowerCase() != "viewed") {
+                                  markMessageAsViewed(inboxList[index].trid);
+                                  return;
+                                }
+                              },
+                              child: Dismissible(
+                                key: Key(inboxList[index].trid),
+                                onDismissed: (direction) async {
+                                  await markMessageAsDismissed(inboxList[index].trid);
+                                  await inboxList.removeAt(index);
+                                  await getCategoryList();
+                                  setState(() {});
+                                },
+                                background: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(right: 26),
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: AppColor.greyColorText,
+                                      ),
+                                    )),
+                                child: InkWell(
+                                  onTap: () async {
+                                    markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
+                                  },
+                                  child: SMTCarouselNotificationView(
+                                    inbox: inboxList[index],
+                                  ),
+                                ),
+                              ),
+                            );
+
+                          // ******* Video type Notifications ******* \\
+                          case SMTNotificationType.video:
+                            return VisibilityDetector(
+                              key: Key(index.toString()),
+                              onVisibilityChanged: (VisibilityInfo info) {
+                                var visiblePercentage = info.visibleFraction * 100;
+                                // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
                                 if (visiblePercentage == 100 && inboxList[index].status.toLowerCase() != "viewed") {
                                   markMessageAsViewed(inboxList[index].trid);
                                   return;
@@ -308,7 +374,7 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                                   onTap: () {
                                     markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
                                   },
-                                  child: SMTCarouselNotificationView(
+                                  child: SMTVideoNotificationView(
                                     inbox: inboxList[index],
                                   ),
                                 ),
@@ -322,7 +388,7 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                               key: Key(index.toString()),
                               onVisibilityChanged: (VisibilityInfo info) {
                                 var visiblePercentage = info.visibleFraction * 100;
-                                log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
+                                // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
                                 if (visiblePercentage == 100 && inboxList[index].status.toLowerCase() != "viewed") {
                                   markMessageAsViewed(inboxList[index].trid);
                                   return;
@@ -372,8 +438,8 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
 }
 
 class MultiSelectChip extends StatefulWidget {
-  final List<Category> categoryList;
-  final Function(List<Category>) onSelectionChanged;
+  final List<MessageCategory> categoryList;
+  final Function(List<MessageCategory>) onSelectionChanged;
   MultiSelectChip(this.categoryList, {required this.onSelectionChanged});
   @override
   _MultiSelectChipState createState() => _MultiSelectChipState();
@@ -434,8 +500,8 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
 }
 
 class CategoryListWidget extends StatefulWidget {
-  final List<Category> categoryList;
-  final Function(List<Category>) onSelected;
+  final List<MessageCategory> categoryList;
+  final Function(List<MessageCategory>) onSelected;
 
   CategoryListWidget(this.categoryList, this.onSelected);
 
@@ -444,7 +510,7 @@ class CategoryListWidget extends StatefulWidget {
 }
 
 class _CategoryListWidgetState extends State<CategoryListWidget> {
-  List<Category> categoryList = [];
+  List<MessageCategory> categoryList = [];
   @override
   void initState() {
     super.initState();
@@ -454,10 +520,11 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width / 2,
       color: Colors.white,
-      width: 150,
       child: ListView.separated(
           shrinkWrap: true,
+          padding: EdgeInsets.zero,
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
@@ -472,7 +539,7 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
                   style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
                 autofocus: false,
-                dense: true,
+                // dense: true,
                 activeColor: Colors.green,
                 checkColor: Colors.white,
                 selected: categoryList[index].selected,

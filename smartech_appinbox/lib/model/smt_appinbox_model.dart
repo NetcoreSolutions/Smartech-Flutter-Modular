@@ -1,8 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:smartech_app/app_inbox/utils/enums.dart';
-import 'package:smartech_app/app_inbox/utils/utils.dart';
 
-class SMTInbox {
+class SMTAppInboxMessage {
   final List<ActionButton> actionButton;
   final String appInboxCategory;
   final String appInboxTtl;
@@ -27,7 +25,7 @@ class SMTInbox {
   final String trid;
   final SMTNotificationType type;
 
-  SMTInbox({
+  SMTAppInboxMessage({
     this.actionButton = const [],
     this.appInboxCategory = "",
     this.appInboxTtl = "",
@@ -53,8 +51,8 @@ class SMTInbox {
     this.type = SMTNotificationType.simple,
   });
 
-  factory SMTInbox.fromJson(Map json) {
-    return SMTInbox(
+  factory SMTAppInboxMessage.fromJson(Map json) {
+    return SMTAppInboxMessage(
       actionButton: (json['actionButton'] as List).map((e) => ActionButton.fromJson(e)).toList(),
       appInboxCategory: json['appInboxCategory'] ?? "",
       appInboxTtl: json['app_inbox_ttl'] ?? "",
@@ -74,7 +72,7 @@ class SMTInbox {
       sound: json['sound'] ?? false,
       status: json['status'] ?? "",
       subtitle: json['subtitle'] ?? "",
-      timestamp: json['timestamp'] ?? "",
+      timestamp: json['timestamp'] ?? 0,
       title: json['title'] ?? "",
       trid: json['trid'] ?? "",
       type: ((json['type'] ?? "") as String).toLowerCase().getSMTNotificationType(),
@@ -83,25 +81,25 @@ class SMTInbox {
 }
 
 class AttrParams {
-  final String sSta;
-  final String sStmId;
-  final String sStmMedium;
-  final String sStmSource;
+  final String sta;
+  final String stmId;
+  final String stmMedium;
+  final String stmSource;
 
-  AttrParams({this.sSta = "", this.sStmId = "", this.sStmMedium = "", this.sStmSource = ""});
+  AttrParams({this.sta = "", this.stmId = "", this.stmMedium = "", this.stmSource = ""});
 
   factory AttrParams.fromJson(Map json) {
     return AttrParams(
-      sSta: json['__sta'] ?? "",
-      sStmId: json['__stm_id'] ?? "",
-      sStmMedium: json['__stm_medium'] ?? "",
-      sStmSource: json['__stm_source'] ?? "",
+      sta: json['__sta'] ?? "",
+      stmId: json['__stm_id'] ?? "",
+      stmMedium: json['__stm_medium'] ?? "",
+      stmSource: json['__stm_source'] ?? "",
     );
   }
 }
 
-class Category {
-  Category({
+class MessageCategory {
+  MessageCategory({
     this.name = "",
     this.position = 0,
     this.selected = false,
@@ -111,7 +109,7 @@ class Category {
   final int position;
   bool selected;
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
+  factory MessageCategory.fromJson(Map<String, dynamic> json) => MessageCategory(
         name: json["name"],
         position: json["position"],
         selected: json["state"],
@@ -147,33 +145,76 @@ class ActionButton {
   final String actionDeeplink;
   final String actionName;
   final String callToAction;
-  final Config? config;
+  final String configCtxt;
 
-  ActionButton({this.aTyp = 0, this.actionDeeplink = "", this.actionName = "", this.callToAction = "", this.config});
+  ActionButton({
+    this.aTyp = 0,
+    this.actionDeeplink = "",
+    this.actionName = "",
+    this.callToAction = "",
+    this.configCtxt = "",
+  });
 
   factory ActionButton.fromJson(Map<String, dynamic> json) {
     return ActionButton(
-        aTyp: json['aTyp'] ?? "",
-        actionDeeplink: json['actionDeeplink'] ?? "",
-        actionName: json['actionName'] ?? "",
-        callToAction: json['call_to_action'] ?? "",
-        config: json['config'] != null ? new Config.fromJson(json['config']) : null);
+      aTyp: json['aTyp'] ?? "",
+      actionDeeplink: json['actionDeeplink'] ?? "",
+      actionName: json['actionName'] ?? "",
+      callToAction: json['call_to_action'] ?? "",
+      configCtxt: json['config_ctxt'] ?? "",
+    );
   }
 }
 
-class Config {
-  final String intl;
-  final String ctxt;
+enum SMTNotificationType { simple, audio, image, gif, carouselLandscape, carouselPortrait, video }
 
-  Config({
-    this.intl = "",
-    this.ctxt = "",
-  });
+extension SMTNotificationTypeValue on String {
+  SMTNotificationType getSMTNotificationType() {
+    switch (this) {
+      case "audio":
+        return SMTNotificationType.audio;
+      case "image":
+        return SMTNotificationType.image;
+      case "gif":
+        return SMTNotificationType.gif;
+      case "carousellandscape":
+        return SMTNotificationType.carouselLandscape;
+      case "carouselportrait":
+        return SMTNotificationType.carouselPortrait;
+      case "video":
+        return SMTNotificationType.video;
+      case "simple":
+      default:
+        return SMTNotificationType.simple;
+    }
+  }
+}
 
-  factory Config.fromJson(Map<String, dynamic> json) {
-    return Config(
-      intl: json['intl'] ?? "",
-      ctxt: json['ctxt'] ?? "",
-    );
+extension TimeDuration on DateTime {
+  String getTimeAndDayCount() {
+    if (DateTime.now().difference(this).inMinutes == 0) {
+      return "just now";
+    } else if (DateTime.now().difference(this).inHours == 0) {
+      int minutes = DateTime.now().difference(this).inMinutes;
+      return "$minutes ${minutes == 1 ? "minute" : "minutes"} ago";
+    } else if (DateTime.now().difference(this).inDays == 0) {
+      int hours = DateTime.now().difference(this).inHours;
+      return "$hours ${hours == 1 ? "hour" : "hours"} ago";
+    } else if (DateTime.now().difference(this).inDays < 7) {
+      int days = DateTime.now().difference(this).inDays;
+      return "$days ${days == 1 ? "day" : "days"} ago";
+    } else if (int.parse(((DateTime.now().difference(this).inDays) / 7).toStringAsFixed(0)) == 1) {
+      return "A week ago";
+    } else if (int.parse(((DateTime.now().difference(this).inDays) / 7).toStringAsFixed(0)) < 5) {
+      return "${((DateTime.now().difference(this).inDays) / 7).toStringAsFixed(0)} weeks ago";
+    } else if (int.parse(((DateTime.now().difference(this).inDays) / 30).toStringAsFixed(0)) == 1) {
+      return "A month ago";
+    } else if (int.parse(((DateTime.now().difference(this).inDays) / 30).toStringAsFixed(0)) < 12) {
+      return "${((DateTime.now().difference(this).inDays) / 30).toStringAsFixed(0)} months ago";
+    } else if (int.parse(((DateTime.now().difference(this).inDays) / 365).toStringAsFixed(0)) == 1) {
+      return "A year ago";
+    } else {
+      return "${((DateTime.now().difference(this).inDays) / 365).toStringAsFixed(0)} years ago";
+    }
   }
 }

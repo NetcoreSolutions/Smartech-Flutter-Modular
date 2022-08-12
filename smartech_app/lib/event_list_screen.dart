@@ -60,9 +60,9 @@ class _EventListScreenState extends State<EventListScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: 5,
-                          ),
+                          // SizedBox(
+                          //   height: 5,
+                          // ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
                             child: Row(

@@ -1,9 +1,9 @@
 name: smartech_appinbox
 description: Smartech is a omni channel platform that delivers everything you need to drive mobile engagement and create valuable consumer relationships on mobile. The Smartech Flutter Plugin enables your Flutter app to use all of the features.
-version: 3.2.0
+version: 3.2.1
 homepage: https://netcoresmartech.com
-documentation: 'https://docs.netcoresmartech.com/'
-license: { :type => "Commercial", :file => "LICENSE"}
+documentation: "https://docs.netcoresmartech.com/"
+license: { :type => "Commercial", :file => "LICENSE" }
 repository: https://github.com/NetcoreSolutions/Smartech-Flutter-Modular.git
 
 environment:
@@ -13,6 +13,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

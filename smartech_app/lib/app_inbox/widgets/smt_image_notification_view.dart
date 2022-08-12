@@ -3,14 +3,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smartech_app/app_inbox/model/smt_appinbox_model_class.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_app/deep_link_screen.dart';
 import 'package:smartech_app/navigator.dart';
+import 'package:smartech_appinbox/model/smt_appinbox_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SMTImageNotificationView extends StatefulWidget {
-  final SMTInbox inbox;
+  final SMTAppInboxMessage inbox;
   const SMTImageNotificationView({Key? key, required this.inbox}) : super(key: key);
 
   @override
@@ -114,7 +114,7 @@ class _SMTImageNotificationViewState extends State<SMTImageNotificationView> {
                                   : e.aTyp == 2
                                       ? InkWell(
                                           onTap: () {
-                                            Clipboard.setData(ClipboardData(text: e.config!.ctxt)).then((result) {
+                                            Clipboard.setData(ClipboardData(text: e.configCtxt)).then((result) {
                                               final snackBar = SnackBar(
                                                 content: Text('Copied'),
                                                 duration: Duration(milliseconds: 500),

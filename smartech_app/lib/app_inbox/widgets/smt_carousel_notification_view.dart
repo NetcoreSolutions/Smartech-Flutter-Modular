@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:smartech_app/app_inbox/model/smt_appinbox_model_class.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
+import 'package:smartech_appinbox/model/smt_appinbox_model.dart';
 
 class SMTCarouselNotificationView extends StatefulWidget {
-  final SMTInbox inbox;
+  final SMTAppInboxMessage inbox;
   const SMTCarouselNotificationView({Key? key, required this.inbox}) : super(key: key);
 
   @override

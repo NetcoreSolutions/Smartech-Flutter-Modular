@@ -39,3 +39,18 @@ post_install do |installer|
     end
   end
 end
+
+
+#service extension target
+target 'SmartechNSE' do
+  # Pods for 'SmartechNSE'
+  pod 'SmartPush-iOS-SDK'
+  
+end
+
+#content extension target
+target 'SmartechNCE' do
+  # Pods for 'SmartechNCE'
+  pod 'SmartPush-iOS-SDK'
+  
+end

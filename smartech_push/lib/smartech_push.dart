@@ -4,7 +4,7 @@ import 'channel_builder.dart';
 import 'smt_notification_options.dart';
 
 class SmartechPush {
-  static const MethodChannel _channel = MethodChannel('smartech_push_channel');
+  static const MethodChannel _channel = MethodChannel('smartech_push');
 
   Future<void> setDevicePushToken(String token) async {
     await _channel.invokeMethod('setDevicePushToken', token);

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +8,6 @@ import 'package:smartech_app/event_category_screen.dart';
 import 'package:smartech_app/login_screen.dart';
 import 'package:smartech_app/main.dart';
 import 'package:smartech_app/update_profile.dart';
-import 'package:smartech_appinbox/smartech_appinbox.dart';
 import 'package:smartech_base/smartech_base.dart';
 import 'package:smartech_push/smartech_push.dart';
 import 'custom_profile_payload_screen.dart';
@@ -33,7 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     fetchDetails();
-    Smartech().onHandleDeeplinkActionBackground();
+    if (Platform.isAndroid) {
+      Smartech().onHandleDeeplinkActionBackground();
+    }
   }
 
   @override
@@ -50,20 +52,11 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12),
-            child: InkWell(
-                onTap: () {
-                  // await SmartechAppinbox().getPlatformVersion().then((value) {
-                  //   checkValue = value!;
-                  // });
-                  SmartechAppinbox().displayAppInbox();
-                  // var tempList = SmartechAppinbox().getAppInboxMessages();
-                  // print(tempList);
-                },
-                child: Image.asset(
-                  'assets/icons/opt-notification.png',
-                  width: 18,
-                  height: 18,
-                )),
+            child: Image.asset(
+              'assets/icons/opt-notification.png',
+              width: 18,
+              height: 18,
+            ),
           )
         ],
       ),
@@ -615,8 +608,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                            // var temp = SmartechAppinbox().getAppInboxMessages();
-                            // print(temp.toString());
                             Navigator.of(context).push(MaterialPageRoute(builder: (builder) => const SMTAppInboxScreen()));
                           },
                           child: Row(
@@ -861,14 +852,25 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {});
     });
 
-    SmartechPush().getDevicePushToken().then((value) {
-      if (value == null) {
-        devicePushToken = "-";
-      } else {
-        devicePushToken = value.isEmpty ? "-" : value;
-      }
-      setState(() {});
-    });
+    if (Platform.isAndroid) {
+      SmartechPush().getDevicePushToken().then((value) {
+        if (value == null) {
+          devicePushToken = "-";
+        } else {
+          devicePushToken = value.isEmpty ? "-" : value;
+        }
+        setState(() {});
+      });
+    } else {
+      Smartech().getDevicePushToken().then((value) {
+        if (value == null) {
+          devicePushToken = "-";
+        } else {
+          devicePushToken = value.isEmpty ? "-" : value;
+        }
+        setState(() {});
+      });
+    }
 
     Smartech().getDeviceUniqueId().then((value) {
       if (value == null) {

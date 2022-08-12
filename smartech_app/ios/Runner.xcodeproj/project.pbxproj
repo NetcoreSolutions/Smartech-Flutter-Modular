@@ -3,22 +3,60 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
+		1FCB041EA8A46F74C8A772A7 /* libPods-SmartechNCE.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 018A708FA65002ED461E9D51 /* libPods-SmartechNCE.a */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
-		58B02DDC2848CFCA00AB71A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58B02DDB2848CFCA00AB71A6 /* GoogleService-Info.plist */; };
+		511DE9EE288ED27B0090CF7D /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 511DE9ED288ED27B0090CF7D /* NotificationService.m */; };
+		511DE9F2288ED27B0090CF7D /* SmartechNSE.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 511DE9EA288ED27B0090CF7D /* SmartechNSE.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		511DE9FE288ED2CB0090CF7D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 511DE9FD288ED2CB0090CF7D /* UserNotifications.framework */; };
+		511DEA00288ED2CB0090CF7D /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 511DE9FF288ED2CB0090CF7D /* UserNotificationsUI.framework */; };
+		511DEA04288ED2CB0090CF7D /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 511DEA03288ED2CB0090CF7D /* NotificationViewController.m */; };
+		511DEA07288ED2CB0090CF7D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 511DEA05288ED2CB0090CF7D /* MainInterface.storyboard */; };
+		511DEA0B288ED2CB0090CF7D /* SmartechNCE.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 511DE9FC288ED2CB0090CF7D /* SmartechNCE.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		51430A9928802A640071FBEF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51430A9828802A640071FBEF /* GoogleService-Info.plist */; };
 		6D16E0D9FE8E5F6A0959DA19 /* libPods-Runner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F271389192223323967CBA99 /* libPods-Runner.a */; };
 		978B8F6F1D3862AE00F588F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFFD8EE1D35381100E5BB4D /* AppDelegate.m */; };
 		97C146F31CF9000F007C117D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C146F21CF9000F007C117D /* main.m */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		C6497B4B2CBFE9CAA7762CDB /* libPods-SmartechNSE.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9B16F419C6B045BE666C6F /* libPods-SmartechNSE.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		511DE9F0288ED27B0090CF7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 511DE9E9288ED27B0090CF7D;
+			remoteInfo = SmartechNSE;
+		};
+		511DEA09288ED2CB0090CF7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 511DE9FB288ED2CB0090CF7D;
+			remoteInfo = SmartechNCE;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		511DE9F3288ED27B0090CF7D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				511DEA0B288ED2CB0090CF7D /* SmartechNCE.appex in Embed App Extensions */,
+				511DE9F2288ED27B0090CF7D /* SmartechNSE.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9705A1C41CF9048500538489 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -32,13 +70,33 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		018A708FA65002ED461E9D51 /* libPods-SmartechNCE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartechNCE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
+		17B71F60D3D2FCA03874AB95 /* Pods-SmartechNSE.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartechNSE.release.xcconfig"; path = "Target Support Files/Pods-SmartechNSE/Pods-SmartechNSE.release.xcconfig"; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
-		58B02DDB2848CFCA00AB71A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		511DE9EA288ED27B0090CF7D /* SmartechNSE.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SmartechNSE.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		511DE9EC288ED27B0090CF7D /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		511DE9ED288ED27B0090CF7D /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		511DE9EF288ED27B0090CF7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		511DE9FC288ED2CB0090CF7D /* SmartechNCE.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SmartechNCE.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		511DE9FD288ED2CB0090CF7D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		511DE9FF288ED2CB0090CF7D /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		511DEA02288ED2CB0090CF7D /* NotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
+		511DEA03288ED2CB0090CF7D /* NotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
+		511DEA06288ED2CB0090CF7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		511DEA08288ED2CB0090CF7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		511DEA10288ED3740090CF7D /* SmartechNSE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SmartechNSE.entitlements; sourceTree = "<group>"; };
+		511DEA11288ED3850090CF7D /* SmartechNCE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SmartechNCE.entitlements; sourceTree = "<group>"; };
+		51430A9828802A640071FBEF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Runner/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		51D7E49428867FEB00EA2F24 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
+		59480114959652E0F55E792E /* Pods-SmartechNSE.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartechNSE.profile.xcconfig"; path = "Target Support Files/Pods-SmartechNSE/Pods-SmartechNSE.profile.xcconfig"; sourceTree = "<group>"; };
+		6721DD85ED03CF10E05F44E9 /* Pods-SmartechNCE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartechNCE.debug.xcconfig"; path = "Target Support Files/Pods-SmartechNCE/Pods-SmartechNCE.debug.xcconfig"; sourceTree = "<group>"; };
+		7AEF4D878985EDC23E657812 /* Pods-SmartechNSE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartechNSE.debug.xcconfig"; path = "Target Support Files/Pods-SmartechNSE/Pods-SmartechNSE.debug.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		7AFFD8ED1D35381100E5BB4D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7AFFD8EE1D35381100E5BB4D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		873E56DE48BD5AAA24F1E9AD /* Pods-SmartechNCE.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartechNCE.release.xcconfig"; path = "Target Support Files/Pods-SmartechNCE/Pods-SmartechNCE.release.xcconfig"; sourceTree = "<group>"; };
 		923ED414960E06CDD076D7EB /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
@@ -49,11 +107,31 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6A9E0277A194E9D51CEA2DC /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		C973ACCF86AAC55BD8E4CCB3 /* Pods-SmartechNCE.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartechNCE.profile.xcconfig"; path = "Target Support Files/Pods-SmartechNCE/Pods-SmartechNCE.profile.xcconfig"; sourceTree = "<group>"; };
+		EE9B16F419C6B045BE666C6F /* libPods-SmartechNSE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartechNSE.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF3B4C3514C857908A7650DA /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		F271389192223323967CBA99 /* libPods-Runner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Runner.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		511DE9E7288ED27B0090CF7D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6497B4B2CBFE9CAA7762CDB /* libPods-SmartechNSE.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		511DE9F9288ED2CB0090CF7D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				511DEA00288ED2CB0090CF7D /* UserNotificationsUI.framework in Frameworks */,
+				511DE9FE288ED2CB0090CF7D /* UserNotifications.framework in Frameworks */,
+				1FCB041EA8A46F74C8A772A7 /* libPods-SmartechNCE.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C146EB1CF9000F007C117D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -69,8 +147,35 @@
 			isa = PBXGroup;
 			children = (
 				F271389192223323967CBA99 /* libPods-Runner.a */,
+				511DE9FD288ED2CB0090CF7D /* UserNotifications.framework */,
+				511DE9FF288ED2CB0090CF7D /* UserNotificationsUI.framework */,
+				018A708FA65002ED461E9D51 /* libPods-SmartechNCE.a */,
+				EE9B16F419C6B045BE666C6F /* libPods-SmartechNSE.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		511DE9EB288ED27B0090CF7D /* SmartechNSE */ = {
+			isa = PBXGroup;
+			children = (
+				511DEA10288ED3740090CF7D /* SmartechNSE.entitlements */,
+				511DE9EC288ED27B0090CF7D /* NotificationService.h */,
+				511DE9ED288ED27B0090CF7D /* NotificationService.m */,
+				511DE9EF288ED27B0090CF7D /* Info.plist */,
+			);
+			path = SmartechNSE;
+			sourceTree = "<group>";
+		};
+		511DEA01288ED2CB0090CF7D /* SmartechNCE */ = {
+			isa = PBXGroup;
+			children = (
+				511DEA11288ED3850090CF7D /* SmartechNCE.entitlements */,
+				511DEA02288ED2CB0090CF7D /* NotificationViewController.h */,
+				511DEA03288ED2CB0090CF7D /* NotificationViewController.m */,
+				511DEA05288ED2CB0090CF7D /* MainInterface.storyboard */,
+				511DEA08288ED2CB0090CF7D /* Info.plist */,
+			);
+			path = SmartechNCE;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -87,9 +192,11 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
-				58B02DDB2848CFCA00AB71A6 /* GoogleService-Info.plist */,
+				51430A9828802A640071FBEF /* GoogleService-Info.plist */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
+				511DE9EB288ED27B0090CF7D /* SmartechNSE */,
+				511DEA01288ED2CB0090CF7D /* SmartechNCE */,
 				97C146EF1CF9000F007C117D /* Products */,
 				D942F6760AF7A872B405CD47 /* Pods */,
 				25BF814CFA1AB0F9CCFF23D4 /* Frameworks */,
@@ -100,6 +207,8 @@
 			isa = PBXGroup;
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
+				511DE9EA288ED27B0090CF7D /* SmartechNSE.appex */,
+				511DE9FC288ED2CB0090CF7D /* SmartechNCE.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,6 +216,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				51D7E49428867FEB00EA2F24 /* Runner.entitlements */,
 				7AFFD8ED1D35381100E5BB4D /* AppDelegate.h */,
 				7AFFD8EE1D35381100E5BB4D /* AppDelegate.m */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
@@ -134,6 +244,12 @@
 				923ED414960E06CDD076D7EB /* Pods-Runner.debug.xcconfig */,
 				EF3B4C3514C857908A7650DA /* Pods-Runner.release.xcconfig */,
 				C6A9E0277A194E9D51CEA2DC /* Pods-Runner.profile.xcconfig */,
+				6721DD85ED03CF10E05F44E9 /* Pods-SmartechNCE.debug.xcconfig */,
+				873E56DE48BD5AAA24F1E9AD /* Pods-SmartechNCE.release.xcconfig */,
+				C973ACCF86AAC55BD8E4CCB3 /* Pods-SmartechNCE.profile.xcconfig */,
+				7AEF4D878985EDC23E657812 /* Pods-SmartechNSE.debug.xcconfig */,
+				17B71F60D3D2FCA03874AB95 /* Pods-SmartechNSE.release.xcconfig */,
+				59480114959652E0F55E792E /* Pods-SmartechNSE.profile.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -141,6 +257,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		511DE9E9288ED27B0090CF7D /* SmartechNSE */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 511DE9F7288ED27B0090CF7D /* Build configuration list for PBXNativeTarget "SmartechNSE" */;
+			buildPhases = (
+				ED6EE750510C331D2604676E /* [CP] Check Pods Manifest.lock */,
+				511DE9E6288ED27B0090CF7D /* Sources */,
+				511DE9E7288ED27B0090CF7D /* Frameworks */,
+				511DE9E8288ED27B0090CF7D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SmartechNSE;
+			productName = SmartechNSE;
+			productReference = 511DE9EA288ED27B0090CF7D /* SmartechNSE.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		511DE9FB288ED2CB0090CF7D /* SmartechNCE */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 511DEA0C288ED2CB0090CF7D /* Build configuration list for PBXNativeTarget "SmartechNCE" */;
+			buildPhases = (
+				B06301262E742B811BFF9049 /* [CP] Check Pods Manifest.lock */,
+				511DE9F8288ED2CB0090CF7D /* Sources */,
+				511DE9F9288ED2CB0090CF7D /* Frameworks */,
+				511DE9FA288ED2CB0090CF7D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SmartechNCE;
+			productName = SmartechNCE;
+			productReference = 511DE9FC288ED2CB0090CF7D /* SmartechNCE.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		97C146ED1CF9000F007C117D /* Runner */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
@@ -152,10 +304,14 @@
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
+				642782902D8D75C3AAB541E9 /* [CP] Embed Pods Frameworks */,
+				511DE9F3288ED27B0090CF7D /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				511DE9F1288ED27B0090CF7D /* PBXTargetDependency */,
+				511DEA0A288ED2CB0090CF7D /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -171,6 +327,12 @@
 				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
+					511DE9E9288ED27B0090CF7D = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+					511DE9FB288ED2CB0090CF7D = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
@@ -190,11 +352,28 @@
 			projectRoot = "";
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
+				511DE9E9288ED27B0090CF7D /* SmartechNSE */,
+				511DE9FB288ED2CB0090CF7D /* SmartechNCE */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		511DE9E8288ED27B0090CF7D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		511DE9FA288ED2CB0090CF7D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				511DEA07288ED2CB0090CF7D /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C146EC1CF9000F007C117D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -203,7 +382,7 @@
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
-				58B02DDC2848CFCA00AB71A6 /* GoogleService-Info.plist in Resources */,
+				51430A9928802A640071FBEF /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +402,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
+		};
+		642782902D8D75C3AAB541E9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		96C20DDC17D9F0EAE4FEB49F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -260,9 +456,69 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
 		};
+		B06301262E742B811BFF9049 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SmartechNCE-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED6EE750510C331D2604676E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SmartechNSE-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		511DE9E6288ED27B0090CF7D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				511DE9EE288ED27B0090CF7D /* NotificationService.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		511DE9F8288ED2CB0090CF7D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				511DEA04288ED2CB0090CF7D /* NotificationViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C146EA1CF9000F007C117D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -275,7 +531,28 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		511DE9F1288ED27B0090CF7D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 511DE9E9288ED27B0090CF7D /* SmartechNSE */;
+			targetProxy = 511DE9F0288ED27B0090CF7D /* PBXContainerItemProxy */;
+		};
+		511DEA0A288ED2CB0090CF7D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 511DE9FB288ED2CB0090CF7D /* SmartechNCE */;
+			targetProxy = 511DEA09288ED2CB0090CF7D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		511DEA05288ED2CB0090CF7D /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				511DEA06288ED2CB0090CF7D /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		97C146FA1CF9000F007C117D /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -318,6 +595,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -336,7 +614,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
@@ -350,16 +628,246 @@
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				DEVELOPMENT_TEAM = 47DMS38H89;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.netcore.smartechApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Profile;
+		};
+		511DE9F4288ED27B0090CF7D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AEF4D878985EDC23E657812 /* Pods-SmartechNSE.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SmartechNSE/SmartechNSE.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 47DMS38H89;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SmartechNSE/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SmartechNSE;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp.SmartechNSE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		511DE9F5288ED27B0090CF7D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17B71F60D3D2FCA03874AB95 /* Pods-SmartechNSE.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SmartechNSE/SmartechNSE.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 47DMS38H89;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SmartechNSE/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SmartechNSE;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp.SmartechNSE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		511DE9F6288ED27B0090CF7D /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59480114959652E0F55E792E /* Pods-SmartechNSE.profile.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SmartechNSE/SmartechNSE.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 47DMS38H89;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SmartechNSE/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SmartechNSE;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp.SmartechNSE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Profile;
+		};
+		511DEA0D288ED2CB0090CF7D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6721DD85ED03CF10E05F44E9 /* Pods-SmartechNCE.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SmartechNCE/SmartechNCE.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 47DMS38H89;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SmartechNCE/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SmartechNCE;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp.SmartechNCE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		511DEA0E288ED2CB0090CF7D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 873E56DE48BD5AAA24F1E9AD /* Pods-SmartechNCE.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SmartechNCE/SmartechNCE.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 47DMS38H89;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SmartechNCE/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SmartechNCE;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp.SmartechNCE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		511DEA0F288ED2CB0090CF7D /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C973ACCF86AAC55BD8E4CCB3 /* Pods-SmartechNCE.profile.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SmartechNCE/SmartechNCE.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 47DMS38H89;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SmartechNCE/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SmartechNCE;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp.SmartechNCE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Profile;
 		};
@@ -386,6 +894,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -410,7 +919,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -441,6 +950,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -459,7 +969,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
@@ -473,15 +983,21 @@
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				DEVELOPMENT_TEAM = 47DMS38H89;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.netcore.smartechApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -491,15 +1007,21 @@
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				DEVELOPMENT_TEAM = 47DMS38H89;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.netcore.smartechApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -507,6 +1029,26 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		511DE9F7288ED27B0090CF7D /* Build configuration list for PBXNativeTarget "SmartechNSE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				511DE9F4288ED27B0090CF7D /* Debug */,
+				511DE9F5288ED27B0090CF7D /* Release */,
+				511DE9F6288ED27B0090CF7D /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		511DEA0C288ED2CB0090CF7D /* Build configuration list for PBXNativeTarget "SmartechNCE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				511DEA0D288ED2CB0090CF7D /* Debug */,
+				511DEA0E288ED2CB0090CF7D /* Release */,
+				511DEA0F288ED2CB0090CF7D /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		97C146E91CF9000F007C117D /* Build configuration list for PBXProject "Runner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/services.dart';
+import 'package:smartech_appinbox/model/smt_appinbox_model.dart';
 
 class SmartechAppinbox {
   static late CustomHTMLCallback _customHTMLCallback;
@@ -7,28 +10,41 @@ class SmartechAppinbox {
   //To make singleton class
   static final SmartechAppinbox _smartechAppinbox = SmartechAppinbox._internal();
   factory SmartechAppinbox() => _smartechAppinbox;
+  List<SMTAppInboxMessage> allInboxList = [];
+  List<SMTAppInboxMessage> inboxList = [];
+  List<MessageCategory> categoryList = [];
+
   SmartechAppinbox._internal() {
     _channel.setMethodCallHandler(_didRecieveTranscript);
   }
 
-  Future<String?> getPlatformVersion() async {
-    return await _channel.invokeMethod("getPlatformVersion");
+  Future<List<SMTAppInboxMessage>?> getAppInboxMessages() async {
+    return await _channel.invokeMethod("getAppInboxMessages").then((value) {
+      var json = jsonDecode(value.toString());
+      allInboxList = [...json.map((e) => SMTAppInboxMessage.fromJson(e['smtPayload'])).toList()];
+      log(allInboxList.toString());
+      return allInboxList.isNotEmpty ? allInboxList : [];
+    });
   }
 
-  Future<void> displayAppInbox() async {
-    return await _channel.invokeMethod("displayAppInbox");
+  Future<List<MessageCategory>?> getAppInboxCategoryList() async {
+    categoryList = [];
+    return await _channel.invokeMethod("getAppInboxCategoryList").then((value) {
+      var json = jsonDecode(value.toString());
+      log(json.toString());
+      categoryList = [...json.map((e) => MessageCategory.fromJson(e)).toList()];
+      return categoryList.isNotEmpty ? categoryList : [];
+    });
   }
 
-  Future<dynamic> getAppInboxMessages() async {
-    return await _channel.invokeMethod("getAppInboxMessages");
-  }
-
-  Future<dynamic> getAppInboxCategoryList() async {
-    return await _channel.invokeMethod("getAppInboxCategoryList");
-  }
-
-  Future<dynamic> getAppInboxCategoryWiseMessageList(List<String> categoryList) async {
-    return await _channel.invokeMethod("getAppInboxCategoryWiseMessageList", {"group_id": categoryList});
+  Future<List<SMTAppInboxMessage>?> getAppInboxCategoryWiseMessageList({List<String>? categoryList}) async {
+    inboxList = [];
+    return await _channel.invokeMethod("getAppInboxCategoryWiseMessageList", {"group_id": categoryList == [] ? [] : categoryList}).then((value) {
+      var json = jsonDecode(value.toString());
+      inboxList = [...json.map((e) => SMTAppInboxMessage.fromJson(e['smtPayload'])).toList()];
+      log(inboxList.toString());
+      return inboxList.isNotEmpty ? inboxList : [];
+    });
   }
 
   Future<void> markMessageAsDismissed(String trid) async {
@@ -43,8 +59,24 @@ class SmartechAppinbox {
     await _channel.invokeMethod("markMessageAsViewed", {"trid": trid});
   }
 
-  Future<dynamic> getAppInboxMessagesByApiCall() async {
-    return await _channel.invokeMethod("getAppInboxMessagesByApiCall");
+  Future<List<SMTAppInboxMessage>?> getAppInboxMessagesByApiCall({int? messageLimit, String? smtInboxDataType, List<String>? categoryList}) async {
+    return await _channel.invokeMethod(
+      "getAppInboxMessagesByApiCall",
+      {
+        "messageLimit": messageLimit == 0 ? 10 : messageLimit,
+        "smtInboxDataType": smtInboxDataType == "" ? "all" : smtInboxDataType,
+        "group_id": categoryList == [] ? [] : categoryList
+      },
+    ).then((value) {
+      var json = jsonDecode(value.toString());
+      inboxList = [...json.map((e) => SMTAppInboxMessage.fromJson(e['smtPayload'])).toList()];
+      log(inboxList.toString());
+      return inboxList.isNotEmpty ? inboxList : [];
+    });
+  }
+
+  Future<int?> getAppInboxMessageCount({String? smtAppInboxMessageType}) async {
+    return await _channel.invokeMethod("getAppInboxMessageCount", {"smtAppInboxMessageType": smtAppInboxMessageType == "" ? "inbox" : smtAppInboxMessageType});
   }
 
   Future<void> _didRecieveTranscript(MethodCall call) async {
@@ -54,6 +86,10 @@ class SmartechAppinbox {
         _customHTMLCallback(arguments);
         break;
     }
+  }
+
+  Future<void> displayAppInbox() async {
+    return await _channel.invokeMethod("displayAppInbox");
   }
 }
 

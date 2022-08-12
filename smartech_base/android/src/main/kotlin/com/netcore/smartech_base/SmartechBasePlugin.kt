@@ -29,7 +29,7 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   private lateinit var smartech: Smartech
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "smartech_base_channel")
+    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "smartech_base")
     channel.setMethodCallHandler(this)
     smartech = Smartech.getInstance(WeakReference(flutterPluginBinding.applicationContext))
   }

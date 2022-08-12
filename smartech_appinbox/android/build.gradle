@@ -41,12 +41,12 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api 'com.netcore.android:smartech-appinbox:3.2.6'
+    api 'com.netcore.android:smartech-appinbox:3.2.7'
     implementation 'com.google.code.gson:gson:2.8.5'
 }

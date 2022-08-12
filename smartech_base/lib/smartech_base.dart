@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/services.dart';
 
 class Smartech {
-  static const MethodChannel _channel = MethodChannel('smartech_base_channel');
+  static const MethodChannel _channel = MethodChannel('smartech_base');
   static late CustomHTMLCallback _customHTMLCallback;
   static late OnhandleDeeplinkAction _onhandleDeeplinkAction;
 
@@ -12,7 +12,7 @@ class Smartech {
   static final Smartech _smartech = Smartech._internal();
   factory Smartech() => _smartech;
   Smartech._internal() {
-    _channel.setMethodCallHandler(_didRecieveTranscript);
+    _channel.setMethodCallHandler(didRecieveDeeplinkCallback);
   }
 
   //bridge functions
@@ -123,7 +123,11 @@ class Smartech {
     await _channel.invokeMethod('setDeviceAdvertiserId', id);
   }
 
-  Future<void> _didRecieveTranscript(MethodCall call) async {
+  Future<String?> getDevicePushToken() async {
+    return await _channel.invokeMethod("getDevicePushToken");
+  }
+
+  Future<void> didRecieveDeeplinkCallback(MethodCall call) async {
     switch (call.method) {
       case "customHTMLCallback":
         final Map<String, dynamic>? arguments = call.arguments;

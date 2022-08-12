@@ -6,40 +6,20 @@ import 'package:location/location.dart';
 import 'package:smartech_app/deep_link_screen.dart';
 import 'package:smartech_app/events_utils.dart';
 import 'package:smartech_app/navigator.dart';
-import 'package:smartech_app/service_locator.dart';
+import 'package:smartech_app/update_profile.dart';
 import 'package:smartech_base/smartech_base.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'splash_screen.dart';
 
+// DeepLinkNavigation deepLinkNavigation = DeepLinkNavigation();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupLocator();
-
-  if (Platform.isAndroid) {
-    Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) async {
-      log(map.toString());
-
-      if (link.toString() != "" || map!.isNotEmpty) {
-        Map<String, dynamic> dict = HashMap();
-        log(map.toString());
-        dict["deepLinkData"] = map;
-        dict["deepLinkUrl"] = link;
-        dict["isFromScreen"] = false;
-        if (link!.contains("http")) {
-          print("navigate to browser with url");
-          final Uri _url = Uri.parse(dict["deepLinkUrl"]);
-          if (!await launchUrl(_url)) throw 'Could not launch $_url';
-        } else {
-          NavigationUtilities.pushRoute(
-            DeepLinkScreen.route,
-            args: dict,
-          );
-        }
-      } else {
-        return;
-      }
+  Smartech().onHandleDeeplinkAction((String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) async {
+    print("is after terminated " + isAfterTerminated.toString());
+    Future.delayed(const Duration(milliseconds: 500), () async {
+      Globle().deepLinkNavigation(link, map, isAfterTerminated);
     });
-  }
+  });
   await loadEventsJson();
   runApp(MyApp());
   getLocation();
@@ -139,4 +119,28 @@ class Globle {
 
   Globle._internal();
   late BuildContext context;
+
+  deepLinkNavigation(String? link, Map<dynamic, dynamic>? map, bool? isAfterTerminated) async {
+    if (link.toString() != "" || map!.isNotEmpty) {
+      Map<String, dynamic> dict = HashMap();
+      log(map.toString());
+      dict["deepLinkData"] = map;
+      dict["deepLinkUrl"] = link;
+      dict["isFromScreen"] = false;
+      if (link!.contains("http")) {
+        print("navigate to browser with url");
+        final Uri _url = Uri.parse(dict["deepLinkUrl"]);
+        if (!await launchUrl(_url)) throw 'Could not launch $_url';
+      } else if (link.contains("smartechflutter://profile")) {
+        NavigationUtilities.pushRoute(UpdateProfile.route);
+      } else {
+        NavigationUtilities.pushRoute(
+          DeepLinkScreen.route,
+          args: dict,
+        );
+      }
+    } else {
+      return;
+    }
+  }
 }

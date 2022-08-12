@@ -20,7 +20,7 @@ class SmartechPushPlugin: FlutterPlugin, MethodCallHandler {
   private lateinit var smartPush: SmartPush
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "smartech_push_channel")
+    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "smartech_push")
     channel.setMethodCallHandler(this)
     smartPush = SmartPush.getInstance(WeakReference(flutterPluginBinding.applicationContext))
   }
