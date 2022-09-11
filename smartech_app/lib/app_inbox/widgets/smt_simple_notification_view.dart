@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_app/deep_link_screen.dart';
 import 'package:smartech_app/navigator.dart';
@@ -28,20 +29,9 @@ class SMTSimpleNotificationView extends StatelessWidget {
                     style: TextStyle(fontSize: 12, color: AppColor.greyColorText, fontWeight: FontWeight.w400),
                   ),
                 ),
-                SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  inbox.title,
-                  style: TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w700),
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  inbox.body,
-                  style: TextStyle(fontSize: 14, color: AppColor.greyColorText, fontWeight: FontWeight.w500),
-                )
+                htmlText(inbox.title),
+                if (inbox.subtitle.toString() != "") htmlText(inbox.subtitle),
+                htmlText(inbox.body),
               ],
             ),
           ),

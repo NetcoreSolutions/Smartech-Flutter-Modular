@@ -10,19 +10,18 @@ class SmartechAppinbox {
   //To make singleton class
   static final SmartechAppinbox _smartechAppinbox = SmartechAppinbox._internal();
   factory SmartechAppinbox() => _smartechAppinbox;
-  List<SMTAppInboxMessage> allInboxList = [];
-  List<SMTAppInboxMessage> inboxList = [];
+  List<SMTAppInboxMessages> allInboxList = [];
+  List<SMTAppInboxMessages> inboxList = [];
   List<MessageCategory> categoryList = [];
 
   SmartechAppinbox._internal() {
     _channel.setMethodCallHandler(_didRecieveTranscript);
   }
 
-  Future<List<SMTAppInboxMessage>?> getAppInboxMessages() async {
+  Future<List<SMTAppInboxMessages>?> getAppInboxMessages() async {
     return await _channel.invokeMethod("getAppInboxMessages").then((value) {
       var json = jsonDecode(value.toString());
-      allInboxList = [...json.map((e) => SMTAppInboxMessage.fromJson(e['smtPayload'])).toList()];
-      log(allInboxList.toString());
+      allInboxList = [...json.map((e) => SMTAppInboxMessages.fromJson(e)).toList()];
       return allInboxList.isNotEmpty ? allInboxList : [];
     });
   }
@@ -31,18 +30,16 @@ class SmartechAppinbox {
     categoryList = [];
     return await _channel.invokeMethod("getAppInboxCategoryList").then((value) {
       var json = jsonDecode(value.toString());
-      log(json.toString());
       categoryList = [...json.map((e) => MessageCategory.fromJson(e)).toList()];
       return categoryList.isNotEmpty ? categoryList : [];
     });
   }
 
-  Future<List<SMTAppInboxMessage>?> getAppInboxCategoryWiseMessageList({List<String>? categoryList}) async {
+  Future<List<SMTAppInboxMessages>?> getAppInboxCategoryWiseMessageList({List<String>? categoryList}) async {
     inboxList = [];
     return await _channel.invokeMethod("getAppInboxCategoryWiseMessageList", {"group_id": categoryList == [] ? [] : categoryList}).then((value) {
       var json = jsonDecode(value.toString());
-      inboxList = [...json.map((e) => SMTAppInboxMessage.fromJson(e['smtPayload'])).toList()];
-      log(inboxList.toString());
+      inboxList = [...json.map((e) => SMTAppInboxMessages.fromJson(e)).toList()];
       return inboxList.isNotEmpty ? inboxList : [];
     });
   }
@@ -59,7 +56,8 @@ class SmartechAppinbox {
     await _channel.invokeMethod("markMessageAsViewed", {"trid": trid});
   }
 
-  Future<List<SMTAppInboxMessage>?> getAppInboxMessagesByApiCall({int? messageLimit, String? smtInboxDataType, List<String>? categoryList}) async {
+  Future<List<SMTAppInboxMessages>?> getAppInboxMessagesByApiCall({int? messageLimit, String? smtInboxDataType, List<String>? categoryList}) async {
+    inboxList = [];
     return await _channel.invokeMethod(
       "getAppInboxMessagesByApiCall",
       {
@@ -69,8 +67,10 @@ class SmartechAppinbox {
       },
     ).then((value) {
       var json = jsonDecode(value.toString());
-      inboxList = [...json.map((e) => SMTAppInboxMessage.fromJson(e['smtPayload'])).toList()];
-      log(inboxList.toString());
+      print("api call json response : ");
+      print(json.toString());
+      inboxList = [...json.map((e) => SMTAppInboxMessages.fromJson(e)).toList()];
+      print(inboxList.toString());
       return inboxList.isNotEmpty ? inboxList : [];
     });
   }

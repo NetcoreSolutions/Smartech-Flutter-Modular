@@ -75,17 +75,9 @@ class _SMTAudioNotificationViewState extends State<SMTAudioNotificationView> wit
             SizedBox(
               height: 8,
             ),
-            Text(
-              widget.inbox.title,
-              style: TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w700),
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Text(
-              widget.inbox.body,
-              style: TextStyle(fontSize: 14, color: AppColor.greyColorText, fontWeight: FontWeight.w500),
-            ),
+            htmlText(widget.inbox.title),
+            if (widget.inbox.subtitle.toString() != "") htmlText(widget.inbox.subtitle),
+            htmlText(widget.inbox.body),
             SizedBox(
               height: 8,
             ),

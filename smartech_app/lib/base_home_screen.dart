@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String appId = "";
   String devicePushToken = "";
+  String deviceGuid = "";
   String deviceUniqueID = "";
   String sdkVersion = "";
 
@@ -770,6 +771,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     getSdkMethod("Device Push Token", devicePushToken),
                     getSdkMethod("Device Unique I", deviceUniqueID),
                     getSdkMethod("SDK Version", sdkVersion),
+                    getSdkMethod("Device Guid", deviceGuid),
                   ],
                 ),
               ),
@@ -867,6 +869,14 @@ class _HomeScreenState extends State<HomeScreen> {
           devicePushToken = "-";
         } else {
           devicePushToken = value.isEmpty ? "-" : value;
+        }
+        setState(() {});
+      });
+      Smartech().getDeviceGuid().then((value) {
+        if (value == null) {
+          deviceGuid = "-";
+        } else {
+          deviceGuid = value.isEmpty ? "-" : value;
         }
         setState(() {});
       });

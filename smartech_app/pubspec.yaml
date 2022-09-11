@@ -49,6 +49,7 @@ dependencies:
   visibility_detector: ^0.3.3
   video_player: ^2.1.4
   chewie: ^1.2.0
+  flutter_html: ^2.2.1
 
 dev_dependencies:
   flutter_test:

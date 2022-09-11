@@ -26,17 +26,9 @@ class GIFNotificationView extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            Text(
-              inbox.title,
-              style: TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w700),
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Text(
-              inbox.body,
-              style: TextStyle(fontSize: 14, color: AppColor.greyColorText, fontWeight: FontWeight.w500),
-            ),
+            htmlText(inbox.title),
+            if (inbox.subtitle.toString() != "") htmlText(inbox.subtitle),
+            htmlText(inbox.body),
             SizedBox(
               height: 8,
             ),

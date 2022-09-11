@@ -1,4 +1,20 @@
+import 'dart:convert';
+
 import 'package:intl/intl.dart';
+
+class SMTAppInboxMessages {
+  final SMTAppInboxMessage? smtPayload;
+  final Map<String, dynamic> smtCustomPayload;
+
+  SMTAppInboxMessages({this.smtPayload, this.smtCustomPayload = const {}});
+
+  factory SMTAppInboxMessages.fromJson(Map json) {
+    return SMTAppInboxMessages(
+      smtPayload: SMTAppInboxMessage.fromJson(json['smtPayload'] ?? json['payload'] ?? {}),
+      smtCustomPayload: jsonDecode(json['smtCustomPayload'] ?? {}) ?? {},
+    );
+  }
+}
 
 class SMTAppInboxMessage {
   final List<ActionButton> actionButton;
@@ -15,7 +31,6 @@ class SMTAppInboxMessage {
   final String message;
   final dynamic pnMeta;
   final DateTime? publishedDate;
-  final dynamic smtCustomPayload;
   final String smtSrc;
   final bool sound;
   final String status;
@@ -40,7 +55,6 @@ class SMTAppInboxMessage {
     this.message = "",
     this.pnMeta,
     this.publishedDate,
-    this.smtCustomPayload,
     this.smtSrc = "",
     this.sound = false,
     this.status = "",
@@ -67,16 +81,23 @@ class SMTAppInboxMessage {
       message: json['message'] ?? "",
       pnMeta: json['pnMeta'] ?? {},
       publishedDate: DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(json['publishedDate'] ?? "", true).toLocal(),
-      smtCustomPayload: json['smtCustomPayload'] ?? {},
       smtSrc: json['smtSrc'] ?? "",
       sound: json['sound'] ?? false,
-      status: json['status'] ?? "",
-      subtitle: json['subtitle'] ?? "",
+      status: getCommonStatus(json['status'] ?? ""),
+      subtitle: json['subtitle'] ?? json['subTitle'] ?? "",
       timestamp: json['timestamp'] ?? 0,
       title: json['title'] ?? "",
       trid: json['trid'] ?? "",
       type: ((json['type'] ?? "") as String).toLowerCase().getSMTNotificationType(),
     );
+  }
+}
+
+String getCommonStatus(String status) {
+  if (status == "viewed" || status == "displayed") {
+    return "viewed";
+  } else {
+    return status;
   }
 }
 
@@ -160,7 +181,7 @@ class ActionButton {
       aTyp: json['aTyp'] ?? "",
       actionDeeplink: json['actionDeeplink'] ?? "",
       actionName: json['actionName'] ?? "",
-      callToAction: json['call_to_action'] ?? "",
+      callToAction: json['callToAction'] ?? json['call_to_action'] ?? "",
       configCtxt: json['config_ctxt'] ?? "",
     );
   }

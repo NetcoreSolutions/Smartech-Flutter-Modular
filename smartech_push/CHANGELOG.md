@@ -6,3 +6,7 @@
 
 * Added support for iOS platform. (SDK Version : v1.0.0)
 * Updated Smartech Push Android SDK v3.2.11.
+
+## 3.2.2
+
+* Updated Smartech Push Android SDK v3.2.12.

@@ -6,3 +6,7 @@
 
 * Added support for iOS platform. (SDK Version : v3.2.7)
 * Updated Smartech Base Android SDK v3.2.20.
+
+## 3.2.2
+
+* Updated Smartech Base Android SDK v3.2.23.

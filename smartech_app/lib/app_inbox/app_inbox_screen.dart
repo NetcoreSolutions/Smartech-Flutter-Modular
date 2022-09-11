@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:ffi';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_app/app_inbox/widgets/smt_audio_notification_view.dart';
@@ -22,7 +23,8 @@ class SMTAppInboxScreen extends StatefulWidget {
 
 class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
   List<MessageCategory> categoryList = [];
-  List<SMTAppInboxMessage> inboxList = [];
+  List<SMTAppInboxMessages> inboxList = [];
+  bool isDataLoading = true;
 
   var appBarHeight = AppBar().preferredSize.height;
   CustomPopupMenuController _controller = CustomPopupMenuController();
@@ -33,11 +35,7 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
   @override
   void initState() {
     super.initState();
-    getAppInboxCategoryWiseMessageList();
-    getMessageListByApiCall();
-    getCategoryList();
-    getAppInboxMessageCount(); // This method use to get appinbox messages count based on message type
-    // getMessagesList(); // This method use to get all types of notifications
+    initialApiCall();
   }
 
   @override
@@ -46,15 +44,29 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
     super.dispose();
   }
 
+  Future initialApiCall() async {
+    await getMessageListByApiCall();
+    await Future.wait([
+      getAppInboxCategoryWiseMessageList(),
+      getCategoryList(),
+      getAppInboxMessageCount(), // This method use to get appinbox messages count based on message type
+      // getMessagesList(); // This method use to get all types of notifications
+    ]);
+    isDataLoading = false;
+    setState(() {});
+  }
+
   pullToRefreshApiCall() async {
     smtInboxDataType = "latest";
     categoryList = [];
     await getMessageListByApiCall(smtInboxDataType: smtInboxDataType);
-    getAppInboxCategoryWiseMessageList(categoryList: categoryList);
-    getCategoryList();
+    await Future.wait([
+      getAppInboxCategoryWiseMessageList(),
+      getCategoryList(),
+    ]);
   }
 
-  getCategoryList() async {
+  Future getCategoryList() async {
     categoryList = [];
     await SmartechAppinbox().getAppInboxCategoryList().then((value) {
       if (value != null) {
@@ -64,7 +76,7 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
     });
   }
 
-  getAppInboxCategoryWiseMessageList({List<MessageCategory>? categoryList}) async {
+  Future getAppInboxCategoryWiseMessageList({List<MessageCategory>? categoryList}) async {
     inboxList = [];
     await SmartechAppinbox()
         .getAppInboxCategoryWiseMessageList(categoryList: categoryList?.where((element) => element.selected).map((e) => e.name).toList() ?? [])
@@ -96,7 +108,7 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
     });
   }
 
-  getMessageListByApiCall({int? messageLimit, String? smtInboxDataType, List<MessageCategory>? filterCategoryList}) async {
+  Future getMessageListByApiCall({int? messageLimit, String? smtInboxDataType, List<MessageCategory>? filterCategoryList}) async {
     await SmartechAppinbox()
         .getAppInboxMessagesByApiCall(
             messageLimit: messageLimit ?? 10,
@@ -108,7 +120,7 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
     });
   }
 
-  getAppInboxMessageCount({String? smtAppInboxMessageType}) async {
+  Future getAppInboxMessageCount({String? smtAppInboxMessageType}) async {
     await SmartechAppinbox().getAppInboxMessageCount(smtAppInboxMessageType: smtAppInboxMessageType ?? "").then(
       (value) {
         print(value.toString());
@@ -170,266 +182,268 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
             }),
           ),
           Expanded(
-            child: inboxList.length > 0
-                ? RefreshIndicator(
-                    onRefresh: () async {
-                      await pullToRefreshApiCall();
-                    },
-                    child: ListView.builder(
-                      itemCount: inboxList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        switch (inboxList[index].type) {
+            child: isDataLoading
+                ? Center(child: CupertinoActivityIndicator())
+                : inboxList.isNotEmpty
+                    ? RefreshIndicator(
+                        onRefresh: () async {
+                          await pullToRefreshApiCall();
+                        },
+                        child: ListView.builder(
+                          itemCount: inboxList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            switch (inboxList[index].smtPayload!.type) {
 
-                          // ******* Imgae type Notifications ******* \\
-                          case SMTNotificationType.image:
-                            return VisibilityDetector(
-                              key: Key(index.toString()),
-                              onVisibilityChanged: (VisibilityInfo info) {
-                                var visiblePercentage = info.visibleFraction * 100;
-                                // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
-                                if (visiblePercentage == 100 && inboxList[index].status.toLowerCase() != "viewed") {
-                                  markMessageAsViewed(inboxList[index].trid);
-                                  return;
-                                }
-                              },
-                              child: Dismissible(
-                                key: Key(inboxList[index].trid),
-                                onDismissed: (direction) async {
-                                  await markMessageAsDismissed(inboxList[index].trid);
-                                  await inboxList.removeAt(index);
-                                  await getCategoryList();
-                                  setState(() {});
-                                },
-                                background: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(right: 26),
-                                      child: Icon(
-                                        Icons.delete_outline,
-                                        color: AppColor.greyColorText,
-                                      ),
-                                    )),
-                                child: InkWell(
-                                  onTap: () {
-                                    markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
+                              // ******* Imgae type Notifications ******* \\
+                              case SMTNotificationType.image:
+                                return VisibilityDetector(
+                                  key: Key(index.toString()),
+                                  onVisibilityChanged: (VisibilityInfo info) {
+                                    var visiblePercentage = info.visibleFraction * 100;
+                                    // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
+                                    if (visiblePercentage == 100 && inboxList[index].smtPayload!.status.toLowerCase() != "viewed") {
+                                      markMessageAsViewed(inboxList[index].smtPayload!.trid);
+                                      return;
+                                    }
                                   },
-                                  child: SMTImageNotificationView(
-                                    inbox: inboxList[index],
+                                  child: Dismissible(
+                                    key: Key(inboxList[index].smtPayload!.trid),
+                                    onDismissed: (direction) async {
+                                      await markMessageAsDismissed(inboxList[index].smtPayload!.trid);
+                                      await inboxList.removeAt(index);
+                                      await getCategoryList();
+                                      setState(() {});
+                                    },
+                                    background: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(right: 26),
+                                          child: Icon(
+                                            Icons.delete_outline,
+                                            color: AppColor.greyColorText,
+                                          ),
+                                        )),
+                                    child: InkWell(
+                                      onTap: () {
+                                        markMessageAsClicked(inboxList[index].smtPayload!.deeplink, inboxList[index].smtPayload!.trid);
+                                      },
+                                      child: SMTImageNotificationView(
+                                        inbox: inboxList[index].smtPayload!,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            );
+                                );
 
-                          // ******* GIF type Notifications ******* \\
-                          case SMTNotificationType.gif:
-                            return VisibilityDetector(
-                              key: Key(index.toString()),
-                              onVisibilityChanged: (VisibilityInfo info) {
-                                var visiblePercentage = info.visibleFraction * 100;
-                                // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
-                                if (visiblePercentage == 100 && inboxList[index].status.toLowerCase() != "viewed") {
-                                  markMessageAsViewed(inboxList[index].trid);
-                                  return;
-                                }
-                              },
-                              child: Dismissible(
-                                key: Key(inboxList[index].trid),
-                                onDismissed: (direction) async {
-                                  await markMessageAsDismissed(inboxList[index].trid);
-                                  await inboxList.removeAt(index);
-                                  await getCategoryList();
-                                  setState(() {});
-                                },
-                                background: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(right: 26),
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: AppColor.greyColorText,
-                                      ),
-                                    )),
-                                child: InkWell(
-                                  onTap: () {
-                                    markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
+                              // ******* GIF type Notifications ******* \\
+                              case SMTNotificationType.gif:
+                                return VisibilityDetector(
+                                  key: Key(index.toString()),
+                                  onVisibilityChanged: (VisibilityInfo info) {
+                                    var visiblePercentage = info.visibleFraction * 100;
+                                    // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
+                                    if (visiblePercentage == 100 && inboxList[index].smtPayload!.status.toLowerCase() != "viewed") {
+                                      markMessageAsViewed(inboxList[index].smtPayload!.trid);
+                                      return;
+                                    }
                                   },
-                                  child: GIFNotificationView(
-                                    inbox: inboxList[index],
+                                  child: Dismissible(
+                                    key: Key(inboxList[index].smtPayload!.trid),
+                                    onDismissed: (direction) async {
+                                      await markMessageAsDismissed(inboxList[index].smtPayload!.trid);
+                                      await inboxList.removeAt(index);
+                                      await getCategoryList();
+                                      setState(() {});
+                                    },
+                                    background: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(right: 26),
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: AppColor.greyColorText,
+                                          ),
+                                        )),
+                                    child: InkWell(
+                                      onTap: () {
+                                        markMessageAsClicked(inboxList[index].smtPayload!.deeplink, inboxList[index].smtPayload!.trid);
+                                      },
+                                      child: GIFNotificationView(
+                                        inbox: inboxList[index].smtPayload!,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            );
+                                );
 
-                          // ******* Audio type Notifications ******* \\
-                          case SMTNotificationType.audio:
-                            return VisibilityDetector(
-                              key: Key(index.toString()),
-                              onVisibilityChanged: (VisibilityInfo info) {
-                                var visiblePercentage = info.visibleFraction * 100;
-                                // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
-                                if (visiblePercentage == 100 && inboxList[index].status.toLowerCase() != "viewed") {
-                                  markMessageAsViewed(inboxList[index].trid);
-                                  return;
-                                }
-                              },
-                              child: Dismissible(
-                                key: Key(inboxList[index].trid),
-                                onDismissed: (direction) async {
-                                  await markMessageAsDismissed(inboxList[index].trid);
-                                  await inboxList.removeAt(index);
-                                  await getCategoryList();
-                                  setState(() {});
-                                },
-                                background: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(right: 26),
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: AppColor.greyColorText,
-                                      ),
-                                    )),
-                                child: InkWell(
-                                  onTap: () {
-                                    markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
+                              // ******* Audio type Notifications ******* \\
+                              case SMTNotificationType.audio:
+                                return VisibilityDetector(
+                                  key: Key(index.toString()),
+                                  onVisibilityChanged: (VisibilityInfo info) {
+                                    var visiblePercentage = info.visibleFraction * 100;
+                                    // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
+                                    if (visiblePercentage == 100 && inboxList[index].smtPayload!.status.toLowerCase() != "viewed") {
+                                      markMessageAsViewed(inboxList[index].smtPayload!.trid);
+                                      return;
+                                    }
                                   },
-                                  child: SMTAudioNotificationView(
-                                    inbox: inboxList[index],
+                                  child: Dismissible(
+                                    key: Key(inboxList[index].smtPayload!.trid),
+                                    onDismissed: (direction) async {
+                                      await markMessageAsDismissed(inboxList[index].smtPayload!.trid);
+                                      await inboxList.removeAt(index);
+                                      await getCategoryList();
+                                      setState(() {});
+                                    },
+                                    background: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(right: 26),
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: AppColor.greyColorText,
+                                          ),
+                                        )),
+                                    child: InkWell(
+                                      onTap: () {
+                                        markMessageAsClicked(inboxList[index].smtPayload!.deeplink, inboxList[index].smtPayload!.trid);
+                                      },
+                                      child: SMTAudioNotificationView(
+                                        inbox: inboxList[index].smtPayload!,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            );
+                                );
 
-                          // ******* Carousel type Notifications ******* \\
-                          case SMTNotificationType.carouselLandscape:
-                          case SMTNotificationType.carouselPortrait:
-                            return VisibilityDetector(
-                              key: Key(index.toString()),
-                              onVisibilityChanged: (VisibilityInfo info) {
-                                var visiblePercentage = info.visibleFraction * 100;
-                                // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
-                                if (visiblePercentage == 100 && inboxList[index].status.toLowerCase() != "viewed") {
-                                  markMessageAsViewed(inboxList[index].trid);
-                                  return;
-                                }
-                              },
-                              child: Dismissible(
-                                key: Key(inboxList[index].trid),
-                                onDismissed: (direction) async {
-                                  await markMessageAsDismissed(inboxList[index].trid);
-                                  await inboxList.removeAt(index);
-                                  await getCategoryList();
-                                  setState(() {});
-                                },
-                                background: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(right: 26),
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: AppColor.greyColorText,
-                                      ),
-                                    )),
-                                child: InkWell(
-                                  onTap: () async {
-                                    markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
+                              // ******* Carousel type Notifications ******* \\
+                              case SMTNotificationType.carouselLandscape:
+                              case SMTNotificationType.carouselPortrait:
+                                return VisibilityDetector(
+                                  key: Key(index.toString()),
+                                  onVisibilityChanged: (VisibilityInfo info) {
+                                    var visiblePercentage = info.visibleFraction * 100;
+                                    // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
+                                    if (visiblePercentage == 100 && inboxList[index].smtPayload!.status.toLowerCase() != "viewed") {
+                                      markMessageAsViewed(inboxList[index].smtPayload!.trid);
+                                      return;
+                                    }
                                   },
-                                  child: SMTCarouselNotificationView(
-                                    inbox: inboxList[index],
+                                  child: Dismissible(
+                                    key: Key(inboxList[index].smtPayload!.trid),
+                                    onDismissed: (direction) async {
+                                      await markMessageAsDismissed(inboxList[index].smtPayload!.trid);
+                                      await inboxList.removeAt(index);
+                                      await getCategoryList();
+                                      setState(() {});
+                                    },
+                                    background: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(right: 26),
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: AppColor.greyColorText,
+                                          ),
+                                        )),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        markMessageAsClicked(inboxList[index].smtPayload!.deeplink, inboxList[index].smtPayload!.trid);
+                                      },
+                                      child: SMTCarouselNotificationView(
+                                        inbox: inboxList[index].smtPayload!,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            );
+                                );
 
-                          // ******* Video type Notifications ******* \\
-                          case SMTNotificationType.video:
-                            return VisibilityDetector(
-                              key: Key(index.toString()),
-                              onVisibilityChanged: (VisibilityInfo info) {
-                                var visiblePercentage = info.visibleFraction * 100;
-                                // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
-                                if (visiblePercentage == 100 && inboxList[index].status.toLowerCase() != "viewed") {
-                                  markMessageAsViewed(inboxList[index].trid);
-                                  return;
-                                }
-                              },
-                              child: Dismissible(
-                                key: Key(inboxList[index].trid),
-                                onDismissed: (direction) async {
-                                  await markMessageAsDismissed(inboxList[index].trid);
-                                  await inboxList.removeAt(index);
-                                  await getCategoryList();
-                                  setState(() {});
-                                },
-                                background: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(right: 26),
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: AppColor.greyColorText,
-                                      ),
-                                    )),
-                                child: InkWell(
-                                  onTap: () {
-                                    markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
+                              // ******* Video type Notifications ******* \\
+                              case SMTNotificationType.video:
+                                return VisibilityDetector(
+                                  key: Key(index.toString()),
+                                  onVisibilityChanged: (VisibilityInfo info) {
+                                    var visiblePercentage = info.visibleFraction * 100;
+                                    // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
+                                    if (visiblePercentage == 100 && inboxList[index].smtPayload!.status.toLowerCase() != "viewed") {
+                                      markMessageAsViewed(inboxList[index].smtPayload!.trid);
+                                      return;
+                                    }
                                   },
-                                  child: SMTVideoNotificationView(
-                                    inbox: inboxList[index],
+                                  child: Dismissible(
+                                    key: Key(inboxList[index].smtPayload!.trid),
+                                    onDismissed: (direction) async {
+                                      await markMessageAsDismissed(inboxList[index].smtPayload!.trid);
+                                      await inboxList.removeAt(index);
+                                      await getCategoryList();
+                                      setState(() {});
+                                    },
+                                    background: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(right: 26),
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: AppColor.greyColorText,
+                                          ),
+                                        )),
+                                    child: InkWell(
+                                      onTap: () {
+                                        markMessageAsClicked(inboxList[index].smtPayload!.deeplink, inboxList[index].smtPayload!.trid);
+                                      },
+                                      child: SMTVideoNotificationView(
+                                        inbox: inboxList[index].smtPayload!,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            );
+                                );
 
-                          // ******* Simple type Notifications ******* \\
-                          case SMTNotificationType.simple:
-                          default:
-                            return VisibilityDetector(
-                              key: Key(index.toString()),
-                              onVisibilityChanged: (VisibilityInfo info) {
-                                var visiblePercentage = info.visibleFraction * 100;
-                                // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
-                                if (visiblePercentage == 100 && inboxList[index].status.toLowerCase() != "viewed") {
-                                  markMessageAsViewed(inboxList[index].trid);
-                                  return;
-                                }
-                              },
-                              child: Dismissible(
-                                key: Key(inboxList[index].trid),
-                                onDismissed: (direction) async {
-                                  await markMessageAsDismissed(inboxList[index].trid);
-                                  await inboxList.removeAt(index);
-                                  await getCategoryList();
-                                  setState(() {});
-                                },
-                                background: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(right: 26),
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: AppColor.greyColorText,
-                                      ),
-                                    )),
-                                child: InkWell(
-                                  onTap: () {
-                                    markMessageAsClicked(inboxList[index].deeplink, inboxList[index].trid);
+                              // ******* Simple type Notifications ******* \\
+                              case SMTNotificationType.simple:
+                              default:
+                                return VisibilityDetector(
+                                  key: Key(index.toString()),
+                                  onVisibilityChanged: (VisibilityInfo info) {
+                                    var visiblePercentage = info.visibleFraction * 100;
+                                    // log('Widget ${inboxList[index].trid} is ${visiblePercentage}% visible');
+                                    if (visiblePercentage == 100 && inboxList[index].smtPayload!.status.toLowerCase() != "viewed") {
+                                      markMessageAsViewed(inboxList[index].smtPayload!.trid);
+                                      return;
+                                    }
                                   },
-                                  child: SMTSimpleNotificationView(
-                                    inbox: inboxList[index],
+                                  child: Dismissible(
+                                    key: Key(inboxList[index].smtPayload!.trid),
+                                    onDismissed: (direction) async {
+                                      await markMessageAsDismissed(inboxList[index].smtPayload!.trid);
+                                      await inboxList.removeAt(index);
+                                      await getCategoryList();
+                                      setState(() {});
+                                    },
+                                    background: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(right: 26),
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: AppColor.greyColorText,
+                                          ),
+                                        )),
+                                    child: InkWell(
+                                      onTap: () {
+                                        markMessageAsClicked(inboxList[index].smtPayload!.deeplink, inboxList[index].smtPayload!.trid);
+                                      },
+                                      child: SMTSimpleNotificationView(
+                                        inbox: inboxList[index].smtPayload!,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            );
-                        }
-                      },
-                    ),
-                  )
-                : Center(
-                    child: Text(
-                    "There are no notifications for you.",
-                    style: TextStyle(fontSize: 20, color: Colors.grey),
-                  )),
+                                );
+                            }
+                          },
+                        ),
+                      )
+                    : Center(
+                        child: Text(
+                        "There are no notifications for you.",
+                        style: TextStyle(fontSize: 20, color: Colors.grey),
+                      )),
           ),
         ],
       ),

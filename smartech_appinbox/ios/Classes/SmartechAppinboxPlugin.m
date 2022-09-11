@@ -28,9 +28,7 @@ NSString *const kNotificationCategoryCarouselFallback = @"SmartechCarouselFallba
                                                                                                     }];
                 [categoryData addObject:categoryDict];
             }
-            NSError *err;
-            NSData *jsonData = [NSJSONSerialization  dataWithJSONObject:categoryData options:0 error:&err];
-            NSString *categoryString = [[NSString alloc] initWithData:jsonData   encoding:NSUTF8StringEncoding];
+            NSString *categoryString = [self jsonStringFromObject:categoryData];
             result(categoryString);
         } else if ([@"getAppInboxCategoryWiseMessageList" isEqualToString:call.method]) {
             [self getAppInboxMessagesWithCategory:call withResult:(FlutterResult)result];
@@ -149,6 +147,8 @@ NSString *const kNotificationCategoryCarouselFallback = @"SmartechCarouselFallba
             NSMutableDictionary *appInboxObject = [[NSMutableDictionary alloc] init];
             SMTAppInboxMessageModel *notificationPayload = messageObj.payload;
             NSString *notificationCategory = notificationPayload.aps.category;
+
+            NSMutableDictionary * smtCustomPayloadObj = [[NSMutableDictionary alloc] initWithDictionary:notificationPayload.smtCustomPayload];
             
             NSMutableDictionary *messageDict = [[NSMutableDictionary alloc] initWithDictionary:@{ @"title": notificationPayload.aps.alert.title,
                                                                                                   @"subtitle":notificationPayload.aps.alert.subtitle,
@@ -158,7 +158,8 @@ NSString *const kNotificationCategoryCarouselFallback = @"SmartechCarouselFallba
                                                                                                   @"trid": notificationPayload.smtPayload.trid,
                                                                                                   @"deeplink": notificationPayload.smtPayload.deeplink,
                                                                                                   @"mediaUrl": notificationPayload.smtPayload.mediaURL,
-                                                                                                  @"publishedDate": notificationPayload.smtPayload.publishedDate
+                                                                                                  @"publishedDate": notificationPayload.smtPayload.publishedDate,
+                                                                                                  @"status": notificationPayload.smtPayload.status,
                                                                                                }];
             
             if ([notificationCategory isEqualToString:kNotificationCategoryCarouselPortrait] || [notificationCategory isEqualToString:kNotificationCategoryCarouselLandscape] || [notificationCategory isEqualToString:kNotificationCategoryCarouselFallback]) {
@@ -198,19 +199,22 @@ NSString *const kNotificationCategoryCarouselFallback = @"SmartechCarouselFallba
             }
             
             [appInboxObject setValue:messageDict forKey:@"smtPayload"];
+            NSString *smtCustomPayload = [self jsonStringFromObject:smtCustomPayloadObj];
+            [appInboxObject setValue:smtCustomPayload forKey:@"smtCustomPayload"];
             [appInboxArray addObject:appInboxObject];
         }
     } @catch (NSException *exception) {
         NSLog(@"Smartech error: Exception caught in getting app inbox messages.");
     }
-    
-    NSError *err;
-    NSData *jsonData = [NSJSONSerialization  dataWithJSONObject:appInboxArray options:0 error:&err];
-    NSString *appInboxString = [[NSString alloc] initWithData:jsonData   encoding:NSUTF8StringEncoding];
+    NSString *appInboxString = [self jsonStringFromObject:appInboxArray];
     result(appInboxString);
 }
-
-
+    -(NSString *)jsonStringFromObject:(id)obj {
+        NSError *err;
+        NSData *jsonData = [NSJSONSerialization  dataWithJSONObject:obj options:0 error:&err];
+        NSString *appInboxString = [[NSString alloc] initWithData:jsonData   encoding:NSUTF8StringEncoding];
+        return appInboxString;
+    }
 @end
 
 

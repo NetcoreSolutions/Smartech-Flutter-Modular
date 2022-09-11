@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 showToast(String msg) {
@@ -18,4 +19,18 @@ class AppColor {
   static const Color accent1 = Color(0xFF32C759);
   static const Color accent2 = Color(0xFF025BBF);
   static const Color greyColorText = Color(0xFF808080);
+}
+
+Widget htmlText(String title) {
+  return Column(
+    children: [
+      Html(
+        data: title,
+        style: {"body": Style(margin: EdgeInsets.zero, padding: EdgeInsets.zero)},
+      ),
+      SizedBox(
+        height: 4,
+      ),
+    ],
+  );
 }

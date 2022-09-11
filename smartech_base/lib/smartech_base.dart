@@ -28,6 +28,10 @@ class Smartech {
     await _channel.invokeMethod('trackAppUpdate');
   }
 
+  Future<String?> getDeviceGuid() async {
+    return await _channel.invokeMethod('getDeviceGuid');
+  }
+
   Future<void> trackAppInstallUpdateBySmartech() async {
     await _channel.invokeMethod('trackAppInstallUpdateBySmartech');
   }
