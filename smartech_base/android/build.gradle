@@ -49,7 +49,7 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //smartech
-    api 'com.netcore.android:smartech-sdk:3.2.23'
+    api 'com.netcore.android:smartech-sdk:3.2.26'
     // WorkManager Version 2.7.0 is required for apps targeting Android 12 (S), uncomment the below line based on the app side requirement
 
     // (Java only enable below)

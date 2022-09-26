@@ -83,21 +83,13 @@ class SMTAppInboxMessage {
       publishedDate: DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(json['publishedDate'] ?? "", true).toLocal(),
       smtSrc: json['smtSrc'] ?? "",
       sound: json['sound'] ?? false,
-      status: getCommonStatus(json['status'] ?? ""),
+      status: json['status'] ?? "",
       subtitle: json['subtitle'] ?? json['subTitle'] ?? "",
       timestamp: json['timestamp'] ?? 0,
       title: json['title'] ?? "",
       trid: json['trid'] ?? "",
       type: ((json['type'] ?? "") as String).toLowerCase().getSMTNotificationType(),
     );
-  }
-}
-
-String getCommonStatus(String status) {
-  if (status == "viewed" || status == "displayed") {
-    return "viewed";
-  } else {
-    return status;
   }
 }
 

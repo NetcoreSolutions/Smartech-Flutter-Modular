@@ -10,3 +10,7 @@
 ## 3.2.2
 
 * Updated Smartech Base Android SDK v3.2.23.
+
+## 3.2.3
+
+* Updated Smartech Base Android SDK v3.2.26.

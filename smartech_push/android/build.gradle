@@ -50,5 +50,5 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //smartech push
-    api 'com.netcore.android:smartech-push:3.2.12'
+    api 'com.netcore.android:smartech-push:3.2.14'
 }

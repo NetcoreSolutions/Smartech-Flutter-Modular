@@ -10,3 +10,8 @@
 ## 3.2.2
 
 * Updated Smartech Push Android SDK v3.2.12.
+
+## 3.2.3
+
+* Updated Smartech Push iOS SDK v3.0.0.
+* Updated Smartech Push Android SDK v3.2.14.

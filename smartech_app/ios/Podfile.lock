@@ -16,7 +16,7 @@ PODS:
     - Flutter
   - shared_preferences_ios (0.0.1):
     - Flutter
-  - Smartech-iOS-SDK (3.2.7)
+  - Smartech-iOS-SDK (3.2.8)
   - smartech_appinbox (1.0.0):
     - Flutter
     - Smartech-iOS-SDK
@@ -27,8 +27,8 @@ PODS:
   - smartech_push (1.0.0):
     - Flutter
     - SmartPush-iOS-SDK
-  - SmartechAppInbox-iOS-SDK (3.2.3)
-  - SmartPush-iOS-SDK (1.0.0)
+  - SmartechAppInbox-iOS-SDK (3.2.4)
+  - SmartPush-iOS-SDK (3.0.0)
   - sqflite (0.0.2):
     - Flutter
     - FMDB (>= 2.7.5)
@@ -109,12 +109,12 @@ SPEC CHECKSUMS:
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
-  Smartech-iOS-SDK: 96714f581b3a02e79f901750c79d4d914d0377a6
+  Smartech-iOS-SDK: 717f6dfd8ce4ad9c97f120fec680ad72cba1ebc7
   smartech_appinbox: 3532f82f5b48ef368428384fdb394e16b2d015a3
   smartech_base: 9e2fd9e596518cc7ae850752bfc7abbb7539a8b1
   smartech_push: 264d63abbf0b40ff72ee2dfb24143d4021235b42
-  SmartechAppInbox-iOS-SDK: abbc639979d3a438eb952ababc3b898aa89dd9c2
-  SmartPush-iOS-SDK: ac8c1a28abd2bbe3e5c0d54ed47075885228d99b
+  SmartechAppInbox-iOS-SDK: 99f50ab261a87608aeb34001a981c22b940f611c
+  SmartPush-iOS-SDK: cbc8e5706835e7377bffe099991c8be208ac4acd
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
@@ -122,6 +122,6 @@ SPEC CHECKSUMS:
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
   webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f
 
-PODFILE CHECKSUM: 8502730145f8327be2a1da260a92e5bfe15aeb60
+PODFILE CHECKSUM: 216e8c1800b26f1c4d95ac343b46aecffc83cd00
 
 COCOAPODS: 1.11.3

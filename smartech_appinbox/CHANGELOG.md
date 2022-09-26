@@ -12,4 +12,8 @@
 
 * Updated model class for smtCustomPayload and smtPayload.
 
+## 3.2.3
 
+* Updated Smartech Appinbox iOS SDK v3.2.4.
+* Updated Smartech Appinbox Android SDK v3.2.8.
+* Updated model class for status value.

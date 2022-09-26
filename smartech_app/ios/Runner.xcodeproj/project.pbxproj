@@ -11,12 +11,12 @@
 		1FCB041EA8A46F74C8A772A7 /* libPods-SmartechNCE.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 018A708FA65002ED461E9D51 /* libPods-SmartechNCE.a */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		511DE9EE288ED27B0090CF7D /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 511DE9ED288ED27B0090CF7D /* NotificationService.m */; };
-		511DE9F2288ED27B0090CF7D /* SmartechNSE.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 511DE9EA288ED27B0090CF7D /* SmartechNSE.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		511DE9F2288ED27B0090CF7D /* SmartechNSE.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 511DE9EA288ED27B0090CF7D /* SmartechNSE.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		511DE9FE288ED2CB0090CF7D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 511DE9FD288ED2CB0090CF7D /* UserNotifications.framework */; };
 		511DEA00288ED2CB0090CF7D /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 511DE9FF288ED2CB0090CF7D /* UserNotificationsUI.framework */; };
 		511DEA04288ED2CB0090CF7D /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 511DEA03288ED2CB0090CF7D /* NotificationViewController.m */; };
 		511DEA07288ED2CB0090CF7D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 511DEA05288ED2CB0090CF7D /* MainInterface.storyboard */; };
-		511DEA0B288ED2CB0090CF7D /* SmartechNCE.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 511DE9FC288ED2CB0090CF7D /* SmartechNCE.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		511DEA0B288ED2CB0090CF7D /* SmartechNCE.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 511DE9FC288ED2CB0090CF7D /* SmartechNCE.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		51430A9928802A640071FBEF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51430A9828802A640071FBEF /* GoogleService-Info.plist */; };
 		6D16E0D9FE8E5F6A0959DA19 /* libPods-Runner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F271389192223323967CBA99 /* libPods-Runner.a */; };
 		978B8F6F1D3862AE00F588F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFFD8EE1D35381100E5BB4D /* AppDelegate.m */; };
@@ -45,16 +45,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		511DE9F3288ED27B0090CF7D /* Embed App Extensions */ = {
+		511DE9F3288ED27B0090CF7D /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				511DEA0B288ED2CB0090CF7D /* SmartechNCE.appex in Embed App Extensions */,
-				511DE9F2288ED27B0090CF7D /* SmartechNSE.appex in Embed App Extensions */,
+				511DEA0B288ED2CB0090CF7D /* SmartechNCE.appex in Embed Foundation Extensions */,
+				511DE9F2288ED27B0090CF7D /* SmartechNSE.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9705A1C41CF9048500538489 /* Embed Frameworks */ = {
@@ -305,7 +305,7 @@
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				642782902D8D75C3AAB541E9 /* [CP] Embed Pods Frameworks */,
-				511DE9F3288ED27B0090CF7D /* Embed App Extensions */,
+				511DE9F3288ED27B0090CF7D /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -630,9 +630,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 47DMS38H89;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y344Y7796A;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -640,9 +642,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcore.SmartechApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Dev_Smartech_App;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Profile;
@@ -659,9 +662,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SmartechNSE/SmartechNSE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 47DMS38H89;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y344Y7796A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SmartechNSE/Info.plist;
@@ -676,9 +681,10 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp.SmartechNSE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcore.SmartechApp.SmartechNSE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Dev_Smartech_App_SmartechNSE;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -697,9 +703,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SmartechNSE/SmartechNSE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 47DMS38H89;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y344Y7796A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SmartechNSE/Info.plist;
@@ -713,9 +721,10 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp.SmartechNSE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcore.SmartechApp.SmartechNSE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Dev_Smartech_App_SmartechNSE;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -734,9 +743,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SmartechNSE/SmartechNSE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 47DMS38H89;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y344Y7796A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SmartechNSE/Info.plist;
@@ -750,9 +761,10 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp.SmartechNSE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcore.SmartechApp.SmartechNSE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Dev_Smartech_App_SmartechNSE;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -771,9 +783,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SmartechNCE/SmartechNCE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 47DMS38H89;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y344Y7796A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SmartechNCE/Info.plist;
@@ -788,9 +802,10 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp.SmartechNCE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcore.SmartechApp.SmartechNCE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Dev_Smartech_App_SmartechNCE;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -809,9 +824,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SmartechNCE/SmartechNCE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 47DMS38H89;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y344Y7796A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SmartechNCE/Info.plist;
@@ -825,9 +842,10 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp.SmartechNCE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcore.SmartechApp.SmartechNCE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Dev_Smartech_App_SmartechNCE;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -846,9 +864,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SmartechNCE/SmartechNCE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 47DMS38H89;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y344Y7796A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SmartechNCE/Info.plist;
@@ -862,9 +882,10 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp.SmartechNCE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcore.SmartechApp.SmartechNCE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Dev_Smartech_App_SmartechNCE;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -985,9 +1006,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 47DMS38H89;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y344Y7796A;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -995,9 +1018,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcore.SmartechApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Dev_Smartech_App;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1009,9 +1033,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 47DMS38H89;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Y344Y7796A;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1019,9 +1045,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.netcorecloud.SmartechApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcore.SmartechApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Dev_Smartech_App;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

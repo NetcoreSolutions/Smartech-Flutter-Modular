@@ -40,11 +40,11 @@ NSString *const kNotificationCategoryCarouselFallback = @"SmartechCarouselFallba
             NSNumber *messageCount = 0;
             if (messageType){
                 if ([messageType isEqualToString:@"read"]){
-                    messageCount = @([[SmartechAppInbox sharedInstance] getAppInboxMessageCount:READ_MESSAGE]);//3
+                    messageCount = @([[SmartechAppInbox sharedInstance] getAppInboxMessageCount:SMTAppInboxMessageTypeRead]);
                 } else if ([messageType isEqualToString:@"unread"]){
-                    messageCount = @([[SmartechAppInbox sharedInstance] getAppInboxMessageCount:UNREAD_MESSAGE]);//3
+                    messageCount = @([[SmartechAppInbox sharedInstance] getAppInboxMessageCount:SMTAppInboxMessageTypeUnread]);
                 } else {
-                    messageCount = @([[SmartechAppInbox sharedInstance] getAppInboxMessageCount:ALL_MESSAGE]);//3
+                    messageCount = @([[SmartechAppInbox sharedInstance] getAppInboxMessageCount:SMTAppInboxMessageTypeAll]);
                 }
             }
             result(messageCount);
@@ -149,7 +149,7 @@ NSString *const kNotificationCategoryCarouselFallback = @"SmartechCarouselFallba
             NSString *notificationCategory = notificationPayload.aps.category;
 
             NSMutableDictionary * smtCustomPayloadObj = [[NSMutableDictionary alloc] initWithDictionary:notificationPayload.smtCustomPayload];
-            
+            NSLog(@"status is = %@",messageObj.status);
             NSMutableDictionary *messageDict = [[NSMutableDictionary alloc] initWithDictionary:@{ @"title": notificationPayload.aps.alert.title,
                                                                                                   @"subtitle":notificationPayload.aps.alert.subtitle,
                                                                                                   @"body": notificationPayload.aps.alert.body,
@@ -159,14 +159,14 @@ NSString *const kNotificationCategoryCarouselFallback = @"SmartechCarouselFallba
                                                                                                   @"deeplink": notificationPayload.smtPayload.deeplink,
                                                                                                   @"mediaUrl": notificationPayload.smtPayload.mediaURL,
                                                                                                   @"publishedDate": notificationPayload.smtPayload.publishedDate,
-                                                                                                  @"status": notificationPayload.smtPayload.status,
+                                                                                                  @"status": messageObj.status,
                                                                                                }];
             
             if ([notificationCategory isEqualToString:kNotificationCategoryCarouselPortrait] || [notificationCategory isEqualToString:kNotificationCategoryCarouselLandscape] || [notificationCategory isEqualToString:kNotificationCategoryCarouselFallback]) {
                 
-                NSArray <SMTCarousel *> *carouselAppInboxArray = notificationPayload.smtPayload.carousel;
+                NSArray <SMTAICarousel *> *carouselAppInboxArray = notificationPayload.smtPayload.carousel;
                 NSMutableArray *carouselArray = [[NSMutableArray alloc] init];
-                for (SMTCarousel *carouselObj in carouselAppInboxArray) {
+                for (SMTAICarousel *carouselObj in carouselAppInboxArray) {
                     NSMutableDictionary *carouselDict = [[NSMutableDictionary alloc] initWithDictionary:@{ @"imgUrl": carouselObj.imgUrl,
                                                                                                            @"imgUrlPath": (carouselObj.imgUrlPath != nil) ? carouselObj.imgUrlPath : @"",
                                                                                                            @"imgTitle":carouselObj.imgTitle,
@@ -182,9 +182,9 @@ NSString *const kNotificationCategoryCarouselFallback = @"SmartechCarouselFallba
             
             
             if (notificationPayload.smtPayload.actionButton.count > 0) {
-                NSArray <SMTActionButton *> *actionButtonAppInboxArray = notificationPayload.smtPayload.actionButton;
+                NSArray <SMTAIActionButton *> *actionButtonAppInboxArray = notificationPayload.smtPayload.actionButton;
                 NSMutableArray *actionArray = [[NSMutableArray alloc] init];
-                for (SMTActionButton *actionObj in actionButtonAppInboxArray) {
+                for (SMTAIActionButton *actionObj in actionButtonAppInboxArray) {
                     NSMutableDictionary *actionDict = [[NSMutableDictionary alloc] initWithDictionary:@{ @"actionDeeplink": actionObj.actionDeeplink,
                                                                                                          @"actionName": actionObj.actionName,
                                                                                                          @"aTyp":actionObj.actionType,

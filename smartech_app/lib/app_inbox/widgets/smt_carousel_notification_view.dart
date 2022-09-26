@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_app/main.dart';
 import 'package:smartech_appinbox/model/smt_appinbox_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SMTCarouselNotificationView extends StatefulWidget {
   final SMTAppInboxMessage inbox;

@@ -67,10 +67,10 @@ class SmartechAppinbox {
       },
     ).then((value) {
       var json = jsonDecode(value.toString());
-      print("api call json response : ");
-      print(json.toString());
+      log("api call json response : ");
+      log(json.toString());
       inboxList = [...json.map((e) => SMTAppInboxMessages.fromJson(e)).toList()];
-      print(inboxList.toString());
+      log(inboxList.toString());
       return inboxList.isNotEmpty ? inboxList : [];
     });
   }
