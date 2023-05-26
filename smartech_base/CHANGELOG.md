@@ -14,3 +14,15 @@
 ## 3.2.3
 
 * Updated Smartech Base Android SDK v3.2.26.
+
+## 3.2.4
+
+* Updated Smartech Base Android SDK v3.2.27.
+
+## 3.2.5
+
+* Added support to manage SDK version from app level gradle.properties.
+
+## 3.2.6
+
+* Updated gradle version.

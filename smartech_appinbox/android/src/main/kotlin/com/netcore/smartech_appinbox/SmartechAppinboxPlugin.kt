@@ -108,7 +108,6 @@ class SmartechAppinboxPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
             smtInboxDataType = SMTInboxDataType.ALL
           }
         }
-
         val builder = SMTAppInboxRequestBuilder.Builder(smtInboxDataType).setCallback(object : SMTInboxCallback {
             override fun onInboxFail() {
             }
@@ -117,7 +116,12 @@ class SmartechAppinboxPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
             }
             
             override fun onInboxSuccess(messages: MutableList<SMTInboxMessageData>?) {
-                result.success(Gson().toJson(messages))
+              if(messages != null && messages.size > 0){
+                result.success(Gson().toJson(messages))  
+              }else{
+                val dbMessages = smartAppInbox.getAppInboxMessages(SMTAppInboxMessageType.INBOX_MESSAGE)
+                result.success(Gson().toJson(dbMessages))  
+              }            
             }
             }).setCategory(categoryList).setLimit(if(messageLimit!=null) messageLimit else 10).build()        
             smartAppInbox.getAppInboxMessages(builder)     

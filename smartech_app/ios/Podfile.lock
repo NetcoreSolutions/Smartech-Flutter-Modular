@@ -12,11 +12,13 @@ PODS:
     - Flutter
   - location (0.0.1):
     - Flutter
-  - path_provider_ios (0.0.1):
+  - path_provider_foundation (0.0.1):
     - Flutter
-  - shared_preferences_ios (0.0.1):
+    - FlutterMacOS
+  - shared_preferences_foundation (0.0.1):
     - Flutter
-  - Smartech-iOS-SDK (3.2.8)
+    - FlutterMacOS
+  - Smartech-iOS-SDK (3.2.9)
   - smartech_appinbox (1.0.0):
     - Flutter
     - Smartech-iOS-SDK
@@ -27,8 +29,8 @@ PODS:
   - smartech_push (1.0.0):
     - Flutter
     - SmartPush-iOS-SDK
-  - SmartechAppInbox-iOS-SDK (3.2.4)
-  - SmartPush-iOS-SDK (3.0.0)
+  - SmartechAppInbox-iOS-SDK (3.2.5)
+  - SmartPush-iOS-SDK (3.0.1)
   - sqflite (0.0.2):
     - Flutter
     - FMDB (>= 2.7.5)
@@ -48,8 +50,8 @@ DEPENDENCIES:
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - just_audio (from `.symlinks/plugins/just_audio/ios`)
   - location (from `.symlinks/plugins/location/ios`)
-  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
-  - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
   - smartech_appinbox (from `.symlinks/plugins/smartech_appinbox/ios`)
   - smartech_base (from `.symlinks/plugins/smartech_base/ios`)
   - smartech_push (from `.symlinks/plugins/smartech_push/ios`)
@@ -79,10 +81,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/just_audio/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
-  path_provider_ios:
-    :path: ".symlinks/plugins/path_provider_ios/ios"
-  shared_preferences_ios:
-    :path: ".symlinks/plugins/shared_preferences_ios/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/ios"
   smartech_appinbox:
     :path: ".symlinks/plugins/smartech_appinbox/ios"
   smartech_base:
@@ -103,22 +105,22 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   audio_session: 4f3e461722055d21515cf3261b64c973c062f345
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  fluttertoast: 16fbe6039d06a763f3533670197d01fc73459037
+  fluttertoast: eb263d302cc92e04176c053d2385237e9f43fad0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
-  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
-  shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
-  Smartech-iOS-SDK: 717f6dfd8ce4ad9c97f120fec680ad72cba1ebc7
+  path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
+  shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
+  Smartech-iOS-SDK: 18b4b7c43d3a21dd0bdd0d11b60907c7b460dd5a
   smartech_appinbox: 3532f82f5b48ef368428384fdb394e16b2d015a3
   smartech_base: 9e2fd9e596518cc7ae850752bfc7abbb7539a8b1
   smartech_push: 264d63abbf0b40ff72ee2dfb24143d4021235b42
-  SmartechAppInbox-iOS-SDK: 99f50ab261a87608aeb34001a981c22b940f611c
-  SmartPush-iOS-SDK: cbc8e5706835e7377bffe099991c8be208ac4acd
+  SmartechAppInbox-iOS-SDK: 7ea05ab863180be486be563571e0c2cb1250be1f
+  SmartPush-iOS-SDK: 40692d1a33f9dc9f6973b288194696a6dcddc6b3
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
-  video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
+  url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
+  video_player_avfoundation: 81e49bb3d9fb63dccf9fa0f6d877dc3ddbeac126
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
   webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f
 

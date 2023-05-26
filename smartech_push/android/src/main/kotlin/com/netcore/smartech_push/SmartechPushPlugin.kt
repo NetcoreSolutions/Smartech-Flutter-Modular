@@ -33,7 +33,8 @@ class SmartechPushPlugin: FlutterPlugin, MethodCallHandler {
         result.success(null)
       }
       "fetchAlreadyGeneratedTokenFromFCM" -> {
-        result.success(smartPush.fetchAlreadyGeneratedTokenFromFCM())
+        smartPush.fetchAlreadyGeneratedTokenFromFCM()
+        result.success(null)
       }
       "handlePushNotification" -> {
         smartPush.handlePushNotification(call.arguments as String)

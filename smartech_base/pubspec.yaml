@@ -1,6 +1,6 @@
 name: smartech_base
 description: Smartech is a omni channel platform that delivers everything you need to drive mobile engagement and create valuable consumer relationships on mobile. The Smartech Flutter Plugin enables your Flutter app to use all of the features.
-version: 3.2.3
+version: 3.2.6
 homepage: https://netcoresmartech.com
 documentation: "https://docs.netcoresmartech.com/"
 license: { :type => "Commercial", :file => "LICENSE" }

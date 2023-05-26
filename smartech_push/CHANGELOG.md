@@ -15,3 +15,19 @@
 
 * Updated Smartech Push iOS SDK v3.0.0.
 * Updated Smartech Push Android SDK v3.2.14.
+
+## 3.2.4
+
+* Updated Smartech Push Android SDK v3.2.15.
+
+## 3.2.5
+
+* Added support to manage SDK version from app level gradle.properties.
+
+## 3.2.6
+
+* Fixed fetchAlreadyGeneratedToken method on flutter plugin.
+
+## 3.2.7
+
+* Updated gradle version.

@@ -10,8 +10,8 @@ class SmartechPush {
     await _channel.invokeMethod('setDevicePushToken', token);
   }
 
-  Future<String?> get fetchAlreadyGeneratedTokenFromFCM async {
-    return await _channel.invokeMethod('fetchAlreadyGeneratedTokenFromFCM');
+  Future<void> fetchAlreadyGeneratedTokenFromFCM() async {
+    await _channel.invokeMethod('fetchAlreadyGeneratedTokenFromFCM');
   }
 
   Future<void> handlePushNotification(String notificationData) async {

@@ -26,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String appId = "";
   String devicePushToken = "";
+  String fetchAlreadyGeneratedPushToken = "";
+
   String deviceGuid = "";
   String deviceUniqueID = "";
   String sdkVersion = "";
@@ -881,6 +883,16 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {});
       });
     }
+
+    SmartechPush().fetchAlreadyGeneratedTokenFromFCM();
+    // .then((value) {
+    //   if (value == null) {
+    //     fetchAlreadyGeneratedPushToken = "-";
+    //   } else {
+    //     fetchAlreadyGeneratedPushToken = value.isEmpty ? "-" : value;
+    //   }
+    //   setState(() {});
+    // });
 
     Smartech().getDeviceUniqueId().then((value) {
       if (value == null) {

@@ -17,3 +17,16 @@
 * Updated Smartech Appinbox iOS SDK v3.2.4.
 * Updated Smartech Appinbox Android SDK v3.2.8.
 * Updated model class for status value.
+
+## 3.2.4
+
+* Updated code for pull to refresh logic for android.
+* Updated Smartech Appinbox Android SDK v3.2.10.
+
+## 3.2.5
+
+* Added support to manage SDK version from app level gradle.properties.
+
+## 3.2.6
+
+* Updated gradle version.
