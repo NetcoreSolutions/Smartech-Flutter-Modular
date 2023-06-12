@@ -5,32 +5,20 @@ static FlutterMethodChannel *channel;
 
 @implementation SmartechBasePlugin
 
-+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-    
-    channel = [FlutterMethodChannel
-                                     methodChannelWithName:@"smartech_base"
-                                     binaryMessenger:[registrar messenger]];
++ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
+    channel = [FlutterMethodChannel methodChannelWithName:@"smartech_base" binaryMessenger:[registrar messenger]];
     SmartechBasePlugin *instance = [[SmartechBasePlugin alloc] init];
     [registrar addMethodCallDelegate:instance channel:channel];
 }
 
-
 + (void)handleDeeplinkAction:(NSString *)urlString andCustomPayload:(NSDictionary *)customPayload {
-    NSMutableDictionary *notificationPayload = [[NSMutableDictionary alloc] init];
     
-    [notificationPayload setObject:urlString ? urlString : @"" forKey:@"deeplinkURL"];
-    [notificationPayload setObject:customPayload ? customPayload : @{} forKey:@"customPayload"];
+    // Below code will take the alert keys from the aps and append it the main smtPayload key.
+    NSMutableDictionary *notificationPayload = [[NSMutableDictionary alloc] initWithDictionary:customPayload];
+    NSDictionary *alertDict = [customPayload valueForKeyPath:@"smtPayload.aps.alert"];
+    [notificationPayload[@"smtPayload"][@"smtPayload"] addEntriesFromDictionary:alertDict];
     
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ApplicationState"] != nil){
-        BOOL isTerminated = [[NSUserDefaults standardUserDefaults] boolForKey:@"ApplicationState"];
-        if (isTerminated){
-            [[NSUserDefaults standardUserDefaults] setObject:notificationPayload forKey:@"DeeplinkActionData"];
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"ApplicationState"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-    }
-    
-    [channel invokeMethod:@"onhandleDeeplinkAction" arguments:notificationPayload];
+    [channel invokeMethod:@"onhandleDeeplinkAction" arguments:customPayload];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
@@ -126,7 +114,6 @@ static FlutterMethodChannel *channel;
         NSLog(@"SMT : error setting location %@", exception.reason);
     }
 }
-
 
 @end
 

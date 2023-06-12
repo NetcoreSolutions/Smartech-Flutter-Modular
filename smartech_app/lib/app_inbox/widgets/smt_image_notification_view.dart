@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
-import 'package:smartech_app/deep_link_screen.dart';
-import 'package:smartech_app/navigator.dart';
 import 'package:smartech_appinbox/model/smt_appinbox_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -92,10 +90,10 @@ class _SMTImageNotificationViewState extends State<SMTImageNotificationView> {
                                           Map<String, dynamic> dict = HashMap();
                                           dict["actionDeeplink"] = e.actionDeeplink;
                                           dict['isFromScreen'] = true;
-                                          NavigationUtilities.pushRoute(
-                                            DeepLinkScreen.route,
-                                            args: dict,
-                                          );
+                                          // NavigationUtilities.pushRoute(
+                                          //   DeepLinkScreen.route,
+                                          //   args: dict,
+                                          // );
                                         }
                                       },
                                       child: Text(

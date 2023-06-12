@@ -19,6 +19,8 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import org.json.JSONArray
+import org.json.JSONObject
 import java.lang.ref.WeakReference
 
 /** SmartechBasePlugin */
@@ -60,9 +62,40 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
               channel.invokeMethod("setInAppCustomHTMLListener", payload)
             })
           }
+          override fun onCustomHtmlInAppClick(deepLink: String?, payload: String?) {
+          }
         }
         smartech.setInAppCustomHTMLListener(callback)
       }
+
+      "setOnInAppClickListener" -> {
+        val callback = object : InAppCustomHTMLListener {
+          override fun customHTMLCallback(payload: HashMap<String, Any>?) {     
+          }
+
+          override fun onCustomHtmlInAppClick(deepLink: String?, payload: String?) {
+            val map = HashMap<String, Any>()
+
+            Log.d("onCustomHtmlInAppClick", "onCustomHtmlInAppClick")
+            if(deepLink!=null)
+            {
+              map["smtDeeplink"] = deepLink
+              Log.d("onCustomHtmlInAppClick deeplink", deepLink)
+            }
+            if(payload!=null)
+            {
+              map["smtCustomPayload"] = payload
+              Log.d("onCustomHtmlInAppClick payload", payload)
+            }
+            // channel.invokeMethod("onCustomHtmlInAppClick", map)
+            runOnMainThread(Runnable {
+              channel.invokeMethod("onCustomHtmlInAppClick", map)
+            })
+          }
+        }
+        smartech.setInAppCustomHTMLListener(callback)
+      }
+
       "updateUserProfile" -> {
         updateUserProfile(call.arguments as HashMap<String, Any>)
         result.success(null)
@@ -128,23 +161,12 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       "openNativeWebView" -> {
         openNativeWebView?.invoke()
         result.success(null)
-      }
+      }      
       "onHandleDeeplinkAction" -> {
-        SmartechDeeplinkReceivers.deeplinkReceiverCallBack = { deepLinkUrl, payload ->
-          if (deepLinkUrl != null) {
-            var map = HashMap<String, Any>()
-
-            map.put("deeplinkURL", deepLinkUrl)
-
-            if (payload != null) {
-              map.put("customPayload", payload)
-            }
-            Log.d("onReceive", "onReceive onInvoke post")
-            Log.d("onReceive", map.toString())
-
-            context.getSharedPreferences("Deeplink_action", Context.MODE_PRIVATE).edit().putString("deepLinkUrl", deepLinkUrl).putString("payload", payload).apply()
-
-            runOnMainThread(Runnable {
+        Log.d("onHandleDeeplinkAction", "onHandleDeeplinkAction Invoke from smartech_base.kt")
+        SmartechDeeplinkReceivers.deeplinkReceiverCallBack = { map ->
+          Log.v("foreground mode payload :: ", "" + map)
+          runOnMainThread(Runnable {
               channel.invokeMethod("onhandleDeeplinkAction", map, object : Result {
                 override fun success(result: Any?) {
                   context.getSharedPreferences("Deeplink_action", Context.MODE_PRIVATE).edit().clear().apply()
@@ -162,20 +184,37 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
                 }
               })
             })
-          }
         }
         result.success(null)
       }
       "onHandleDeeplinkActionBackground" -> {
-        val deeplinkUrl = context.getSharedPreferences("Deeplink_action", Context.MODE_PRIVATE).getString("deepLinkUrl", null)
-        val payload = context.getSharedPreferences("Deeplink_action", Context.MODE_PRIVATE).getString("payload", null)
-        if (deeplinkUrl != null) {
-          Log.d("deeplinkUrl", deeplinkUrl)
-          var map = HashMap<String, Any>()
-          map.put("deeplinkURL", deeplinkUrl)
-          if (payload != null) {
-            map.put("customPayload", payload)
-          }
+        val smtDeeplinkSource = context.getSharedPreferences("Deeplink_action", Context.MODE_PRIVATE).getString("smtDeeplinkSource", null)
+        val smtDeeplink = context.getSharedPreferences("Deeplink_action", Context.MODE_PRIVATE).getString("smtDeeplink", null)
+        val smtPayload = context.getSharedPreferences("Deeplink_action", Context.MODE_PRIVATE).getString("smtPayload", null)
+        val smtCustomPayload = context.getSharedPreferences("Deeplink_action", Context.MODE_PRIVATE).getString("smtCustomPayload", null)
+        
+        val map = HashMap<String, Any>()
+       
+        if(smtDeeplinkSource != null){
+          map["smtDeeplinkSource"] = smtDeeplinkSource
+        }
+       
+        if(smtDeeplink != null){
+          map["smtDeeplink"] = smtDeeplink
+        }
+
+        if(smtPayload != null){
+          val jsonObject = JSONObject(smtPayload)
+          map["smtPayload"] = jsonToMap(jsonObject)
+        }
+
+        if(smtCustomPayload != null){
+          val jsonObject = JSONObject(smtCustomPayload)
+          map["smtCustomPayload"] = jsonToMap(jsonObject)
+        }
+
+        Log.v("backgroud mode payload :: ", "" + map)
+
           runOnMainThread(Runnable {
             channel.invokeMethod("onhandleDeeplinkAction", map, object : Result {
               override fun success(result: Any?) {
@@ -192,7 +231,6 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
               }
             })
           })
-        }
         result.success(null)
       }
       "openUrl" -> {
@@ -200,7 +238,54 @@ class SmartechBasePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         result.success(null)
       }
       else -> result.notImplemented()
-    }
+    }   
+  }
+
+  private fun jsonToMap(json: JSONObject): HashMap<String, Any> {
+      var retMap = HashMap<String, Any>()
+      if (json != JSONObject.NULL) {
+          retMap = toMap(json)
+      }
+      return retMap
+  }
+
+  private fun toMap(object1: JSONObject): HashMap<String, Any> {
+      val map = HashMap<String, Any>()
+      try {
+          val keysItr = object1.keys()
+          while (keysItr.hasNext()) {
+              val key = keysItr.next()
+              var value = object1.get(key)
+
+              if (value is JSONArray) {
+                  value = toList(value)
+              } else if (value is JSONObject) {
+                  value = toMap(value)
+              }
+              map[key] = value
+          }
+      }catch (t: Throwable){
+        t.printStackTrace()
+      }
+      return map
+  }
+
+  private fun toList(array: JSONArray): List<Any> {
+      val list = ArrayList<Any>()
+      try {
+          for (i in 0 until array.length()) {
+              var value = array.get(i)
+              if (value is JSONArray) {
+                  value = toList(value)
+              } else if (value is JSONObject) {
+                  value = toMap(value)
+              }
+              list.add(value)
+          }
+      }catch (t: Throwable){
+          t.printStackTrace()
+      }
+      return list
   }
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {

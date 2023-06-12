@@ -51,7 +51,7 @@
 	<key>SmartechKeys</key>
 	<dict>
 		<key>SmartechAppGroup</key>
-		<string>group.com.netcorecloud.SmartechApp</string>
+		<string>group.com.netcore.SmartechApp</string>
 		<key>SmartechAppId</key>
 		<string>8c488cf325614c6aed02b089a88e703e</string>
 		<key>SmartechAutoFetchLocation</key>
@@ -59,6 +59,8 @@
 		<key>SmartechUseAdvId</key>
 		<false/>
 	</dict>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -81,8 +83,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 </dict>
 </plist>

@@ -201,7 +201,6 @@ class _SMTAppInboxScreenState extends State<SMTAppInboxScreen> {
                       itemCount: inboxList.length,
                       itemBuilder: (BuildContext context, int index) {
                         switch (inboxList[index].smtPayload!.type) {
-
                           // ******* Imgae type Notifications ******* \\
                           case SMTNotificationType.image:
                             return VisibilityDetector(

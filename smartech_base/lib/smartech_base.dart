@@ -6,7 +6,9 @@ import 'package:flutter/services.dart';
 class Smartech {
   static const MethodChannel _channel = MethodChannel('smartech_base');
   static late CustomHTMLCallback _customHTMLCallback;
+  static late OnInAppClickCallback _onInAppClickCallback;
   static late OnhandleDeeplinkAction _onhandleDeeplinkAction;
+  static late OnhandleDeeplink _onhandleDeeplink;
 
   //To make singleton class
   static final Smartech _smartech = Smartech._internal();
@@ -39,6 +41,11 @@ class Smartech {
   Future<void> setInAppCustomHTMLListener(CustomHTMLCallback customHTMLCallback) async {
     _customHTMLCallback = customHTMLCallback;
     await _channel.invokeMethod('setInAppCustomHTMLListener');
+  }
+
+  Future<void> setOnInAppClickListener(OnInAppClickCallback onInAppClickCallback) async {
+    _onInAppClickCallback = onInAppClickCallback;
+    await _channel.invokeMethod('setOnInAppClickListener');
   }
 
   Future<void> updateUserProfile(Map<String, dynamic> map) async {
@@ -107,6 +114,11 @@ class Smartech {
     await _channel.invokeMethod("onHandleDeeplinkAction");
   }
 
+  Future<void> onHandleDeeplink(OnhandleDeeplink onhandleDeeplink) async {
+    _onhandleDeeplink = onhandleDeeplink;
+    await _channel.invokeMethod("onHandleDeeplinkAction");
+  }
+
   Future<void> onHandleDeeplinkActionBackground() async {
     await _channel.invokeMethod("onHandleDeeplinkActionBackground");
   }
@@ -134,23 +146,39 @@ class Smartech {
   Future<void> didRecieveDeeplinkCallback(MethodCall call) async {
     switch (call.method) {
       case "customHTMLCallback":
+        log("customHTMLCallback invoked" + call.arguments);
         final Map<String, dynamic>? arguments = call.arguments;
         _customHTMLCallback(arguments);
         break;
-      case "onhandleDeeplinkAction":
-        Map<dynamic, dynamic>? map;
-        bool? isAfterTerminated = false;
-        if (call.arguments["customPayload"] is String) {
-          try {
-            map = json.decode(call.arguments["customPayload"]);
-          } catch (e) {
-            log(e.toString());
-          }
-        } else {
-          isAfterTerminated = call.arguments["isAfterTerminated"] as bool?;
-          map = call.arguments["customPayload"] as Map<dynamic, dynamic>?;
+
+      case "onCustomHtmlInAppClick":
+        Map<String, dynamic>? map;
+        try {
+          map = json.decode(call.arguments["smtCustomPayload"]);
+        } catch (e) {
+          log(e.toString());
         }
-        _onhandleDeeplinkAction(call.arguments["deeplinkURL"] as dynamic, map, isAfterTerminated);
+        _onInAppClickCallback(call.arguments["smtDeeplink"], map);
+        break;
+
+      case "onhandleDeeplinkAction":
+        String? smtDeeplinkSource;
+        String? smtDeeplink;
+        Map<dynamic, dynamic>? smtPayloadMap;
+        Map<dynamic, dynamic>? smtCustomPayloadMap;
+
+        smtDeeplinkSource = call.arguments["smtDeeplinkSource"];
+        smtDeeplink = call.arguments["smtDeeplink"];
+        smtPayloadMap = call.arguments["smtPayload"] as Map<dynamic, dynamic>?;
+        smtCustomPayloadMap = call.arguments["smtCustomPayload"] as Map<dynamic, dynamic>?;
+
+        try {
+          _onhandleDeeplinkAction(smtDeeplink, smtCustomPayloadMap);
+        } catch (e) {}
+
+        try {
+          _onhandleDeeplink(smtDeeplinkSource, smtDeeplink, smtPayloadMap, smtCustomPayloadMap);
+        } catch (e) {}
         break;
     }
   }
@@ -168,5 +196,7 @@ class DebugLevel {
 }
 
 //custom type defined
+typedef OnInAppClickCallback = Future<dynamic> Function(String? deepLink, Map<String, dynamic>? payload);
 typedef CustomHTMLCallback = Future<dynamic> Function(Map<String, dynamic>? payload);
-typedef OnhandleDeeplinkAction = Function(String? deeplinkigUrl, Map<dynamic, dynamic>? payload, bool? isAfterTerminated);
+typedef OnhandleDeeplinkAction = Function(String? smtDeeplink, Map<dynamic, dynamic>? smtCustomPayload);
+typedef OnhandleDeeplink = Function(String? smtDeeplinkSource, String? smtDeeplink, Map<dynamic, dynamic>? smtPayload, Map<dynamic, dynamic>? smtCustomPayload);

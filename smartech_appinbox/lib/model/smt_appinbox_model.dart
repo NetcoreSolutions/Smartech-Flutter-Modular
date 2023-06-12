@@ -25,17 +25,14 @@ class SMTAppInboxMessage {
   final List<Carousel> carousel;
   final dynamic customPayload;
   final String deeplink;
-  final String expiry;
-  final String image;
   final String mediaUrl;
-  final String message;
   final dynamic pnMeta;
   final DateTime? publishedDate;
   final String smtSrc;
   final bool sound;
   final String status;
   final String subtitle;
-  final int timestamp;
+  final String timestamp;
   final String title;
   final String trid;
   final SMTNotificationType type;
@@ -49,17 +46,14 @@ class SMTAppInboxMessage {
     this.carousel = const [],
     this.customPayload,
     this.deeplink = "",
-    this.expiry = "",
-    this.image = "",
     this.mediaUrl = "",
-    this.message = "",
     this.pnMeta,
     this.publishedDate,
     this.smtSrc = "",
     this.sound = false,
     this.status = "",
     this.subtitle = "",
-    this.timestamp = 0,
+    this.timestamp = "",
     this.title = "",
     this.trid = "",
     this.type = SMTNotificationType.simple,
@@ -67,25 +61,30 @@ class SMTAppInboxMessage {
 
   factory SMTAppInboxMessage.fromJson(Map json) {
     return SMTAppInboxMessage(
-      actionButton: (json['actionButton'] as List).map((e) => ActionButton.fromJson(e)).toList(),
+      actionButton: json['actionButton'] != null ? (json['actionButton'] as List).map((e) => ActionButton.fromJson(e)).toList() : [],
       appInboxCategory: json['appInboxCategory'] ?? "",
       appInboxTtl: json['app_inbox_ttl'] ?? "",
-      body: json['body'] ?? "",
+      body: (json['body'] ?? "").isNotEmpty
+          ? json['body']
+          : (json['message'] ?? "").isNotEmpty
+              ? json['message']
+              : "-",
       attrParams: AttrParams.fromJson(json['attrParams'] ?? {}),
-      carousel: (json['carousel'] as List).map((e) => Carousel.fromJson(e)).toList(),
+      carousel: json['carousel'] != null ? (json['carousel'] as List).map((e) => Carousel.fromJson(e)).toList() : [],
       customPayload: json['customPayload'] ?? {},
       deeplink: json['deeplink'] ?? "",
-      expiry: json['expiry'] ?? "",
-      image: json['image'] ?? "",
-      mediaUrl: json['mediaUrl'] ?? "",
-      message: json['message'] ?? "",
+      mediaUrl: (json['mediaUrl'] ?? "").isNotEmpty
+          ? json['mediaUrl']
+          : (json['image'] ?? "").isNotEmpty
+              ? json['image']
+              : "-", // There is difference keys for image url of SDK-1 and SDK2, that's why we maintain like this.
       pnMeta: json['pnMeta'] ?? {},
-      publishedDate: DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(json['publishedDate'] ?? "", true).toLocal(),
+      publishedDate: json['publishedDate'] != null ? DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(json['publishedDate'], true).toLocal() : null,
       smtSrc: json['smtSrc'] ?? "",
       sound: json['sound'] ?? false,
       status: json['status'] ?? "",
       subtitle: json['subtitle'] ?? json['subTitle'] ?? "",
-      timestamp: json['timestamp'] ?? 0,
+      timestamp: json['timestamp'].toString(),
       title: json['title'] ?? "",
       trid: json['trid'] ?? "",
       type: ((json['type'] ?? "") as String).toLowerCase().getSMTNotificationType(),
@@ -104,7 +103,7 @@ class AttrParams {
   factory AttrParams.fromJson(Map json) {
     return AttrParams(
       sta: json['__sta'] ?? "",
-      stmId: json['__stm_id'] ?? "",
+      stmId: json['__stm_id'].toString(),
       stmMedium: json['__stm_medium'] ?? "",
       stmSource: json['__stm_source'] ?? "",
     );

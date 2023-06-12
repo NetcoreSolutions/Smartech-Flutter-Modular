@@ -26,3 +26,7 @@
 ## 3.2.6
 
 * Updated gradle version.
+
+## 3.2.7
+
+* Exposed payload on click of Push Notification.

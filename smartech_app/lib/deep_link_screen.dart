@@ -1,10 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_json_viewer/flutter_json_viewer.dart';
+import 'package:smartech_app/app_inbox/app_inbox_class_screen.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
 import 'package:smartech_app/main.dart';
+import 'package:smartech_appinbox/model/smt_appinbox_model.dart';
 
 class DeepLinkScreen extends StatefulWidget {
   static const String route = "DeepLinkScreen";
-  final dynamic args;
+  final Map<String, dynamic>? args;
   DeepLinkScreen({Key? key, this.args}) : super(key: key);
 
   @override
@@ -14,14 +20,14 @@ class DeepLinkScreen extends StatefulWidget {
 class _DeepLinkScreenState extends State<DeepLinkScreen> {
   var list = [];
   bool isFromScreen = false;
+  TextEditingController _controller = TextEditingController();
+  // Map<String, dynamic>? object;
+  dynamic encodedJson;
 
   @override
   void initState() {
-    isFromScreen = widget.args['isFromScreen'];
-    if (!isFromScreen) {
-      list = widget.args['deepLinkData'].entries.map((e) => DeepLinkData(e.key, e.value)).toList();
-    }
-    print(list);
+    encodedJson = json.encode(widget.args);
+    print(encodedJson.toString());
     super.initState();
   }
 
@@ -34,12 +40,12 @@ class _DeepLinkScreenState extends State<DeepLinkScreen> {
         centerTitle: true,
         backgroundColor: AppColor.secondary,
       ),
-      body: Column(
+      body: ListView(
         children: [
           SizedBox(
             height: 16,
           ),
-          Text("Deep Link Url :"),
+          Center(child: Text("Deeplink Url")),
           Card(
             elevation: 4,
             child: Padding(
@@ -47,13 +53,7 @@ class _DeepLinkScreenState extends State<DeepLinkScreen> {
               child: Column(
                 children: [
                   Text(
-                    !isFromScreen
-                        ? widget.args["deepLinkUrl"].toString() == ""
-                            ? "-"
-                            : widget.args["deepLinkUrl"].toString()
-                        : widget.args["actionDeeplink"].toString() == ""
-                            ? "-"
-                            : widget.args["actionDeeplink"].toString(),
+                    widget.args?['smtDeeplink'] == "" ? "-" : widget.args?['smtDeeplink'] ?? "-",
                     style: TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w700),
                   ),
                 ],
@@ -63,33 +63,56 @@ class _DeepLinkScreenState extends State<DeepLinkScreen> {
           SizedBox(
             height: 16,
           ),
-          Text("Custom PayLoad :"),
-          Expanded(
-            child: Card(
-                elevation: 4,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MaterialButton(
+                child: Text(
+                  "Copy",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+                color: Colors.blue,
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: _controller.text));
+                  showToast("Copied");
+                },
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Container(
+                color: Colors.white,
                 child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: ListView.builder(
-                      itemCount: list.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: EdgeInsets.only(bottom: 4),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                list[index].keyTitle.toString() + " : ",
-                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                              ),
-                              Text(
-                                list[index].keyValue.toString(),
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
+                  padding: EdgeInsets.all(16.0),
+                  child: JsonViewer(json.decode(encodedJson)),
                 )),
-          )
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MaterialButton(
+                child: Text(
+                  "SMTAppInbox Class",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+                color: Colors.blue,
+                onPressed: () {
+                  SMTAppInboxMessage smtAppInboxMessage = SMTAppInboxMessage();
+                  smtAppInboxMessage = SMTAppInboxMessage.fromJson(widget.args?['smtPayload']['data'] ?? widget.args?['smtPayload']['smtPayload']);
+                  print(smtAppInboxMessage);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AppInboxClassScreen(args: smtAppInboxMessage),
+                      ));
+                },
+              ),
+            ],
+          ),
         ],
       ),
     );

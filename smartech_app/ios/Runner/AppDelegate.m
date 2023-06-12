@@ -72,7 +72,11 @@
 }
 
 - (void)handleDeeplinkActionWithURLString:(NSString *)deeplinkURLString andCustomPayload:(NSDictionary *)customPayload{
-    [SmartechBasePlugin handleDeeplinkAction:deeplinkURLString andCustomPayload:customPayload];
+   [SmartechBasePlugin handleDeeplinkAction:deeplinkURLString andCustomPayload:customPayload];
+}
+
+- (void)handleDeeplinkActionWithURLString:(NSString *)deeplinkURLString andNotificationPayload:(NSDictionary *)notificationPayload{
+    [SmartechBasePlugin handleDeeplinkAction:deeplinkURLString andCustomPayload:notificationPayload];
 }
 
 @end

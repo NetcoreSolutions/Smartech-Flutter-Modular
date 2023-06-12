@@ -55,7 +55,7 @@ class _SMTCarouselNotificationViewState extends State<SMTCarouselNotificationVie
                       return InkWell(
                         onTap: () async {
                           Future.delayed(const Duration(milliseconds: 500), () async {
-                            Globle().deepLinkNavigation(widget.inbox.carousel[index].imgDeeplink, {}, true);
+                            Globle().deepLinkNavigation(widget.inbox.carousel[index].imgDeeplink, {});
                           });
                         },
                         child: Column(

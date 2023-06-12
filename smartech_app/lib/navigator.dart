@@ -27,26 +27,26 @@ class NavigationUtilities {
   }
 
   /// A convenience method to push a new [route] to the [Navigator].
-  static void pushRoute(String route, {RouteType type = RouteType.fade, Map? args}) {
+  static void pushRoute(String route, {Map? args}) {
     if (args == null) {
-      args = Map<String, dynamic>();
+      args = Map<dynamic, dynamic>();
     }
-    args["routeType"] = type;
+    // args["routeType"] = type;
     key.currentState!.pushNamed(route, arguments: args);
   }
 
   /// A convenience method to push a named replacement route.
-  static void pushReplacementNamed(String route, {RouteType type = RouteType.fade, Map? args}) {
-    if (args == null) {
-      args = Map<String, dynamic>();
-    }
-    args["routeType"] = type;
+  // static void pushReplacementNamed(String route, {Map? args}) {
+  //   if (args == null) {
+  //     args = Map<String, dynamic>();
+  //   }
+  //   // args["routeType"] = type;
 
-    key.currentState!.pushReplacementNamed(
-      route,
-      arguments: args,
-    );
-  }
+  //   key.currentState!.pushReplacementNamed(
+  //     route,
+  //     arguments: args,
+  //   );
+  // }
 
   /// Returns a [RoutePredicate] similar to [ModalRoute.withName] except it
   /// compares a list of route names.
@@ -64,35 +64,26 @@ class NavigationUtilities {
 /// The [RouteSettings.arguments] that can be passed along the named route
 /// needs to be a `Map<String, dynamic>` and can be used to pass along
 /// arguments for the screen.
-Route<dynamic> onGenerateRoute(RouteSettings settings) {
+Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   final routeName = settings.name;
   final arguments = settings.arguments as Map<String, dynamic>;
-  final routeType = arguments["routeType"] as RouteType? ?? RouteType.defaultRoute;
+  // final routeType = arguments["routeType"] as RouteType? ?? RouteType.defaultRoute;
 
-  Widget? screen;
+  navigator(Widget screen) {
+    return MaterialPageRoute(
+      builder: (_) => screen,
+      settings: RouteSettings(name: routeName),
+    );
+  }
 
   switch (routeName) {
     case DeepLinkScreen.route:
-      screen = DeepLinkScreen(
-        args: arguments,
-      );
-      break;
-    case UpdateProfile.route:
-      screen = UpdateProfile();
-      break;
-  }
+      return navigator(DeepLinkScreen(args: arguments));
 
-  switch (routeType) {
-    case RouteType.fade:
-      return MaterialPageRoute(
-        builder: (_) => screen!,
-        settings: RouteSettings(name: routeName),
-      );
-    case RouteType.defaultRoute:
-    default:
-      return MaterialPageRoute(
-        builder: (_) => screen!,
-        settings: RouteSettings(name: routeName),
+    case UpdateProfile.route:
+      return navigator(
+        UpdateProfile(),
       );
   }
+  return null;
 }

@@ -884,7 +884,7 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     }
 
-    SmartechPush().fetchAlreadyGeneratedTokenFromFCM();
+    // SmartechPush().fetchAlreadyGeneratedTokenFromFCM();
     // .then((value) {
     //   if (value == null) {
     //     fetchAlreadyGeneratedPushToken = "-";
