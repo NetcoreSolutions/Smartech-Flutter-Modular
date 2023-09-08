@@ -31,3 +31,8 @@
 ## 3.2.7
 
 * Updated gradle version.
+
+## 3.2.8
+
+* Added minimum support of Flutter SDK.
+* Updated compileSDkVersion.

@@ -24,8 +24,7 @@ void main() async {
   //   });
   // });
 
-  Smartech()
-      .onHandleDeeplink((String? smtDeeplinkSource, String? smtDeeplink, Map<dynamic, dynamic>? smtPayload, Map<dynamic, dynamic>? smtCustomPayload) async {
+  Smartech().onHandleDeeplink((String? smtDeeplinkSource, String? smtDeeplink, Map<dynamic, dynamic>? smtPayload, Map<dynamic, dynamic>? smtCustomPayload) async {
     print("smtDeeplink value :" + smtDeeplink.toString());
     print("smtCustomPayload value :" + smtCustomPayload.toString());
     print("smtDeeplinkSource value :" + smtDeeplinkSource.toString());
@@ -171,8 +170,8 @@ class Globle {
     }
   }
 
-  deepLinkNavigationWithPayload(
-      String? smtDeeplinkSource, String? smtDeeplink, Map<dynamic, dynamic>? smtPayload, Map<dynamic, dynamic>? smtCustomPayload) async {
+  deepLinkNavigationWithPayload(String? smtDeeplinkSource, String? smtDeeplink, Map<dynamic, dynamic>? smtPayload, Map<dynamic, dynamic>? smtCustomPayload) async {
+    print(smtPayload);
     if (smtPayload != null) {
       smtAppInboxMessage = SMTAppInboxMessage.fromJson(smtPayload['smtPayload'] ?? smtPayload['data'] ?? smtPayload['payload'] ?? {});
     }

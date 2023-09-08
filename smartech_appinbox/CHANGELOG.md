@@ -34,3 +34,9 @@
 ## 3.2.7
 
 * Updated model class according to Push Notification payload.
+
+## 3.2.8
+
+* Added minimum support of Flutter SDK.
+* Updated compileSDkVersion.
+* Updated AppInbox Model class

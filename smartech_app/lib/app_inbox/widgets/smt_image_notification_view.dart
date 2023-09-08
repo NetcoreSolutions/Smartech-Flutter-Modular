@@ -1,9 +1,10 @@
-import 'dart:collection';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:smartech_app/app_inbox/utils/utils.dart';
+import 'package:smartech_app/navigator.dart';
+import 'package:smartech_app/update_profile.dart';
 import 'package:smartech_appinbox/model/smt_appinbox_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -83,13 +84,15 @@ class _SMTImageNotificationViewState extends State<SMTImageNotificationView> {
                                       onTap: () async {
                                         if (e.actionDeeplink.contains("http")) {
                                           print("navigate to browser with url");
-                                          // await FlutterWebBrowser.openWebPage(url: e.actionDeeplink);
                                           final Uri _url = Uri.parse(e.actionDeeplink);
                                           if (!await launchUrl(_url)) throw 'Could not launch $_url';
+                                          // await FlutterWebBrowser.openWebPage(url: e.actionDeeplink);
+                                        } else if (e.actionDeeplink.contains("smartechflutter://profile")) {
+                                          NavigationUtilities.pushRoute(UpdateProfile.route);
                                         } else {
-                                          Map<String, dynamic> dict = HashMap();
-                                          dict["actionDeeplink"] = e.actionDeeplink;
-                                          dict['isFromScreen'] = true;
+                                          // Map<String, dynamic> dict = HashMap();
+                                          // dict["actionDeeplink"] = e.actionDeeplink;
+                                          // dict['isFromScreen'] = true;
                                           // NavigationUtilities.pushRoute(
                                           //   DeepLinkScreen.route,
                                           //   args: dict,
@@ -103,7 +106,8 @@ class _SMTImageNotificationViewState extends State<SMTImageNotificationView> {
                                     )
                                   : e.aTyp == 2
                                       ? InkWell(
-                                          onTap: () {
+                                          onTap: () async {
+                                            print("navigation called");
                                             Clipboard.setData(ClipboardData(text: e.configCtxt)).then((result) {
                                               final snackBar = SnackBar(
                                                 content: Text('Copied'),
@@ -111,6 +115,14 @@ class _SMTImageNotificationViewState extends State<SMTImageNotificationView> {
                                               );
                                               ScaffoldMessenger.of(context).showSnackBar(snackBar); // -> show a notification
                                             });
+                                            if (e.actionDeeplink.contains("http")) {
+                                              print("navigate to browser with url");
+                                              final Uri _url = Uri.parse(e.actionDeeplink);
+                                              if (!await launchUrl(_url)) throw 'Could not launch $_url';
+                                              // await FlutterWebBrowser.openWebPage(url: e.actionDeeplink);
+                                            } else if (e.actionDeeplink.contains("smartechflutter://profile")) {
+                                              NavigationUtilities.pushRoute(UpdateProfile.route);
+                                            }
                                           },
                                           child: Text(
                                             e.actionName.toString(),

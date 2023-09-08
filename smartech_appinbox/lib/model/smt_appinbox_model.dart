@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:intl/intl.dart';
 
 class SMTAppInboxMessages {
@@ -167,13 +166,13 @@ class ActionButton {
     this.configCtxt = "",
   });
 
-  factory ActionButton.fromJson(Map<String, dynamic> json) {
+  factory ActionButton.fromJson(Map<dynamic, dynamic> json) {
     return ActionButton(
       aTyp: json['aTyp'] ?? "",
       actionDeeplink: json['actionDeeplink'] ?? "",
       actionName: json['actionName'] ?? "",
       callToAction: json['callToAction'] ?? json['call_to_action'] ?? "",
-      configCtxt: json['config_ctxt'] ?? "",
+      configCtxt: (json['config'] != null && json['config'] is Map) ? json['config']['ctxt'] ?? "" : json['configCtxt'] ?? json['config_ctxt'] ?? "",
     );
   }
 }

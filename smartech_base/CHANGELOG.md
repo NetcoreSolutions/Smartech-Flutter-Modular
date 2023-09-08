@@ -30,3 +30,8 @@
 ## 3.2.7
 
 * Exposed payload on click of Push Notification.
+
+## 3.2.8
+
+* Added minimum support of Flutter SDK.
+* Updated compileSDkVersion.

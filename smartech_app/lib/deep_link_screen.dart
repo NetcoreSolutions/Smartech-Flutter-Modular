@@ -10,7 +10,7 @@ import 'package:smartech_appinbox/model/smt_appinbox_model.dart';
 
 class DeepLinkScreen extends StatefulWidget {
   static const String route = "DeepLinkScreen";
-  final Map<String, dynamic>? args;
+  final Map<dynamic, dynamic>? args;
   DeepLinkScreen({Key? key, this.args}) : super(key: key);
 
   @override
