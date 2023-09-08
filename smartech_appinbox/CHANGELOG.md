@@ -40,3 +40,7 @@
 * Added minimum support of Flutter SDK.
 * Updated compileSDkVersion.
 * Updated AppInbox Model class
+
+## 3.2.9
+
+* Updated the dependency intl package to 0.18.1
